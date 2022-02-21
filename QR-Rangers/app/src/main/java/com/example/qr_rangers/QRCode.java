@@ -20,6 +20,8 @@ public class QRCode{
     private int score;
     private String comment; // I'm not sure if this should go here necessarily
 
+    private QRScore qrScore;
+
     /**
      * Initializes the QRCode object for display and comparison
      *
@@ -32,13 +34,15 @@ public class QRCode{
      */
     @RequiresApi(api = Build.VERSION_CODES.N) // I don't really know what to do about this
     QRCode(int /*temp, QRCode*/ info, @Nullable Image photo, @Nullable Geocoder location){
-        score = calculateScore(info); // This is temp, will handled by another class
+        qrScore = new QRScore();
+        score = qrScore.calculateScore(this); // This is temp, will handled by another class
         if(!Objects.isNull(photo)){
             this.photo = photo; // temp
         }
         if(!Objects.isNull(location)){
             this.location = location; // temp
         }
+
     }
 
     /**

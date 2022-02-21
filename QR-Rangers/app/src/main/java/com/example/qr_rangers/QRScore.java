@@ -9,6 +9,8 @@ import java.nio.charset.StandardCharsets;
  */
 public class QRScore {
 
+    QRScore() {}
+
     /**
      * Calculates the score of a given QR code
      *
@@ -17,7 +19,7 @@ public class QRScore {
      * @return
      *      Score of the given QR Code (long)
      */
-    public long calculateScore(QRCode qr) {
+    public int calculateScore(QRCode qr) {
         String sha256String = convertToSHA256(qr);
         return scoreSystem(sha256String);
     }
@@ -48,11 +50,11 @@ public class QRScore {
      * @return
      *      long value of the score of the SHA-256 hash
      */
-    private long scoreSystem(String sha256String) {
+    public int scoreSystem(String sha256String) {
 
-        long score = 0;
+        int score = 0;
         int comboLength = 0;
-        long comboScore = 0;
+        int comboScore = 0;
         char comboChar = '\u0000';
 
         for (int i = 0; i < sha256String.length(); i++){
@@ -62,7 +64,7 @@ public class QRScore {
             if (currentChar == comboChar) {
                 // currently in a combo!
                 comboLength++;
-                comboScore = (long) (charValue == 0 ? Math.pow(20, comboLength) : Math.pow(charValue, comboLength));
+                comboScore = (int) (charValue == 0 ? Math.pow(20, comboLength) : Math.pow(charValue, comboLength));
                 if (i == sha256String.length() - 1) {
                     score += comboScore;
                 }
@@ -71,7 +73,7 @@ public class QRScore {
                 score += comboScore;
                 comboLength = 0;
                 comboChar = currentChar;
-                comboScore = 1;
+                comboScore = 0;
             }
 
         }
