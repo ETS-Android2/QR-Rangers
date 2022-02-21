@@ -7,6 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+/**
+ * This is an activity that provides the user with their account information and basic actions.
+ * @author Ryan Haskins
+ * @version 1.0
+ */
 public class HomeActivity extends AppCompatActivity {
 
     private Button scan;
