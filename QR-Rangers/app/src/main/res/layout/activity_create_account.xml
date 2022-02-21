@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateAccountActivity">
+
+    <TextView
+        android:id="@+id/textCreateAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="55sp"
+        android:layout_marginTop="70dp"
+        android:layout_centerHorizontal="true"
+        android:text="Create Account">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/chooseName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/textCreateAccount"
+        android:layout_centerHorizontal="true"
+        android:text="Choose a unique username">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/disclaimer1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/chooseName"
+        android:layout_centerHorizontal="true"
+        android:text="Your account will be stored on your device so you">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/disclaimer2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_below="@+id/disclaimer1"
+        android:layout_centerHorizontal="true"
+        android:text="don't have to login in the future">
+
+    </TextView>
+
+    <EditText
+        android:id="@+id/editUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/disclaimer2"
+        android:hint="Username">
+
+    </EditText>
+
+    <TextView
+        android:id="@+id/nameWarning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_below="@+id/editUsername"
+        android:layout_alignStart="@+id/editUsername"
+        android:layout_marginStart="5dp"
+        android:visibility="gone"
+        android:text="Username is taken">
+
+    </TextView>
+
+    <Button
+        android:id="@+id/buttonCreate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="Sign Up"
+        android:layout_below="@+id/editUsername"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp">
+
+    </Button>
+
+</RelativeLayout>

@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                Intent intent = new Intent(MainActivity.this, CreateAccountActivity.class);
                 startActivity(intent);
             }
         });
