@@ -5,4 +5,5 @@ package com.example.qr_rangers;
  */
 public class Database {
     public static DbCollection<User> Users = new DbCollection<>("users");
+    public static DbCollection<QRCode> QrCodes = new DbCollection<>("qrCodes");
 }
