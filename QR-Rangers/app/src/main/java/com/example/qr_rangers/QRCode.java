@@ -12,7 +12,7 @@ import androidx.annotation.RequiresApi;
 
 import java.util.Objects;
 
-public class QRCode{
+public class QRCode extends DbDocument{
     // REMINDER TO CHANGE .equals() DEPENDING ON codeInfo TYPE
     private int /*temp QRCode*/ codeInfo;
     private Image photo;

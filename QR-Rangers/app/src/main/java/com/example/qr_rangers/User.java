@@ -2,7 +2,7 @@ package com.example.qr_rangers;
 
 import java.util.ArrayList;
 
-public class User {
+public class User extends DbDocument {
     private String username;
     private ArrayList<QRCode> QRList;
 
