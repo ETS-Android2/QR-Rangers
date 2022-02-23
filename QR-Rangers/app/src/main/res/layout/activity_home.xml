@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity">
+
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome, Mac!"
+        android:textSize="30sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/codes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/welcome"
+        android:textSize="40sp"
+        android:layout_alignStart="@+id/welcome"
+        android:text="10 Codes Scanned">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/highscore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/codes"
+        android:textSize="40sp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="1259 pts.">
+
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/highscore"
+        android:textSize="20sp"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:text="Total Score">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/highest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/highscore"
+        android:textSize="40sp"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="25dp"
+        android:text="512 pts.">
+
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/highest"
+        android:textSize="20sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="20dp"
+        android:text="Highest QR Score">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/highscore"
+        android:layout_alignParentEnd="true"
+        android:textSize="40sp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="35dp"
+        android:text="14 pts.">
+
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lowest"
+        android:layout_alignParentEnd="true"
+        android:textSize="20sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:text="Lowest QR Score">
+
+    </TextView>
+
+    <Button
+        android:id="@+id/buttonScan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scan"
+        android:layout_below="@+id/lowest"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        >
+
+    </Button>
+
+</RelativeLayout>
