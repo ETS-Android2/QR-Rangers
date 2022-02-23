@@ -33,7 +33,7 @@ public class QRCode{
     @RequiresApi(api = Build.VERSION_CODES.N) // I don't really know what to do about this
     QRCode(int /*temp, QRCode*/ info, @Nullable Image photo, @Nullable Geocoder location){
         QRScore qrScore = new QRScore();
-        score = qrScore.calculateScore(this); // This is temp, will handled by another class
+        score = qrScore.calculateScore(this);
         if(!Objects.isNull(photo)){
             this.photo = photo; // temp
         }
@@ -41,21 +41,6 @@ public class QRCode{
             this.location = location; // temp
         }
 
-    }
-
-    /**
-     * Calculates the score based on a QR Code's information
-     * TEMPORARY, WILL BE HANDLED BY A DIFFERENT CLASS
-     *
-     * @param info
-     *      The information of the QR Code that will be used to determine the score
-     *
-     * @return
-     *      Returns an integer representation of the score of the QRCode
-     */
-    private int calculateScore(int /*temp QRCode*/ info){
-        int score = 0; // change this later
-        return score;
     }
 
     /**
