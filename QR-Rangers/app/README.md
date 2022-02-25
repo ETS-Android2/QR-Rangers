@@ -1,0 +1,2 @@
+# Firebase Configuration
+In order to build the app you will need to download the google-services.json file from the Firebase Console to this folder (QR-Rangers/app). This configuration can be downloaded from [this page](https://console.firebase.google.com/project/cmput301-qr-rangers-cae21/settings/general/android:com.example.qr_rangers)
