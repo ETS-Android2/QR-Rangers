@@ -18,6 +18,26 @@ public class User extends DbDocument {
     }
 
     /**
+     * Gets the username of the user object
+     *
+     * @return
+     *      A String that represents the username of the user object
+     */
+    public String getUsername(){
+        return username;
+    }
+
+    /**
+     * Sets the username of the user object
+     *
+     * @param username
+     *      The new username to replace the original one
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
      * Adds a QR Code to the user's list
      *
      * @param code The QRCode that is to be added
