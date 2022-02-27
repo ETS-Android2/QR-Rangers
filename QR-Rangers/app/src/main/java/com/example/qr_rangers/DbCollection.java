@@ -34,7 +34,9 @@ public class DbCollection<T extends DbDocument> {
      *  Returns the document if found or null
      */
     public T getById(String id) {
-        DocumentSnapshot doc = collection.document(id).get().getResult();
+        Task<DocumentSnapshot> documentSnapshotTask = collection.document(id).get();
+        while (!documentSnapshotTask.isComplete());
+        DocumentSnapshot doc = documentSnapshotTask.getResult();
         if (doc != null) {
             return (T) doc.toObject(DbDocument.class);
         }
@@ -57,8 +59,14 @@ public class DbCollection<T extends DbDocument> {
             throw new NoSuchElementException(String.format("Document with id %s does not exist in collection %s", data.id, collection.getPath()));
         }
         Task<Void> t = document.set(data);
+        while (!t.isComplete());
         t.getResult();
-        DocumentSnapshot documentSnapshot = collection.document(data.id).get().getResult();
+
+        // get the updated doc
+        Task<DocumentSnapshot> documentSnapshotTask = collection.document(data.id).get();
+        while(documentSnapshotTask.isComplete());
+        DocumentSnapshot documentSnapshot = documentSnapshotTask.getResult();
+
         if (documentSnapshot != null) {
             return (T) documentSnapshot.toObject(DbDocument.class);
         }
@@ -74,8 +82,13 @@ public class DbCollection<T extends DbDocument> {
      */
     public T add(T data) {
         data.id = null;
-        DocumentSnapshot doc = collection.add(data).getResult().get().getResult();
-        if (doc != null) {
+        Task<DocumentReference> addTask = collection.add(data);
+
+        while(!addTask.isComplete());
+        Task<DocumentSnapshot> docTask = addTask.getResult().get();
+        while(!docTask.isComplete());
+        DocumentSnapshot doc = docTask.getResult()
+;        if (doc != null) {
             return (T) doc.toObject(DbDocument.class);
         }
         return null;
