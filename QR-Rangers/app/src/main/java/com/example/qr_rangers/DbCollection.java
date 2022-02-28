@@ -1,10 +1,12 @@
 package com.example.qr_rangers;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -122,6 +124,20 @@ public class DbCollection<T extends DbDocument> {
             throw new NoSuchElementException(String.format("No such document with id %s", id));
         }
         return collection.document(id).delete();
+    }
+
+    public User FindUser(String username){
+        final User[] result = {null};
+        collection.whereEqualTo("username", username).get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    private User user;
+
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots){
+                        result[0] = queryDocumentSnapshots.toObjects(user.getClass()).get(0);
+                    }
+                });
+        return result[0];
     }
 }
 
