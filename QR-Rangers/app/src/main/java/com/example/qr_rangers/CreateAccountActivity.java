@@ -20,6 +20,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     private Button create;
     private EditText username;
     private TextView warning;
+    User newUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +40,12 @@ public class CreateAccountActivity extends AppCompatActivity {
                     warning.setVisibility(View.VISIBLE);
                 }
                 else {
+                    newUser = new User(username.getText().toString());
+                    User dbUser = Database.Users.add(newUser);
                     Intent intent = new Intent(CreateAccountActivity.this, HomeActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
-                    Toast.makeText(CreateAccountActivity.this, "Hello " + username.getText().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateAccountActivity.this, "Hello " + dbUser.getUsername(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

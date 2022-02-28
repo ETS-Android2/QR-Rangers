@@ -6,6 +6,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 /**
@@ -30,13 +31,20 @@ public class DbCollection<T extends DbDocument> {
      * Gets a document from the collection by its generated id
      * @param id
      *  The generated id of the document within Firestore
+     * @param data
+     *  An instance of the document type for casting purposes
      * @return
      *  Returns the document if found or null
      */
-    public T getById(String id) {
-        DocumentSnapshot doc = collection.document(id).get().getResult();
+    public T getById(String id, T data) {
+        Task<DocumentSnapshot> documentSnapshotTask = collection.document(id).get();
+        while (!documentSnapshotTask.isComplete());
+        DocumentSnapshot doc = documentSnapshotTask.getResult();
         if (doc != null) {
-            return (T) doc.toObject(DbDocument.class);
+            Map<String, Object> map = doc.getData();
+            map.put("id", doc.getId());
+            // TODO: Find a way to make this not need you to pass in an instance
+            return (T) data.fromMap(map);
         }
         return null;
     }
@@ -49,18 +57,29 @@ public class DbCollection<T extends DbDocument> {
      *  Returns the document within Firestore after the operation
      */
     public T update(T data) {
-        if (data.id == null || data.id.isEmpty()) {
+        if (data.getId() == null || data.getId().isEmpty()) {
             throw new IllegalArgumentException("Id not provided");
         }
-        DocumentReference document = collection.document(data.id);
+        DocumentReference document = collection.document(data.getId());
         if (document == null) {
-            throw new NoSuchElementException(String.format("Document with id %s does not exist in collection %s", data.id, collection.getPath()));
+            throw new NoSuchElementException(String.format("Document with id %s does not exist in collection %s", data.getId(), collection.getPath()));
         }
-        Task<Void> t = document.set(data);
+
+        Map<String, Object> sanitizedData = data.toMap();
+        sanitizedData.remove("id");
+        Task<Void> t = document.set(sanitizedData);
+        while (!t.isComplete());
         t.getResult();
-        DocumentSnapshot documentSnapshot = collection.document(data.id).get().getResult();
+
+        // get the updated doc
+        Task<DocumentSnapshot> documentSnapshotTask = collection.document(data.getId()).get();
+        while(!documentSnapshotTask.isComplete());
+        DocumentSnapshot documentSnapshot = documentSnapshotTask.getResult();
+
         if (documentSnapshot != null) {
-            return (T) documentSnapshot.toObject(DbDocument.class);
+            Map<String, Object> map = documentSnapshot.getData();
+            map.put("id", documentSnapshot.getId());
+            return (T) data.fromMap(map);
         }
         return null;
     }
@@ -73,10 +92,17 @@ public class DbCollection<T extends DbDocument> {
      *  Returns the document with generated id within Firestore
      */
     public T add(T data) {
-        data.id = null;
-        DocumentSnapshot doc = collection.add(data).getResult().get().getResult();
+        Map<String, Object> sanitizedData = data.toMap();
+        Task<DocumentReference> addTask = collection.add(sanitizedData);
+
+        while(!addTask.isComplete());
+        Task<DocumentSnapshot> docTask = addTask.getResult().get();
+        while(!docTask.isComplete());
+        DocumentSnapshot doc = docTask.getResult();
         if (doc != null) {
-            return (T) doc.toObject(DbDocument.class);
+            Map<String, Object> map = doc.getData();
+            map.put("id", doc.getId());
+            return (T) data.fromMap(map);
         }
         return null;
     }
@@ -89,8 +115,10 @@ public class DbCollection<T extends DbDocument> {
      *  Returns the task for deleting the document
      */
     public Task<Void> delete(String id) {
-        T data = getById(id);
-        if (data == null) {
+        Task<DocumentSnapshot> dataTask = collection.document(id).get();
+        while (!dataTask.isComplete());
+        DocumentSnapshot data = dataTask.getResult();
+        if (data.getData() == null) {
             throw new NoSuchElementException(String.format("No such document with id %s", id));
         }
         return collection.document(id).delete();

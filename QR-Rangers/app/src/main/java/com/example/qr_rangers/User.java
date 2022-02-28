@@ -1,6 +1,8 @@
 package com.example.qr_rangers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class User extends DbDocument {
     private String username;
@@ -138,6 +140,26 @@ public class User extends DbDocument {
      */
     public int getQRNum(){
         return QRList.size();
+    }
+
+    @Override
+    public DbDocument fromMap(Map<String, Object> map) {
+        User user = new User((String) map.get("username"));
+        user.setId((String) map.get("id"));
+        // TODO: Add QRCodes from map.get("QRList")
+        return user;
+    }
+
+    @Override
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("QRList", this.QRList);
+        map.put("qrnum", this.getQRNum());
+        map.put("scoreMax", this.getScoreMax());
+        map.put("scoreMin", this.getScoreMin());
+        map.put("scoreSum", this.getScoreSum());
+        map.put("username", this.getUsername());
+        return map;
     }
 }
 
