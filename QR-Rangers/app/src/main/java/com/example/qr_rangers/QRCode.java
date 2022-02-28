@@ -1,15 +1,14 @@
 package com.example.qr_rangers;
 
-import static java.util.Objects.isNull;
-
 import android.location.Geocoder;
 import android.media.Image;
-import android.media.MediaCodec;
 import android.os.Build;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class QRCode extends DbDocument{
@@ -111,5 +110,25 @@ public class QRCode extends DbDocument{
             throw new IllegalArgumentException();
         }
         return this.codeInfo == ((QRCode) code).codeInfo; // Possibly change to .equals() depending on what codeInfo ends up being
+    }
+
+    @Override
+    public DbDocument fromMap(Map<String, Object> map) {
+        QRCode qrCode = new QRCode((int) map.get("info"), (Image) map.get("photo"), (Geocoder) map.get("location"));
+        qrCode.setId((String) map.get("id"));
+        // TODO: Add in setting score values from the map once setters are complete
+        return qrCode;
+    }
+
+    @Override
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
+        // TODO: Figure out if we want this
+        map.put("codeInfo", this.codeInfo);
+        map.put("photo", this.getPhoto());
+        map.put("location", this.getLocation());
+        map.put("score", this.getScore());
+        map.put("comment", this.comment);
+        return map;
     }
 }
