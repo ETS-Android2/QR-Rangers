@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText">
+
+    <item
+        android:id="@+id/hamburger_home_button"
+        android:title="@string/hamburger_home" />
+
+    <item
+        android:id="@+id/hamburger_profile_button"
+        android:title="@string/hamburger_profile" />
+
+    <item
+        android:id="@+id/hamburger_gallery_button"
+        android:title="@string/hamburger_gallery" />
+
+    <item
+        android:id="@+id/hamburger_map_button"
+        android:title="@string/hamburger_map" />
+
+    <item
+        android:id="@+id/hamburger_setting_button"
+        android:title="@string/hamburger_settings" />
+
+</menu>
