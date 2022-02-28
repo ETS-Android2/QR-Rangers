@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -54,6 +55,42 @@ public class HomeActivity extends AppCompatActivity{
         actionBarDrawerToggle.syncState();
         // make hamburger icon appear
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Set on click listeners for all the hamburger menu items
+        NavigationView navView = findViewById(R.id.home_nav_view);
+        navView.setNavigationItemSelectedListener(item -> {
+            if (item.getItemId()==R.id.hamburger_home_button){
+                // your code
+                Toast.makeText(this, "Home Clicked", Toast.LENGTH_SHORT).show();
+                drawerLayout.close();
+                return true;
+            }
+            else if (item.getItemId()==R.id.hamburger_profile_button){
+                // your code
+                Toast.makeText(this, "Profile Clicked", Toast.LENGTH_SHORT).show();
+                drawerLayout.close();
+                return true;
+            }
+            else if (item.getItemId()==R.id.hamburger_gallery_button){
+                // your code
+                Toast.makeText(this, "Gallery Clicked", Toast.LENGTH_SHORT).show();
+                drawerLayout.close();
+                return true;
+            }
+            else if (item.getItemId()==R.id.hamburger_map_button){
+                // your code
+                Toast.makeText(this, "Map Clicked", Toast.LENGTH_SHORT).show();
+                drawerLayout.close();
+                return true;
+            }
+            else if (item.getItemId()==R.id.hamburger_setting_button){
+                // your code
+                Toast.makeText(this, "Settings Clicked", Toast.LENGTH_SHORT).show();
+                drawerLayout.close();
+                return true;
+            }
+            return false;
+        });
     }
 
     @Override
