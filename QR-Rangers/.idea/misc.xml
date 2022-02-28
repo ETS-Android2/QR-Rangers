@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/ronan/Documents/University/CMPUT 301/QR-Rangers/QR-Rangers/app/src/main/res/layout/activity_home.xml" value="0.264" />
+        <entry key="..\:/Users/ronan/Documents/University/CMPUT 301/QR-Rangers/QR-Rangers/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/ronan/Documents/University/CMPUT 301/QR-Rangers/QR-Rangers/app/src/main/res/layout/activity_profile.xml" value="0.25416666666666665" />
+      </map>
+    </option>
+  </component>
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../doc" />
   </component>
