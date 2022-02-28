@@ -5,22 +5,27 @@
 
     <item
         android:id="@+id/hamburger_home_button"
+        android:icon="@android:drawable/ic_menu_camera"
         android:title="@string/hamburger_home" />
 
     <item
         android:id="@+id/hamburger_profile_button"
+        android:icon="@android:drawable/ic_menu_myplaces"
         android:title="@string/hamburger_profile" />
 
     <item
         android:id="@+id/hamburger_gallery_button"
+        android:icon="@android:drawable/ic_menu_gallery"
         android:title="@string/hamburger_gallery" />
 
     <item
         android:id="@+id/hamburger_map_button"
+        android:icon="@android:drawable/ic_dialog_map"
         android:title="@string/hamburger_map" />
 
     <item
         android:id="@+id/hamburger_setting_button"
+        android:icon="@android:drawable/ic_menu_preferences"
         android:title="@string/hamburger_settings" />
 
 </menu>
