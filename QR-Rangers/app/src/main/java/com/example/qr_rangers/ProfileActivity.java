@@ -1,7 +1,6 @@
 package com.example.qr_rangers;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -10,45 +9,70 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 /**
- * This is an activity that provides the user with their account information and basic actions.
- * @author Ryan Haskins
+ * Activity to view profile stats, access gallery, and obtain user code
+ * @author Ronan Sandoval
  * @version 1.0
  */
-public class HomeActivity extends AppCompatActivity{
+public class ProfileActivity extends AppCompatActivity{
 
-    private FloatingActionButton scan;
+    private Button viewGalleryButton;
+    private Button shareProfileButton;
+
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
+    private float fadeSpeed = (float)1.5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_profile);
 
-        scan = findViewById(R.id.buttonScan);
-        scan.setOnClickListener(new View.OnClickListener() {
+        viewGalleryButton = findViewById(R.id.viewgallerybutton);
+        viewGalleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                IntentIntegrator intentIntegrator = new IntentIntegrator(HomeActivity.this);
-                intentIntegrator.setPrompt("Scan a QR Code");
-                intentIntegrator.setOrientationLocked(true);
-                intentIntegrator.setBeepEnabled(false);
-                intentIntegrator.initiateScan();
+                Toast.makeText(getApplicationContext(), "View gallery clicked", Toast.LENGTH_SHORT).show();
+                //TODO: GO to gallery activity
             }
         });
 
+        shareProfileButton = findViewById(R.id.shareprofilebutton);
+        shareProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Share Profile Clicked", Toast.LENGTH_SHORT).show();
+                //TODO: GO to Profile QR activity
+            }
+        });
+
+
         // action bar toggle button setup
-        drawerLayout = findViewById(R.id.home_drawer_menu);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.hamburger_open, R.string.hamburger_close);
+        drawerLayout = findViewById(R.id.profile_drawer_menu);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.hamburger_open, R.string.hamburger_close) {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                viewGalleryButton.setAlpha((float) 1 - (slideOffset * fadeSpeed));
+                shareProfileButton.setAlpha((float)1 - (slideOffset * fadeSpeed));
+            }
+
+            public void onDrawerOpened(View drawerView){
+                viewGalleryButton.setClickable(false);
+                shareProfileButton.setClickable(false);
+            }
+
+            public void onDrawerClosed(View drawerView){
+                viewGalleryButton.setClickable(true);
+                shareProfileButton.setClickable(true);
+            }
+        };
         // pass the toggle button to the menu
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
@@ -56,19 +80,19 @@ public class HomeActivity extends AppCompatActivity{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Set on click listeners for all the hamburger menu items
-        NavigationView navView = findViewById(R.id.home_nav_view);
+        NavigationView navView = findViewById(R.id.profile_nav_view);
         navView.setNavigationItemSelectedListener(item -> {
             if (item.getItemId()==R.id.hamburger_home_button){
                 // your code
                 Toast.makeText(this, "Home Clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
                 drawerLayout.close();
                 return true;
             }
             else if (item.getItemId()==R.id.hamburger_profile_button){
                 // your code
                 Toast.makeText(this, "Profile Clicked", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
-                startActivity(intent);
                 drawerLayout.close();
                 return true;
             }
@@ -92,25 +116,7 @@ public class HomeActivity extends AppCompatActivity{
             }
             return false;
         });
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        // if the intentResult is null then
-        // toast a message as "cancelled"
-        if (intentResult != null) {
-            if (intentResult.getContents() == null) {
-                Toast.makeText(getBaseContext(), "Cancelled", Toast.LENGTH_SHORT).show();
-            } else {
-                // if the intentResult is not null we'll set
-                // the content and format of scan message
-                Toast.makeText(getBaseContext(), intentResult.getContents(), Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
     }
 
     // override the onOptionsItemSelected()
@@ -120,11 +126,11 @@ public class HomeActivity extends AppCompatActivity{
     // drawer when the icon is clicked
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 }
