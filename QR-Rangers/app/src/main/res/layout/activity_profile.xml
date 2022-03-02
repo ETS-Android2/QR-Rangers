@@ -25,7 +25,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="125dp"
-        android:text="Share Profile" />
+        android:clickable="true"
+        android:text="Share Profile"
+        android:focusable="true" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -89,7 +91,9 @@
         android:layout_height="60dp"
         android:layout_alignParentStart="true"
         android:layout_marginTop="330dp"
+        android:clickable="true"
         android:text="View Gallery">
+
     </Button>
 
     <TextView
@@ -135,6 +139,7 @@
             android:text="By Score"
             android:textSize="20sp">
         </TextView>
+
     </LinearLayout>
 
     <LinearLayout
@@ -142,8 +147,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/rankingtext"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="25dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="25dp"
         android:orientation="vertical">
 
         <TextView
@@ -154,18 +159,40 @@
             android:layout_marginTop="30dp"
             android:text="#2"
             android:textSize="40sp">
+
         </TextView>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_gravity="center"
+            android:layout_marginTop="20dp"
             android:text="By Codes Scanned"
             android:textSize="20sp">
 
         </TextView>
+
     </LinearLayout>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/profile_drawer_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".profileActivity"
+        tools:ignore="HardcodedText">
+
+        <!--this the navigation view which draws
+            and shows the navigation drawer-->
+        <!--include the menu created in the menu folder-->
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/profile_nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/home_drawer_header"
+            app:menu="@menu/home_drawer_menu" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 
 </RelativeLayout>

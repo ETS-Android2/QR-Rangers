@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -68,6 +67,8 @@ public class HomeActivity extends AppCompatActivity{
             else if (item.getItemId()==R.id.hamburger_profile_button){
                 // your code
                 Toast.makeText(this, "Profile Clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                startActivity(intent);
                 drawerLayout.close();
                 return true;
             }
