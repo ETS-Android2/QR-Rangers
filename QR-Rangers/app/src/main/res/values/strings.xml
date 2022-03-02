@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">QR-Rangers</string>
+    <string name="app_name_ui">QR Rangers</string>
+    <string name="hamburger_home">Home</string>
+    <string name="hamburger_profile">Profile</string>
+    <string name="hamburger_gallery">Gallery</string>
+    <string name="hamburger_map">Map</string>
+    <string name="hamburger_settings">Settings</string>
+    <string name="hamburger_open">Open</string>
+    <string name="hamburger_close">Close</string>
 </resources>
