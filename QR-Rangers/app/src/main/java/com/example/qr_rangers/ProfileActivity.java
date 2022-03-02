@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -84,6 +85,8 @@ public class ProfileActivity extends AppCompatActivity{
             if (item.getItemId()==R.id.hamburger_home_button){
                 // your code
                 Toast.makeText(this, "Home Clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
                 drawerLayout.close();
                 return true;
             }
