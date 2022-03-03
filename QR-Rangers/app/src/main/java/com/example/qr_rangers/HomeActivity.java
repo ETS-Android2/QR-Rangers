@@ -7,9 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -19,20 +22,26 @@ import com.google.zxing.integration.android.IntentResult;
 
 /**
  * This is an activity that provides the user with their account information and basic actions.
- * @author Ryan Haskins
- * @version 1.0
+ * @author Ryan Haskins, Alexander Salm, Ronan Sandoval
+ * @version 1.4
  */
 public class HomeActivity extends AppCompatActivity{
 
     private FloatingActionButton scan;
+    private TextView welcome;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    private User user;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        user = loadUser();
+        welcome = findViewById(R.id.welcome);
+        welcome.setText("Welcome, " + user.getUsername() + "!");
 
         scan = findViewById(R.id.buttonScan);
         scan.setOnClickListener(new View.OnClickListener() {
@@ -125,6 +134,18 @@ public class HomeActivity extends AppCompatActivity{
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Loads user profile information from the database using the locally stored ID
+     * @return
+     *     The user that has the stored ID
+     */
+    private User loadUser() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String id = sharedPreferences.getString("ID", null);
+        User localUser = Database.Users.getById(id, new User(""));
+        return localUser;
     }
 
 }
