@@ -29,12 +29,11 @@
         android:textSize="40sp" />
 
 
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewScore"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="40dp"
         android:orientation="vertical">
 
@@ -53,8 +52,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:text="New total Score"
-            android:textSize="20sp">
-        </TextView>
+            android:textSize="20sp"></TextView>
     </LinearLayout>
 
     <LinearLayout
@@ -63,7 +61,7 @@
         android:layout_below="@+id/textViewScore"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="15dp"
         android:orientation="vertical">
 
         <TextView
@@ -78,15 +76,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_gravity="center"
+            android:layout_marginTop="5dp"
             android:text="Scanned this code"
             android:textSize="20sp">
 
         </TextView>
     </LinearLayout>
 
-    <TextView
+
+    <EditText
         android:id="@+id/commentbox"
         android:layout_width="250dp"
         android:layout_height="200dp"
@@ -94,7 +93,10 @@
         android:layout_marginStart="330dp"
         android:layout_marginTop="330dp"
         android:layout_marginEnd="330dp"
-        android:text="Enter comment here..." />
+        android:hint="enter comment here..."></EditText>
+
+
+
 
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -115,9 +117,13 @@
             app:headerLayout="@layout/home_drawer_header"
             app:menu="@menu/home_drawer_menu" />
 
+
+
     </androidx.drawerlayout.widget.DrawerLayout>
 
     <LinearLayout
+
+        android:id="@+id/optionaldatalayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/commentbox"
@@ -125,9 +131,9 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:id="@+id/cameraButton"
+            android:layout_width="112dp"
+            android:layout_height="102dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="20dp"
             app:srcCompat="@android:drawable/ic_menu_camera" />
@@ -139,9 +145,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="40dp"
             android:layout_weight="1"
-            android:textSize="40sp"
             android:text="Attach location" />
     </LinearLayout>
-
 
 </RelativeLayout>
