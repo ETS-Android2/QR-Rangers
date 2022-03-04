@@ -93,16 +93,16 @@
         android:layout_marginStart="330dp"
         android:layout_marginTop="330dp"
         android:layout_marginEnd="330dp"
+        android:focusable="true"
         android:hint="enter comment here..."></EditText>
-
-
-
 
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/profile_drawer_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         tools:context=".profileActivity"
         tools:ignore="HardcodedText">
 
@@ -118,7 +118,6 @@
             app:menu="@menu/home_drawer_menu" />
 
 
-
     </androidx.drawerlayout.widget.DrawerLayout>
 
     <LinearLayout
@@ -132,14 +131,14 @@
 
         <ImageButton
             android:id="@+id/cameraButton"
-            android:layout_width="112dp"
+            android:layout_width="113dp"
             android:layout_height="102dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="20dp"
             app:srcCompat="@android:drawable/ic_menu_camera" />
 
         <Switch
-            android:id="@+id/switch2"
+            android:id="@+id/locationswitch"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
@@ -147,5 +146,13 @@
             android:layout_weight="1"
             android:text="Attach location" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/savebutton"
+        android:layout_width="123dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/optionaldatalayout"
+        android:layout_centerHorizontal="true"
+        android:text="Add" />
 
 </RelativeLayout>

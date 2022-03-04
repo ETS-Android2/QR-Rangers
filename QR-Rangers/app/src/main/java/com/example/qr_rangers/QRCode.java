@@ -1,5 +1,6 @@
 package com.example.qr_rangers;
 
+import android.graphics.Bitmap;
 import android.location.Geocoder;
 import android.media.Image;
 import android.os.Build;
@@ -14,8 +15,8 @@ import java.util.Objects;
 public class QRCode extends DbDocument{
     // REMINDER TO CHANGE .equals() DEPENDING ON codeInfo TYPE
     private String /*temp QRCode*/ codeInfo;
-    private Image photo;
-    private Geocoder location;
+    private Bitmap photo;
+    private Location location;
     private int score;
     private String comment; // I'm not sure if this should go here necessarily
 
@@ -30,7 +31,7 @@ public class QRCode extends DbDocument{
      *      Contains the Geological location of the QRCode
      */
     @RequiresApi(api = Build.VERSION_CODES.N) // I don't really know what to do about this
-    QRCode(String /*temp, QRCode*/ info, @Nullable Image photo, @Nullable Geocoder location){
+    QRCode(String /*temp, QRCode*/ info, @Nullable Bitmap photo, @Nullable Location location){
         QRScore qrScore = new QRScore();
         this.codeInfo = info;
         this.score = qrScore.calculateScore(this);
@@ -59,7 +60,7 @@ public class QRCode extends DbDocument{
      * @return
      *      The image that was used for the QR Code
      */
-    public Image getPhoto(){
+    public Bitmap getPhoto(){
         return photo;
     }
 
@@ -69,7 +70,7 @@ public class QRCode extends DbDocument{
      * @param photo
      *      The image that will be used for the QR Code
      */
-    public void setPhoto(Image photo){
+    public void setPhoto(Bitmap photo){
         this.photo = photo;
     }
 
@@ -79,7 +80,7 @@ public class QRCode extends DbDocument{
      * @return
      *      The location that was used for the QR Code
      */
-    public Geocoder getLocation(){
+    public Location getLocation(){
         return location;
     }
 
@@ -89,7 +90,7 @@ public class QRCode extends DbDocument{
      * @param location
      *      The new location that will be set for the QR Code
      */
-    public void setLocation(Geocoder location){
+    public void setLocation(Location location){
         this.location = location;
     }
 
@@ -115,7 +116,7 @@ public class QRCode extends DbDocument{
 
     @Override
     public DbDocument fromMap(Map<String, Object> map) {
-        QRCode qrCode = new QRCode((String) map.get("info"), (Image) map.get("photo"), (Geocoder) map.get("location"));
+        QRCode qrCode = new QRCode((String) map.get("info"), (Bitmap) map.get("photo"), (Location) map.get("location"));
         qrCode.setId((String) map.get("id"));
         // TODO: Add in setting score values from the map once setters are complete
         return qrCode;
