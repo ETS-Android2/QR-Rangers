@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QRRangers">
         <activity
+            android:name=".ScanResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".CreateAccountActivity"
             android:exported="false" />
         <activity

@@ -115,7 +115,10 @@ public class HomeActivity extends AppCompatActivity{
             } else {
                 // if the intentResult is not null we'll set
                 // the content and format of scan message
-                Toast.makeText(getBaseContext(), intentResult.getContents(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getBaseContext(), intentResult.getContents(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(HomeActivity.this, ScanResultActivity.class);
+                intent.putExtra("content",intentResult.getContents());
+                startActivity(intent);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

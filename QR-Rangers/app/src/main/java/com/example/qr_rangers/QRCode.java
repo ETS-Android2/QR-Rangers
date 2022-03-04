@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class QRCode extends DbDocument{
     // REMINDER TO CHANGE .equals() DEPENDING ON codeInfo TYPE
-    private int /*temp QRCode*/ codeInfo;
+    private String /*temp QRCode*/ codeInfo;
     private Image photo;
     private Geocoder location;
     private int score;
@@ -30,9 +30,10 @@ public class QRCode extends DbDocument{
      *      Contains the Geological location of the QRCode
      */
     @RequiresApi(api = Build.VERSION_CODES.N) // I don't really know what to do about this
-    QRCode(int /*temp, QRCode*/ info, @Nullable Image photo, @Nullable Geocoder location){
+    QRCode(String /*temp, QRCode*/ info, @Nullable Image photo, @Nullable Geocoder location){
         QRScore qrScore = new QRScore();
-        score = qrScore.calculateScore(this);
+        this.codeInfo = info;
+        this.score = qrScore.calculateScore(this);
         if(!Objects.isNull(photo)){
             this.photo = photo; // temp
         }
@@ -109,12 +110,12 @@ public class QRCode extends DbDocument{
         if(!(code instanceof QRCode)){
             throw new IllegalArgumentException();
         }
-        return this.codeInfo == ((QRCode) code).codeInfo; // Possibly change to .equals() depending on what codeInfo ends up being
+        return this.codeInfo.equals(((QRCode) code).codeInfo); // Possibly change to .equals() depending on what codeInfo ends up being
     }
 
     @Override
     public DbDocument fromMap(Map<String, Object> map) {
-        QRCode qrCode = new QRCode((int) map.get("info"), (Image) map.get("photo"), (Geocoder) map.get("location"));
+        QRCode qrCode = new QRCode((String) map.get("info"), (Image) map.get("photo"), (Geocoder) map.get("location"));
         qrCode.setId((String) map.get("id"));
         // TODO: Add in setting score values from the map once setters are complete
         return qrCode;
@@ -131,4 +132,9 @@ public class QRCode extends DbDocument{
         map.put("comment", this.comment);
         return map;
     }
+    @Override
+    public String toString(){
+        return this.codeInfo;
+    }
+
 }
