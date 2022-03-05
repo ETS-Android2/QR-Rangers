@@ -22,18 +22,39 @@ import com.google.android.material.navigation.NavigationView;
  */
 public class ProfileActivity extends AppCompatActivity{
 
+    private TextView totalScoreText;
+    private TextView codesScannedText;
+    private TextView scoreRankingText;
+    private TextView scanRankingText;
+
     private Button viewGalleryButton;
     private Button shareProfileButton;
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
-    private float fadeSpeed = (float)1.5;
+    private User user;
+
+    private final float fadeSpeed = (float)1.5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        user = (User) getIntent().getSerializableExtra("user");
+
+        totalScoreText = findViewById(R.id.totalscore);
+        String totalScore = String.valueOf(user.getScoreSum()) + " pts.";
+        totalScoreText.setText(totalScore);
+
+        codesScannedText = findViewById(R.id.codesscanned);
+        String codesScanned = String.valueOf(user.getQRNum());
+        codesScannedText.setText(String.valueOf(codesScanned));
+
+        scoreRankingText = findViewById(R.id.scoreranking);
+
+        scanRankingText = findViewById(R.id.scanranking);
 
         viewGalleryButton = findViewById(R.id.viewgallerybutton);
         viewGalleryButton.setOnClickListener(new View.OnClickListener() {

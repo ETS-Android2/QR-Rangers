@@ -77,6 +77,7 @@ public class HomeActivity extends AppCompatActivity{
                 // your code
                 Toast.makeText(this, "Profile Clicked", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                intent.putExtra("user", user);
                 startActivity(intent);
                 drawerLayout.close();
                 return true;
