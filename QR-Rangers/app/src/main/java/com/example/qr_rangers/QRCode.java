@@ -8,6 +8,8 @@ import android.os.Build;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import com.google.api.SystemParametersOrBuilder;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -15,7 +17,7 @@ import java.util.Objects;
 public class QRCode extends DbDocument{
     // REMINDER TO CHANGE .equals() DEPENDING ON codeInfo TYPE
     private String /*temp QRCode*/ codeInfo;
-    private Bitmap photo;
+    private String photo;
     private Location location;
     private int score;
     private String comment; // I'm not sure if this should go here necessarily
@@ -31,7 +33,7 @@ public class QRCode extends DbDocument{
      *      Contains the Geological location of the QRCode
      */
     @RequiresApi(api = Build.VERSION_CODES.N) // I don't really know what to do about this
-    QRCode(String /*temp, QRCode*/ info, @Nullable Bitmap photo, @Nullable Location location){
+    QRCode(String /*temp, QRCode*/ info, @Nullable String photo, @Nullable Location location){
         QRScore qrScore = new QRScore();
         this.codeInfo = info;
         this.score = qrScore.calculateScore(this);
@@ -41,6 +43,10 @@ public class QRCode extends DbDocument{
         if(!Objects.isNull(location)){
             this.location = location; // temp
         }
+
+    }
+
+    public QRCode() {
 
     }
 
@@ -60,7 +66,7 @@ public class QRCode extends DbDocument{
      * @return
      *      The image that was used for the QR Code
      */
-    public Bitmap getPhoto(){
+    public String getPhoto(){
         return photo;
     }
 
@@ -70,7 +76,7 @@ public class QRCode extends DbDocument{
      * @param photo
      *      The image that will be used for the QR Code
      */
-    public void setPhoto(Bitmap photo){
+    public void setPhoto(String photo){
         this.photo = photo;
     }
 
@@ -116,7 +122,7 @@ public class QRCode extends DbDocument{
 
     @Override
     public DbDocument fromMap(Map<String, Object> map) {
-        QRCode qrCode = new QRCode((String) map.get("info"), (Bitmap) map.get("photo"), (Location) map.get("location"));
+        QRCode qrCode = new QRCode((String) map.get("codeInfo"), (String) map.get("photo"), (Location) map.get("location"));
         qrCode.setId((String) map.get("id"));
         // TODO: Add in setting score values from the map once setters are complete
         return qrCode;

@@ -84,33 +84,33 @@
         </TextView>
     </LinearLayout>
 
-
     <EditText
         android:id="@+id/commentbox"
         android:layout_width="250dp"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="330dp"
         android:layout_marginTop="330dp"
         android:layout_marginEnd="330dp"
-        android:focusable="true"
-        android:hint="enter comment here..."></EditText>
+        android:hint="enter comment here..."
+        android:inputType="text" />
+
 
 
     <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/profile_drawer_menu"
+        android:id="@+id/result_drawer_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        tools:context=".profileActivity"
+        tools:context=".ScanResultActivity"
         tools:ignore="HardcodedText">
 
         <!--this the navigation view which draws
             and shows the navigation drawer-->
         <!--include the menu created in the menu folder-->
         <com.google.android.material.navigation.NavigationView
-            android:id="@+id/profile_nav_view"
+            android:id="@+id/scan_nav_view"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
@@ -133,16 +133,16 @@
             android:id="@+id/cameraButton"
             android:layout_width="113dp"
             android:layout_height="102dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="20dp"
             app:srcCompat="@android:drawable/ic_menu_camera" />
 
-        <Switch
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/locationswitch"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="40dp"
             android:layout_weight="1"
             android:text="Attach location" />
     </LinearLayout>
@@ -154,5 +154,13 @@
         android:layout_below="@+id/optionaldatalayout"
         android:layout_centerHorizontal="true"
         android:text="Add" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="190dp"
+        android:layout_marginTop="530dp"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </RelativeLayout>
