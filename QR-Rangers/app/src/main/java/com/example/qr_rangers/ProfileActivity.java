@@ -71,8 +71,8 @@ public class ProfileActivity extends AppCompatActivity{
         shareProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bitmap code = new QRGenerator(new User("alikayqrtest")).getQrCode();
-                new ViewQrCodeFragment(code).show(getSupportFragmentManager(), "Edit_Session");
+                Bitmap code = new QRGenerator(user).getQrCode();
+                new ViewQrCodeFragment(code).show(getSupportFragmentManager(), "View_QR_Code");
             }
         });
 
