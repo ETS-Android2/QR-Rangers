@@ -96,7 +96,6 @@
         android:inputType="text" />
 
 
-
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/result_drawer_menu"
         android:layout_width="match_parent"
@@ -153,14 +152,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/optionaldatalayout"
         android:layout_centerHorizontal="true"
-        android:text="Add" />
+        android:text="Add data" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="190dp"
-        android:layout_marginTop="530dp"
+        android:layout_width="106dp"
+        android:layout_height="103dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="600dp"
         tools:srcCompat="@tools:sample/avatars" />
 
 </RelativeLayout>

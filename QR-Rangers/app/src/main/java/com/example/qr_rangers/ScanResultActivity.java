@@ -31,6 +31,8 @@ public class ScanResultActivity extends AppCompatActivity {
 
     private TextView scoreTextView;
     private EditText commentBox;
+    private TextView totalScore;
+    private TextView codeUserCount;
     private ImageButton cameraButton;
     private SwitchMaterial attachLocation;
     private ImageView imgPreview;
@@ -39,6 +41,8 @@ public class ScanResultActivity extends AppCompatActivity {
     private static final int pic_id = 123;
     private Location location = null;
     private GpsTracker gpsTracker;
+    private User user;
+    private QRCode qr = new QRCode();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +50,16 @@ public class ScanResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scan_result);
         Intent intent = getIntent();
         String content = intent.getStringExtra("content");
-        QRCode qr = new QRCode(content,null,null);
+        qr = new QRCode(content,null,null);
+        user = loadUser();
         int score = qr.getScore();
         scoreTextView = findViewById(R.id.textViewScore);
         scoreTextView.setText(String.valueOf(score).concat(" pts."));
+        totalScore = findViewById(R.id.newtotalscore);
+        totalScore.setText(String.valueOf(intent.getStringExtra("totalScore")));
+        codeUserCount = findViewById(R.id.codeusercount);
+        //TODO: Set codeuser count from database
+        //codeUserCount.setText();
         commentBox = findViewById(R.id.commentbox);
         commentBox.setShowSoftInputOnFocus(true);
         imgPreview = findViewById(R.id.imageView);
@@ -69,7 +79,6 @@ public class ScanResultActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ScanResultActivity.this,"Add bttn clicked",Toast.LENGTH_SHORT).show();
                 if (attachLocation.isChecked()){
                     gpsTracker = new GpsTracker(ScanResultActivity.this);
                     if(gpsTracker.canGetLocation()){
@@ -77,7 +86,6 @@ public class ScanResultActivity extends AppCompatActivity {
                         double latitude = gpsTracker.getLatitude();
                         gpsTracker.stopUsingGPS();
                         location = new Location(longitude,latitude);
-                        Toast.makeText(ScanResultActivity.this,"Location accessed",Toast.LENGTH_SHORT).show();
                     }
                     else{
                         gpsTracker.showSettingsAlert();
@@ -90,22 +98,15 @@ public class ScanResultActivity extends AppCompatActivity {
                     imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
                 }
                 QRCode QrToSave = new QRCode(content,imageEncoded,location);
-                User user = loadUser();
-                Toast.makeText(ScanResultActivity.this, String.valueOf(user.getQRNum()).concat(" qrs scanned"), Toast.LENGTH_SHORT).show();
 
                 try {
-                    if (!user.AddQR(QrToSave)) {
-                        Toast.makeText(ScanResultActivity.this, "You already scanned this one", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Database.Users.update(user);
-                        if (imageEncoded != null)
+                    user.AddQR(QrToSave);
+                    Database.Users.update(user);
+                    if (imageEncoded != null)
                             imgPreview.setImageBitmap(decodeFromFirebaseBase64(imageEncoded));
-                        Toast.makeText(ScanResultActivity.this, String.valueOf(user.getQRNum()), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(ScanResultActivity.this, String.valueOf(user.getQRNum()).concat(" qrs scanned"), Toast.LENGTH_SHORT).show();
-
-
-                    }
-                } catch (Exception e) {
+                    Toast.makeText(ScanResultActivity.this, String.valueOf(user.getQRNum()).concat(" qrs scanned"), Toast.LENGTH_SHORT).show();
+                }
+                catch (Exception e) {
                     System.out.println(e.toString());
                     Toast.makeText(ScanResultActivity.this,"exception encountered".concat(e.toString()),Toast.LENGTH_SHORT).show();
                 }
@@ -130,9 +131,16 @@ public class ScanResultActivity extends AppCompatActivity {
         return localUser;
     }
 
-    public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
+    public static Bitmap decodeFromFirebaseBase64(String image) {
         byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
 
+    /*Attempts to add qr code to db if user didn't provide extra info*/
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        user.AddQR(qr);
+
+    }
 }
