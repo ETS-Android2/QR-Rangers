@@ -42,7 +42,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                     warning.setVisibility(View.VISIBLE);
                 }
                 else {
-                    newUser = new User(username.getText().toString());
+                    newUser = new User(username.getText().toString(), "", "");
                     User dbUser = Database.Users.add(newUser);
                     saveID(dbUser.getId());
                     Intent intent = new Intent(CreateAccountActivity.this, HomeActivity.class);
