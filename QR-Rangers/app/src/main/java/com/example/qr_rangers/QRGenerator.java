@@ -44,7 +44,7 @@ public class QRGenerator {
         int smaller = width < height ? width : height;
         int dimen = smaller * 3 / 4;
 
-        QRGEncoder encoder = new QRGEncoder("test", null, QRGContents.Type.TEXT, dimen);
+        QRGEncoder encoder = new QRGEncoder(user.getId(), null, QRGContents.Type.TEXT, dimen);
         try {
             return encoder.encodeAsBitmap();
         } catch (WriterException e) {
