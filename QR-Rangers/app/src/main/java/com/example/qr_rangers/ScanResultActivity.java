@@ -54,6 +54,9 @@ public class ScanResultActivity extends AppCompatActivity {
         EditText commentBox = findViewById(R.id.commentbox);
         commentBox.setShowSoftInputOnFocus(true);
         //imgPreview = findViewById(R.id.imageView);
+        gpsTracker = new GpsTracker(ScanResultActivity.this);
+        if(!gpsTracker.canGetLocation())
+            gpsTracker.showSettingsAlert();
         ImageButton cameraButton = findViewById(R.id.cameraButton);
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,15 +74,11 @@ public class ScanResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (attachLocation.isChecked()){
-                    gpsTracker = new GpsTracker(ScanResultActivity.this);
                     if(gpsTracker.canGetLocation()){
                         double longitude = gpsTracker.getLongitude();
                         double latitude = gpsTracker.getLatitude();
                         gpsTracker.stopUsingGPS();
                         location = new Location(longitude,latitude);
-                    }
-                    else{
-                        gpsTracker.showSettingsAlert();
                     }
                 }
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
