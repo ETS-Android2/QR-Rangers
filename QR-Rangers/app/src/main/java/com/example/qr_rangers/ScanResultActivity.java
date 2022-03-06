@@ -27,7 +27,7 @@ public class ScanResultActivity extends AppCompatActivity {
 
     private TextView totalScore;
     private SwitchMaterial attachLocation;
-    private ImageView imgPreview;
+    //private ImageView imgPreview;
     Bitmap photo = null;
     private static final int pic_id = 123;
     private Location location = null;
@@ -53,7 +53,7 @@ public class ScanResultActivity extends AppCompatActivity {
         //codeUserCount.setText();
         EditText commentBox = findViewById(R.id.commentbox);
         commentBox.setShowSoftInputOnFocus(true);
-        imgPreview = findViewById(R.id.imageView);
+        //imgPreview = findViewById(R.id.imageView);
         ImageButton cameraButton = findViewById(R.id.cameraButton);
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,8 +93,10 @@ public class ScanResultActivity extends AppCompatActivity {
                 try {
                     user.AddQR(QrToSave);
                     Database.Users.update(user);
+                    /*
                     if (imageEncoded != null)
                             imgPreview.setImageBitmap(decodeFromFirebaseBase64(imageEncoded));
+                */
                 }
                 catch (Exception e) {
                     System.out.println(e.toString());

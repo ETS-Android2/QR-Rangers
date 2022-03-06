@@ -115,7 +115,6 @@ public class HomeActivity extends AppCompatActivity{
             } else {
                 // if the intentResult is not null we'll set
                 // the content and format of scan message
-                //Toast.makeText(getBaseContext(), intentResult.getContents(), Toast.LENGTH_SHORT).show();
                 QRCode checkDuplicateQR = new QRCode(intentResult.getContents(),null,null);
                 if (!user.AddQR(checkDuplicateQR)){
                     Toast.makeText(getBaseContext(), "You already scanned this one!", Toast.LENGTH_SHORT).show();
