@@ -1,10 +1,11 @@
 package com.example.qr_rangers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class User extends DbDocument {
+public class User extends DbDocument implements Serializable {
     private String username;
     private ArrayList<QRCode> QRList;
 
