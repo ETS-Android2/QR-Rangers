@@ -122,7 +122,11 @@ public class QRCode extends DbDocument{
 
     @Override
     public DbDocument fromMap(Map<String, Object> map) {
-        QRCode qrCode = new QRCode((String) map.get("codeInfo"), (String) map.get("photo"), (Location) map.get("location"));
+        Map<String, Object> locMap = (Map<String, Object>) map.get("location");
+        QRCode qrCode = new QRCode((String) map.get("codeInfo"), (String) map.get("photo"),null);
+        if (locMap != null) {
+            qrCode = new QRCode((String) map.get("codeInfo"), (String) map.get("photo"), new Location((double) locMap.get("longitude"), (double) locMap.get("latitude")));
+        }
         qrCode.setId((String) map.get("id"));
         // TODO: Add in setting score values from the map once setters are complete
         return qrCode;

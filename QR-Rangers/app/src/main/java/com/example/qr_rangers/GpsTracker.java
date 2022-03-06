@@ -1,4 +1,7 @@
 //https://github.com/velmurugan-murugesan/Android-Example/tree/master/GetCurrentLatitudeAndLongitudeAndroid
+/**
+ * Helper class to access the gps coordinates of user
+ */
 package com.example.qr_rangers;
 import android.Manifest;
 import android.app.Activity;

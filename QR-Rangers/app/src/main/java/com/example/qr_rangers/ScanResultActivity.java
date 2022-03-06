@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
@@ -17,27 +16,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 public class ScanResultActivity extends AppCompatActivity {
 
-    private TextView scoreTextView;
-    private EditText commentBox;
     private TextView totalScore;
-    private TextView codeUserCount;
-    private ImageButton cameraButton;
     private SwitchMaterial attachLocation;
     private ImageView imgPreview;
     Bitmap photo = null;
-    private Button saveButton;
     private static final int pic_id = 123;
     private Location location = null;
     private GpsTracker gpsTracker;
@@ -53,17 +44,17 @@ public class ScanResultActivity extends AppCompatActivity {
         qr = new QRCode(content,null,null);
         user = loadUser();
         int score = qr.getScore();
-        scoreTextView = findViewById(R.id.textViewScore);
+        TextView scoreTextView = findViewById(R.id.textViewScore);
         scoreTextView.setText(String.valueOf(score).concat(" pts."));
         totalScore = findViewById(R.id.newtotalscore);
         totalScore.setText(String.valueOf(intent.getStringExtra("totalScore")));
-        codeUserCount = findViewById(R.id.codeusercount);
+        TextView codeUserCount = findViewById(R.id.codeusercount);
         //TODO: Set codeuser count from database
         //codeUserCount.setText();
-        commentBox = findViewById(R.id.commentbox);
+        EditText commentBox = findViewById(R.id.commentbox);
         commentBox.setShowSoftInputOnFocus(true);
         imgPreview = findViewById(R.id.imageView);
-        cameraButton = findViewById(R.id.cameraButton);
+        ImageButton cameraButton = findViewById(R.id.cameraButton);
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -75,7 +66,7 @@ public class ScanResultActivity extends AppCompatActivity {
             }
         });
         attachLocation = findViewById(R.id.locationswitch);
-        saveButton = findViewById(R.id.savebutton);
+        Button saveButton = findViewById(R.id.savebutton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,12 +95,12 @@ public class ScanResultActivity extends AppCompatActivity {
                     Database.Users.update(user);
                     if (imageEncoded != null)
                             imgPreview.setImageBitmap(decodeFromFirebaseBase64(imageEncoded));
-                    Toast.makeText(ScanResultActivity.this, String.valueOf(user.getQRNum()).concat(" qrs scanned"), Toast.LENGTH_SHORT).show();
                 }
                 catch (Exception e) {
                     System.out.println(e.toString());
                     Toast.makeText(ScanResultActivity.this,"exception encountered".concat(e.toString()),Toast.LENGTH_SHORT).show();
                 }
+             finish();
             }
         });
 
@@ -136,7 +127,7 @@ public class ScanResultActivity extends AppCompatActivity {
         return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
 
-    /*Attempts to add qr code to db if user didn't provide extra info*/
+    /*Attempts to add qr code to db if user didn't click add data */
     @Override
     protected void onDestroy() {
         super.onDestroy();
