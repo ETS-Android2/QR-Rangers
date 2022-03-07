@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/qr_info_image"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/qr_info_points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
+        android:text="43 pts."
+        android:textSize="40sp" />
+
+    <TextView
+    android:id="@+id/qr_info_scanned_by"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentStart="true"
+    android:layout_marginTop="20dp"
+    android:layout_marginStart="25dp"
+    android:text="Scanned By"
+    android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/qr_info_scanner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="45dp"
+        android:layout_marginStart="25dp"
+        android:text="JohnDoe21"
+        android:textSize="30sp" />
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="110dp"
+        android:scaleType="centerCrop"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <TextView
+        android:id="@+id/qr_info_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="360dp"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="10dp"
+        android:background="@color/cardview_dark_background"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras pharetra cursus eros, id suscipit ipsum rutrum vestibulum."
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/qr_edit_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/qr_info_comment"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
+        android:text="Edit Comment"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/qr_info_view_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/qr_info_comment"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="200dp"
+        android:text="View on Map"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/qr_info_others"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/qr_info_comment"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="90dp"
+        android:layout_marginStart="15dp"
+        android:text="Also Scanned By:"
+        android:textSize="18dp" />
+
+</RelativeLayout>
