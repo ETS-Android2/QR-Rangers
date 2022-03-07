@@ -52,7 +52,6 @@ public class ScanResultActivity extends AppCompatActivity {
         //TODO: Set codeuser count from database
         //codeUserCount.setText();
         EditText commentBox = findViewById(R.id.commentbox);
-        commentBox.setShowSoftInputOnFocus(true);
         //imgPreview = findViewById(R.id.imageView);
         gpsTracker = new GpsTracker(ScanResultActivity.this);
         if(!gpsTracker.canGetLocation())
