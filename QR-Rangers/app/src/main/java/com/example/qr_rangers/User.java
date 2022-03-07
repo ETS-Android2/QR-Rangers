@@ -147,14 +147,20 @@ public class User extends DbDocument implements Serializable {
     public DbDocument fromMap(Map<String, Object> map) {
         User user = new User((String) map.get("username"));
         user.setId((String) map.get("id"));
-        // TODO: Add QRCodes from map.get("QRList")
+        QRCode helper = new QRCode();
+        ArrayList<HashMap> qrList = (ArrayList<HashMap>) map.get("QRList");
+        for (int i = 0; i < qrList.size(); i++) user.AddQR((QRCode) helper.fromMap(qrList.get(i)));
         return user;
     }
 
     @Override
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
-        map.put("QRList", this.QRList);
+        ArrayList<HashMap> qrList = new ArrayList<>();
+        for (int i = 0; i < this.QRList.size(); i++) {
+            qrList.add((HashMap) this.QRList.get(i).toMap());
+        }
+        map.put("QRList", qrList);
         map.put("qrnum", this.getQRNum());
         map.put("scoreMax", this.getScoreMax());
         map.put("scoreMin", this.getScoreMin());
