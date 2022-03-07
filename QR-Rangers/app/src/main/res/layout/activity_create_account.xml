@@ -61,7 +61,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/disclaimer2"
-        android:hint="Username">
+        android:hint="* Username">
 
     </EditText>
 
@@ -78,6 +78,59 @@
 
     </TextView>
 
+    <EditText
+        android:id="@+id/editEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/editUsername"
+        android:inputType="textEmailAddress"
+        android:hint="Email">
+
+    </EditText>
+
+    <TextView
+        android:id="@+id/emailWarning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_below="@+id/editEmail"
+        android:layout_alignStart="@+id/editEmail"
+        android:layout_marginStart="5dp"
+        android:visibility="gone"
+        android:text="Please enter a valid email">
+
+    </TextView>
+
+    <EditText
+        android:id="@+id/editPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/editEmail"
+        android:inputType="phone"
+        android:hint="Phone Number">
+
+    </EditText>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_below="@+id/editPhoneNumber"
+        android:layout_alignStart="@+id/editPhoneNumber"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="* Required Fields">
+
+    </TextView>
+
     <Button
         android:id="@+id/buttonCreate"
         android:layout_width="match_parent"
@@ -85,7 +138,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:text="Sign Up"
-        android:layout_below="@+id/editUsername"
+        android:layout_below="@+id/editPhoneNumber"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp">
 

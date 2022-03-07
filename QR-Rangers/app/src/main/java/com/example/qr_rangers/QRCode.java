@@ -13,9 +13,9 @@ import java.util.Objects;
 
 public class QRCode extends DbDocument{
     // REMINDER TO CHANGE .equals() DEPENDING ON codeInfo TYPE
-    private int /*temp QRCode*/ codeInfo;
-    private Image photo;
-    private Geocoder location;
+    private String /*temp QRCode*/ codeInfo;
+    private String photo;
+    private Location location;
     private int score;
     private String comment; // I'm not sure if this should go here necessarily
 
@@ -30,8 +30,9 @@ public class QRCode extends DbDocument{
      *      Contains the Geological location of the QRCode
      */
     @RequiresApi(api = Build.VERSION_CODES.N) // I don't really know what to do about this
-    QRCode(int /*temp, QRCode*/ info, @Nullable Image photo, @Nullable Geocoder location){
+    QRCode(String /*temp, QRCode*/ info, @Nullable String photo, @Nullable Location location){
         QRScore qrScore = new QRScore();
+        codeInfo = info;
         score = qrScore.calculateScore(this);
         if(!Objects.isNull(photo)){
             this.photo = photo; // temp
@@ -41,6 +42,11 @@ public class QRCode extends DbDocument{
         }
 
     }
+
+    /**
+     * Empty constructor for use with getting QRCodes from the db
+     */
+    public QRCode() {}
 
     /**
      * A getter function to get the score of the QR Code
@@ -56,9 +62,9 @@ public class QRCode extends DbDocument{
      * A getter function to get the image of the QR Code
      *
      * @return
-     *      The image that was used for the QR Code
+     *      The URL to the image that was used for the QR Code
      */
-    public Image getPhoto(){
+    public String getPhoto(){
         return photo;
     }
 
@@ -66,9 +72,9 @@ public class QRCode extends DbDocument{
      * A setter function to set a new image for the QR Code
      *
      * @param photo
-     *      The image that will be used for the QR Code
+     *      The URL to the image image that will be used for the QR Code
      */
-    public void setPhoto(Image photo){
+    public void setPhoto(String photo){
         this.photo = photo;
     }
 
@@ -78,7 +84,7 @@ public class QRCode extends DbDocument{
      * @return
      *      The location that was used for the QR Code
      */
-    public Geocoder getLocation(){
+    public Location getLocation(){
         return location;
     }
 
@@ -88,7 +94,7 @@ public class QRCode extends DbDocument{
      * @param location
      *      The new location that will be set for the QR Code
      */
-    public void setLocation(Geocoder location){
+    public void setLocation(Location location){
         this.location = location;
     }
 
@@ -114,7 +120,11 @@ public class QRCode extends DbDocument{
 
     @Override
     public DbDocument fromMap(Map<String, Object> map) {
-        QRCode qrCode = new QRCode((int) map.get("info"), (Image) map.get("photo"), (Geocoder) map.get("location"));
+        Map<String, Object> locMap = (Map<String, Object>) map.get("location");
+        QRCode qrCode = new QRCode((String) map.get("codeInfo"), (String) map.get("photo"),null);
+        if (locMap != null) {
+            qrCode.setLocation(new Location((double) locMap.get("longitude"), (double) locMap.get("latitude")));
+        }
         qrCode.setId((String) map.get("id"));
         // TODO: Add in setting score values from the map once setters are complete
         return qrCode;

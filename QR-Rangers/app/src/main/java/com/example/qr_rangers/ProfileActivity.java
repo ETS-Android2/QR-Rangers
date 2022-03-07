@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -69,8 +71,8 @@ public class ProfileActivity extends AppCompatActivity{
         shareProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Share Profile Clicked", Toast.LENGTH_SHORT).show();
-                //TODO: GO to Profile QR activity
+                Bitmap code = new QRGenerator(user).getQrCode();
+                new ViewQrCodeFragment(code).show(getSupportFragmentManager(), "View_QR_Code");
             }
         });
 
