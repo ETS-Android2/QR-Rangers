@@ -145,8 +145,7 @@ public class HomeActivity extends AppCompatActivity{
     private User loadUser() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String id = sharedPreferences.getString("ID", null);
-        User localUser = Database.Users.getById(id, new User(""));
-        return localUser;
+        return Database.Users.getById(id, new User("", "", ""));
     }
 
 }
