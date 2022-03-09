@@ -69,7 +69,7 @@ public class IntroActivity extends AppCompatActivity {
                     else {
                         Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show();
                     }
-                } catch (Exception e) {
+                } catch (IllegalArgumentException e) {
                     Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show();
                 }
             }
