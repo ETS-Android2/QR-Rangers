@@ -70,6 +70,8 @@ public class SearchActivity extends AppCompatActivity {
             query = intent.getStringExtra(SearchManager.QUERY);
             searched = search.FindUser(query);
         }
+        query = search_text.getText().toString();
+        searched = search.FindUser(query);
 
         search_adapter = new CustomList(this, searched);
 
