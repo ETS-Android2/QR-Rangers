@@ -9,6 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * Activity to that showcases information about a User's scanned QR Code
+ * @author Ronan Sandoval
+ * @version 1.0
+ */
 public class QRInfoActivity extends AppCompatActivity {
 
     QRCode qr;

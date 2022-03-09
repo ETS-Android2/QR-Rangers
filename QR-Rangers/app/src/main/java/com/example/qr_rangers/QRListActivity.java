@@ -21,6 +21,11 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 
+/**
+ * Activity to that showcases a user's scanned QR codes
+ * @author Ronan Sandoval
+ * @version 1.0
+ */
 public class QRListActivity extends AppCompatActivity {
     TextView nameText;
 
@@ -46,6 +51,7 @@ public class QRListActivity extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(true);
 
         ArrayList<QRCode> qrList = user.getQRList();
+        // for testing purposes
         qrList.add(new QRCode("test", null, null));
         qrList.add(new QRCode("test", null, null));
         qrList.add(new QRCode("test1", null, null));

@@ -24,8 +24,8 @@ import com.google.android.material.navigation.NavigationView;
 
 /**
  * Activity to view profile stats, access gallery, and obtain user code
- * @author Ronan Sandoval
- * @version 1.0
+ * @author Ronan Sandoval, Alexander Salm
+ * @version 1.1
  */
 public class ProfileActivity extends AppCompatActivity{
 
@@ -158,11 +158,6 @@ public class ProfileActivity extends AppCompatActivity{
 
     }
 
-    // override the onOptionsItemSelected()
-    // function to implement
-    // the item click listener callback
-    // to open and close the navigation
-    // drawer when the icon is clicked
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {

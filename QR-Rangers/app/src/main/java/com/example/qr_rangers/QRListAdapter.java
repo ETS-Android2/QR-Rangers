@@ -15,6 +15,11 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Base64;
 
+/**
+ * Acn adapter for the a customer array for the User QR Code gallery.
+ * @author Ronan Sandoval
+ * @version 1.0
+ */
 public class QRListAdapter extends ArrayAdapter<QRCode> {
     private ArrayList<QRCode> qrList;
     private Context context;
