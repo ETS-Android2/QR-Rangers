@@ -1,10 +1,11 @@
 package com.example.qr_rangers;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class DbDocument {
+public abstract class DbDocument implements Serializable {
     private String id;
 
     public String getId() {

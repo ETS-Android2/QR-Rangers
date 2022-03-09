@@ -35,8 +35,8 @@ public class QRCode extends DbDocument{
     @RequiresApi(api = Build.VERSION_CODES.N) // I don't really know what to do about this
     QRCode(String /*temp, QRCode*/ info, @Nullable String photo, @Nullable Location location){
         QRScore qrScore = new QRScore();
-        this.codeInfo = info;
-        this.score = qrScore.calculateScore(this);
+        codeInfo = info;
+        score = qrScore.calculateScore(this);
         if(!Objects.isNull(photo)){
             this.photo = photo; // temp
         }
@@ -49,6 +49,11 @@ public class QRCode extends DbDocument{
     public QRCode() {
 
     }
+
+    /**
+     * Empty constructor for use with getting QRCodes from the db
+     */
+    public QRCode() {}
 
     /**
      * A getter function to get the score of the QR Code
@@ -64,7 +69,7 @@ public class QRCode extends DbDocument{
      * A getter function to get the image of the QR Code
      *
      * @return
-     *      The image that was used for the QR Code
+     *      The URL to the image that was used for the QR Code
      */
     public String getPhoto(){
         return photo;
@@ -74,7 +79,7 @@ public class QRCode extends DbDocument{
      * A setter function to set a new image for the QR Code
      *
      * @param photo
-     *      The image that will be used for the QR Code
+     *      The URL to the image image that will be used for the QR Code
      */
     public void setPhoto(String photo){
         this.photo = photo;
@@ -125,7 +130,7 @@ public class QRCode extends DbDocument{
         Map<String, Object> locMap = (Map<String, Object>) map.get("location");
         QRCode qrCode = new QRCode((String) map.get("codeInfo"), (String) map.get("photo"),null);
         if (locMap != null) {
-            qrCode = new QRCode((String) map.get("codeInfo"), (String) map.get("photo"), new Location((double) locMap.get("longitude"), (double) locMap.get("latitude")));
+            qrCode.setLocation(new Location((double) locMap.get("longitude"), (double) locMap.get("latitude")));
         }
         qrCode.setId((String) map.get("id"));
         // TODO: Add in setting score values from the map once setters are complete

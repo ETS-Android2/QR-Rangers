@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -22,18 +24,39 @@ import com.google.android.material.navigation.NavigationView;
  */
 public class ProfileActivity extends AppCompatActivity{
 
+    private TextView totalScoreText;
+    private TextView codesScannedText;
+    private TextView scoreRankingText;
+    private TextView scanRankingText;
+
     private Button viewGalleryButton;
     private Button shareProfileButton;
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
-    private float fadeSpeed = (float)1.5;
+    private User user;
+
+    private final float fadeSpeed = (float)1.5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        user = (User) getIntent().getSerializableExtra("user");
+
+        totalScoreText = findViewById(R.id.totalscore);
+        String totalScore = String.valueOf(user.getScoreSum()) + " pts.";
+        totalScoreText.setText(totalScore);
+
+        codesScannedText = findViewById(R.id.codesscanned);
+        String codesScanned = String.valueOf(user.getQRNum());
+        codesScannedText.setText(String.valueOf(codesScanned));
+
+        scoreRankingText = findViewById(R.id.scoreranking);
+
+        scanRankingText = findViewById(R.id.scanranking);
 
         viewGalleryButton = findViewById(R.id.viewgallerybutton);
         viewGalleryButton.setOnClickListener(new View.OnClickListener() {
@@ -48,8 +71,8 @@ public class ProfileActivity extends AppCompatActivity{
         shareProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Share Profile Clicked", Toast.LENGTH_SHORT).show();
-                //TODO: GO to Profile QR activity
+                Bitmap code = new QRGenerator(user).getQrCode();
+                new ViewQrCodeFragment(code).show(getSupportFragmentManager(), "View_QR_Code");
             }
         });
 

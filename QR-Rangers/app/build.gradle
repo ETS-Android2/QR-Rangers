@@ -60,6 +60,7 @@ task javadoc(type: Javadoc) {
 }
 
 
+
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -69,6 +70,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.1.0')
     implementation 'com.google.firebase:firebase-firestore:23.0.2'
 
+    implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.3'
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.0.1'

@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -77,6 +78,7 @@ public class HomeActivity extends AppCompatActivity{
                 // your code
                 Toast.makeText(this, "Profile Clicked", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                intent.putExtra("user", user);
                 startActivity(intent);
                 drawerLayout.close();
                 return true;
@@ -155,7 +157,8 @@ public class HomeActivity extends AppCompatActivity{
     private User loadUser() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String id = sharedPreferences.getString("ID", null);
-        User localUser = Database.Users.getById(id, new User(""));
+        User localUser = Database.Users.getById(id, new User("", "", ""));
+        localUser.setId(id); //added for qr generation support, it needs the id field to be filled out
         return localUser;
     }
 
