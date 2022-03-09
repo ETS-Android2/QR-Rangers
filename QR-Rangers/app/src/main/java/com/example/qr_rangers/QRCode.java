@@ -46,10 +46,6 @@ public class QRCode extends DbDocument{
 
     }
 
-    public QRCode() {
-
-    }
-
     /**
      * Empty constructor for use with getting QRCodes from the db
      */
