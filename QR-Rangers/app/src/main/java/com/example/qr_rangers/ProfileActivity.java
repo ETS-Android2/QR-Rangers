@@ -29,6 +29,7 @@ import com.google.android.material.navigation.NavigationView;
  */
 public class ProfileActivity extends AppCompatActivity{
 
+    private TextView nameText;
     private TextView totalScoreText;
     private TextView codesScannedText;
     private TextView scoreRankingText;
@@ -50,6 +51,9 @@ public class ProfileActivity extends AppCompatActivity{
         setContentView(R.layout.activity_profile);
 
         user = (User) getIntent().getSerializableExtra("user");
+
+        nameText = findViewById(R.id.profilename);
+        nameText.setText(user.getUsername());
 
         totalScoreText = findViewById(R.id.totalscore);
         String totalScore = String.valueOf(user.getScoreSum()) + " pts.";
@@ -74,7 +78,6 @@ public class ProfileActivity extends AppCompatActivity{
         viewGalleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "View gallery clicked", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ProfileActivity.this, QRListActivity.class);
                 intent.putExtra("user", user);
                 galleryLauncher.launch(intent);
@@ -120,7 +123,6 @@ public class ProfileActivity extends AppCompatActivity{
         navView.setNavigationItemSelectedListener(item -> {
             if (item.getItemId()==R.id.hamburger_home_button){
                 // your code
-                Toast.makeText(this, "Home Clicked", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, HomeActivity.class);
                 startActivity(intent);
                 drawerLayout.close();
@@ -128,13 +130,14 @@ public class ProfileActivity extends AppCompatActivity{
             }
             else if (item.getItemId()==R.id.hamburger_profile_button){
                 // your code
-                Toast.makeText(this, "Profile Clicked", Toast.LENGTH_SHORT).show();
                 drawerLayout.close();
                 return true;
             }
             else if (item.getItemId()==R.id.hamburger_gallery_button){
                 // your code
-                Toast.makeText(this, "Gallery Clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ProfileActivity.this, QRListActivity.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
                 drawerLayout.close();
                 return true;
             }

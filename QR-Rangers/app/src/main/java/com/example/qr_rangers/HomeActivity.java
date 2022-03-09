@@ -70,13 +70,11 @@ public class HomeActivity extends AppCompatActivity{
         navView.setNavigationItemSelectedListener(item -> {
             if (item.getItemId()==R.id.hamburger_home_button){
                 // your code
-                Toast.makeText(this, "Home Clicked", Toast.LENGTH_SHORT).show();
                 drawerLayout.close();
                 return true;
             }
             else if (item.getItemId()==R.id.hamburger_profile_button){
                 // your code
-                Toast.makeText(this, "Profile Clicked", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
                 intent.putExtra("user", user);
                 startActivity(intent);
@@ -85,7 +83,6 @@ public class HomeActivity extends AppCompatActivity{
             }
             else if (item.getItemId()==R.id.hamburger_gallery_button){
                 // your code
-                Toast.makeText(this, "Gallery Clicked", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(HomeActivity.this, QRListActivity.class);
                 intent.putExtra("user", user);
                 startActivity(intent);
