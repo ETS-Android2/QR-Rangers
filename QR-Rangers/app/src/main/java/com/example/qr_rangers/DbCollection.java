@@ -1,13 +1,21 @@
 package com.example.qr_rangers;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -126,18 +134,84 @@ public class DbCollection<T extends DbDocument> {
         return collection.document(id).delete();
     }
 
-    public User FindUser(String username){
-        final User[] result = {null};
-        collection.whereEqualTo("username", username).get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    private User user;
+    /**
+     * A function to check whether a username exists in the database
+     *
+     * @param username
+     *      The username that we want to find
+     * @return
+     *      Returns an ArrayList containing the User object corresponding with the username
+     */
+    public ArrayList<User> FindUser(String username){
+        final ArrayList<User> result = new ArrayList<>();
+        Task<QuerySnapshot> task = collection.whereEqualTo("username", username).get();
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        result.add(new User("Low"));
+//                        Log.i("TAG", "lama");
+//                    }
+//                })
+//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                    private User user = new User("Lone");
+//
+//                    @Override
+//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots){
+//                        result.add(user);
+//                        if(!queryDocumentSnapshots.isEmpty()){
+//                            user = queryDocumentSnapshots.toObjects(user.getClass()).get(0);
+//                            Log.i("TAG","unept");
+//                        }
+//                        if(user != null){
+//                            result.add(user);
+//                        }
+//                        Log.i("TAG", "user");
+//                    }
+//                });
+        while(!task.isComplete());
+        QuerySnapshot snap = task.getResult();
+        for(DocumentSnapshot doc: snap.getDocuments()){
+            if(!result.contains(doc.toObject(User.class))){
+                result.add(doc.toObject(User.class));
+            }
+        }
+        return result;
+    }
 
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots){
-                        result[0] = queryDocumentSnapshots.toObjects(user.getClass()).get(0);
-                    }
-                });
-        return result[0];
+    /**
+     * A function to return a User object corresponding with a username
+     *
+     * @param username
+     *      The username that we want to check for
+     * @return
+     *      A boolean, true if that username is being used, false otherwise
+     */
+    public boolean CheckUser(String username){
+        //final boolean[] result = {false};
+        Query query = collection.whereEqualTo("username", username);
+        Task<QuerySnapshot> task = query.get();
+//        addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if(task.isSuccessful()){
+//                    result[0] = true;
+//                }
+//                result[0] = true;
+//                Log.i("TAG", "true aa");
+//            }
+//        })
+//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots){
+//                        result[0] = true;
+//                        Log.i("TAG", "true");
+//                    }
+//                });
+        while(!task.isComplete());
+        if(!task.getResult().isEmpty()){
+            return true;
+        }
+        return false;
     }
 }
 
