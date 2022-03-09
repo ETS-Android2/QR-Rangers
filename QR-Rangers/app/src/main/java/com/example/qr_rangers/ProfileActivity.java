@@ -1,10 +1,15 @@
 package com.example.qr_rangers;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -58,12 +63,21 @@ public class ProfileActivity extends AppCompatActivity{
 
         scanRankingText = findViewById(R.id.scanranking);
 
+        ActivityResultLauncher<Intent> galleryLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {}
+            });
+
         viewGalleryButton = findViewById(R.id.viewgallerybutton);
         viewGalleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "View gallery clicked", Toast.LENGTH_SHORT).show();
-                //TODO: GO to gallery activity
+                Intent intent = new Intent(ProfileActivity.this, QRListActivity.class);
+                intent.putExtra("user", user);
+                galleryLauncher.launch(intent);
             }
         });
 
@@ -75,7 +89,6 @@ public class ProfileActivity extends AppCompatActivity{
                 new ViewQrCodeFragment(code).show(getSupportFragmentManager(), "View_QR_Code");
             }
         });
-
 
         // action bar toggle button setup
         drawerLayout = findViewById(R.id.profile_drawer_menu);

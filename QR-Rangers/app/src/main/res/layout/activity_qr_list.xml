@@ -3,4 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/qr_list_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"
+        android:text="JohnDoe21"
+        android:textSize="40sp" />
+
+    <GridView
+        android:id="@+id/qr_list_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/qr_list_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:numColumns="2" />
+
+
 </RelativeLayout>

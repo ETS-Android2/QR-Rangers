@@ -86,6 +86,9 @@ public class HomeActivity extends AppCompatActivity{
             else if (item.getItemId()==R.id.hamburger_gallery_button){
                 // your code
                 Toast.makeText(this, "Gallery Clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(HomeActivity.this, QRListActivity.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
                 drawerLayout.close();
                 return true;
             }
