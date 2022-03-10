@@ -1,5 +1,6 @@
 package com.example.qr_rangers;
 
+import android.graphics.Bitmap;
 import android.location.Geocoder;
 import android.media.Image;
 import android.os.Build;
@@ -8,6 +9,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import java.io.Serializable;
+
+import com.google.api.SystemParametersOrBuilder;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -116,7 +120,7 @@ public class QRCode extends DbDocument implements Serializable {
         if(!(code instanceof QRCode)){
             throw new IllegalArgumentException();
         }
-        return this.codeInfo == ((QRCode) code).codeInfo; // Possibly change to .equals() depending on what codeInfo ends up being
+        return this.codeInfo.equals(((QRCode) code).codeInfo);
     }
 
     @Override
@@ -142,4 +146,9 @@ public class QRCode extends DbDocument implements Serializable {
         map.put("comment", this.comment);
         return map;
     }
+    @Override
+    public String toString(){
+        return this.codeInfo;
+    }
+
 }
