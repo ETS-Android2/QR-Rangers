@@ -1,6 +1,9 @@
 package com.example.qr_rangers;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,8 +49,15 @@ public class QRInfoActivity extends AppCompatActivity {
         commentText = findViewById(R.id.qr_info_comment);
 
         image = findViewById(R.id.qr_info_image);
-        //TODO: image needs to be decoded
-        image.setImageResource(R.drawable.ic_launcher_background);
+        if (qr.getPhoto() != null) {
+            byte[] imageBits = Base64.decode(qr.getPhoto(), Base64.DEFAULT);
+            Bitmap bitImage = BitmapFactory.decodeByteArray(imageBits, 0, imageBits.length);
+            image.setImageBitmap(bitImage);
+        } else {
+            image.setImageResource(R.drawable.ic_launcher_background);
+        }
+
+
     }
 
     @Override

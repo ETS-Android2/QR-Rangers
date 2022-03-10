@@ -51,14 +51,6 @@ public class QRListActivity extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(true);
 
         ArrayList<QRCode> qrList = user.getQRList();
-        // for testing purposes
-        qrList.add(new QRCode("test", null, null));
-        qrList.add(new QRCode("test", null, null));
-        qrList.add(new QRCode("test1", null, null));
-        qrList.add(new QRCode("test", null, null));
-        qrList.add(new QRCode("test1", null, null));
-        qrList.add(new QRCode("test", null, null));
-        qrList.add(new QRCode("test1", null, null));
 
         qrGrid = findViewById(R.id.qr_list_grid);
         qrListAdapter = new QRListAdapter(this, qrList);

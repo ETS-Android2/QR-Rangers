@@ -1,7 +1,9 @@
 package com.example.qr_rangers;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-import java.util.Base64;
 
 /**
  * Acn adapter for the a customer array for the User QR Code gallery.
@@ -47,9 +48,13 @@ public class QRListAdapter extends ArrayAdapter<QRCode> {
         String scoreText = Integer.toString(qr.getScore()) + " pts.";
         qrScore.setText(scoreText);
 
-        //TODO: image needs to be decoded
-        qrImage.setImageResource(R.drawable.ic_launcher_background);
-        //qrImage.setImageResource(BitmapFactory.qr.getPhoto());
+        if (qr.getPhoto() != null) {
+            byte[] imageBits = android.util.Base64.decode(qr.getPhoto(), Base64.DEFAULT);
+            Bitmap bitImage = BitmapFactory.decodeByteArray(imageBits, 0, imageBits.length);
+            qrImage.setImageBitmap(bitImage);
+        } else {
+            qrImage.setImageResource(R.drawable.ic_launcher_background);
+        }
 
         return view;
     }
