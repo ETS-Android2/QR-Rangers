@@ -1,6 +1,7 @@
 package com.example.qr_rangers;
+import java.io.Serializable;
 
-public class Location {
+public class Location implements Serializable {
     private double longitude;
     private double latitude;
 

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        android:text="You found a code!"
+        android:textSize="40sp">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textViewScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="125dp"
+        android:text="46 Pts."
+        android:textSize="40sp" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewScore"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/newtotalscore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1280 pts."
+            android:textSize="40sp">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="New total Score"
+            android:textSize="20sp"></TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewScore"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/codeusercount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2 others"
+            android:textSize="40sp">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="Scanned this code"
+            android:textSize="20sp">
+
+        </TextView>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/commentbox"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="330dp"
+        android:layout_marginTop="330dp"
+        android:layout_marginEnd="330dp"
+        android:hint="enter comment here..."
+        android:inputType="text"
+        />
+
+
+
+    <LinearLayout
+
+        android:id="@+id/optionaldatalayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/commentbox"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/cameraButton"
+            android:layout_width="113dp"
+            android:layout_height="102dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="20dp"
+            app:srcCompat="@android:drawable/ic_menu_camera" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/locationswitch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="40dp"
+            android:layout_weight="1"
+            android:text="Attach location" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/savebutton"
+        android:layout_width="123dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/optionaldatalayout"
+        android:layout_centerHorizontal="true"
+        android:text="Add data" />
+
+</RelativeLayout>
