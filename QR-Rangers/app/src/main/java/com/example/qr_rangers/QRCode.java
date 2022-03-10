@@ -118,7 +118,7 @@ public class QRCode extends DbDocument{
         if(!(code instanceof QRCode)){
             throw new IllegalArgumentException();
         }
-        return this.codeInfo.equals(((QRCode) code).codeInfo); // Possibly change to .equals() depending on what codeInfo ends up being
+        return this.codeInfo.equals(((QRCode) code).codeInfo);
     }
 
     @Override
