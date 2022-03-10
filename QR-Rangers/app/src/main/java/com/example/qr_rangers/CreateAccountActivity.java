@@ -15,13 +15,16 @@ import android.widget.Toast;
 /**
  * This is an activity that provides the means for the user to create a new account.
  * @author Ryan Haskins
- * @version 1.1
+ * @version 1.2
  */
 public class CreateAccountActivity extends AppCompatActivity {
 
     private Button create;
     private EditText username;
-    private TextView warning;
+    private EditText email;
+    private EditText phoneNumber;
+    private TextView nameWarning;
+    private TextView emailWarning;
     User newUser;
 
     @Override
@@ -31,24 +34,33 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         create = findViewById(R.id.buttonCreate);
         username = findViewById(R.id.editUsername);
-        warning = findViewById(R.id.nameWarning);
+        email = findViewById(R.id.editEmail);
+        phoneNumber = findViewById(R.id.editPhoneNumber);
+        nameWarning = findViewById(R.id.nameWarning);
+        emailWarning = findViewById(R.id.emailWarning);
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                warning.setVisibility(View.GONE);
+                nameWarning.setVisibility(View.GONE);
+                emailWarning.setVisibility(View.GONE);
                 if (username.getText().toString().trim().isEmpty()) {
-                    warning.setText("Please enter a username");
-                    warning.setVisibility(View.VISIBLE);
+                    nameWarning.setText("Please enter a username");
+                    nameWarning.setVisibility(View.VISIBLE);
+                }
+                else if (!email.getText().toString().trim().isEmpty() && !email.getText().toString().contains("@")) {
+                    emailWarning.setVisibility(View.VISIBLE);
                 }
                 else {
-                    newUser = new User(username.getText().toString());
+                    newUser = new User(username.getText().toString(), email.getText().toString(),
+                            phoneNumber.getText().toString());
                     User dbUser = Database.Users.add(newUser);
                     saveID(dbUser.getId());
                     Intent intent = new Intent(CreateAccountActivity.this, HomeActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
-                    Toast.makeText(CreateAccountActivity.this, "Hello " + dbUser.getUsername(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateAccountActivity.this, "Hello " + dbUser.getUsername(),
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         });

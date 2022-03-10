@@ -7,16 +7,23 @@ import java.util.Map;
 
 public class User extends DbDocument implements Serializable {
     private String username;
+    private String email;
+    private String phoneNumber;
     private ArrayList<QRCode> QRList;
 
     /**
      * Constructs a user object
      *
      * @param username The unique username of the user
+     * @param email The email of the user
+     * @param phoneNumber The phone number of the user
+     *
      */
-    User(String username) {
-        // assert username is uniques
+    User(String username, String email, String phoneNumber) {
+        // assert username is unique
         this.username = username;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
         QRList = new ArrayList<QRCode>();
     }
 
@@ -43,6 +50,30 @@ public class User extends DbDocument implements Serializable {
      */
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public ArrayList<QRCode> getQRList() {
+        return QRList;
+    }
+
+    public void setQRList(ArrayList<QRCode> QRList) {
+        this.QRList = QRList;
     }
 
     /**
@@ -150,21 +181,29 @@ public class User extends DbDocument implements Serializable {
 
     @Override
     public DbDocument fromMap(Map<String, Object> map) {
-        User user = new User((String) map.get("username"));
+        User user = new User((String) map.get("username"), (String) map.get("email"), (String) map.get("phoneNumber"));
         user.setId((String) map.get("id"));
-        // TODO: Add QRCodes from map.get("QRList")
+        QRCode helper = new QRCode();
+        ArrayList<HashMap> qrList = (ArrayList<HashMap>) map.get("QRList");
+        for (int i = 0; i < qrList.size(); i++) user.AddQR((QRCode) helper.fromMap(qrList.get(i)));
         return user;
     }
 
     @Override
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
-        map.put("QRList", this.QRList);
+        ArrayList<HashMap> qrList = new ArrayList<>();
+        for (int i = 0; i < this.QRList.size(); i++) {
+            qrList.add((HashMap) this.QRList.get(i).toMap());
+        }
+        map.put("QRList", qrList);
         map.put("qrnum", this.getQRNum());
         map.put("scoreMax", this.getScoreMax());
         map.put("scoreMin", this.getScoreMin());
         map.put("scoreSum", this.getScoreSum());
         map.put("username", this.getUsername());
+        map.put("email", this.getEmail());
+        map.put("phoneNumber", this.getPhoneNumber());
         return map;
     }
 
