@@ -27,11 +27,6 @@ public class User extends DbDocument implements Serializable {
         QRList = new ArrayList<QRCode>();
     }
 
-    User(){
-        this.username = "None";
-        QRList = new ArrayList<QRCode>();
-    }
-
     /**
      * Gets the username of the user object
      *
