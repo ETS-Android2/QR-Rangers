@@ -28,6 +28,16 @@ public class User extends DbDocument implements Serializable {
     }
 
     /**
+     * Constructs a user object. Uses no arguments for serialization
+     */
+    User(){
+        this.username = "";
+        this.email = "";
+        this.phoneNumber = "";
+        QRList = new ArrayList<QRCode>();
+    }
+
+    /**
      * Gets the username of the user object
      *
      * @return
