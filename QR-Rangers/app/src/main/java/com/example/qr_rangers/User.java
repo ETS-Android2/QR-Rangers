@@ -28,6 +28,16 @@ public class User extends DbDocument implements Serializable {
     }
 
     /**
+     * Constructs a user object. Uses no arguments for serialization
+     */
+    User(){
+        this.username = "";
+        this.email = "";
+        this.phoneNumber = "";
+        QRList = new ArrayList<QRCode>();
+    }
+
+    /**
      * Gets the username of the user object
      *
      * @return
@@ -200,6 +210,26 @@ public class User extends DbDocument implements Serializable {
         map.put("email", this.getEmail());
         map.put("phoneNumber", this.getPhoneNumber());
         return map;
+    }
+
+    /**
+     * An equals override function to set equivalence to being the same QR Code
+     *
+     * @param user
+     *      Another QRCode object to compare to
+     *
+     * @return
+     *      Returns true if the QRCode objects both contain the same QRCode, false otherwise
+     *
+     * @throws IllegalArgumentException
+     *      If we are not comparing to a QRCode, this is a problem
+     */
+    @Override
+    public boolean equals(Object user) {
+        if(!(user instanceof User)){
+            throw new IllegalArgumentException();
+        }
+        return username.equals(((User)user).getUsername());
     }
 }
 
