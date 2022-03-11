@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -50,17 +52,23 @@ public class QRListActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
-        ArrayList<QRCode> qrList = user.getQRList();
-
         qrGrid = findViewById(R.id.qr_list_grid);
-        qrListAdapter = new QRListAdapter(this, qrList);
+        qrListAdapter = new QRListAdapter(this, user.getQRList());
         qrGrid.setAdapter(qrListAdapter);
 
         ActivityResultLauncher<Intent> infoLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
-                    public void onActivityResult(ActivityResult result) {}
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getData() != null) {
+                            user = (User) result.getData().getSerializableExtra("user");
+                            qrListAdapter = new QRListAdapter(QRListActivity.this, user.getQRList());
+                            qrGrid.setAdapter(qrListAdapter);
+                            qrListAdapter.notifyDataSetChanged();
+                        }
+
+                    }
                 });
 
         qrGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -79,6 +87,9 @@ public class QRListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                Intent resultUser = new Intent();
+                resultUser.putExtra("user", user);
+                this.setResult(Activity.RESULT_OK, resultUser);
                 this.finish();
                 return true;
         }

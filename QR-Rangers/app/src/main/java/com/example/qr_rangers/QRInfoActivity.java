@@ -1,10 +1,14 @@
 package com.example.qr_rangers;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,6 +30,8 @@ public class QRInfoActivity extends AppCompatActivity {
     TextView scoreText;
     TextView commentText;
     ImageView image;
+
+    Button deleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +63,18 @@ public class QRInfoActivity extends AppCompatActivity {
             image.setImageResource(R.drawable.ic_launcher_background);
         }
 
+        deleteButton = findViewById(R.id.qr_info_delete);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                user.DeleteQR(qr);
+                Database.Users.update(user);
+                Intent resultUser = new Intent();
+                resultUser.putExtra("user", user);
+                QRInfoActivity.this.setResult(Activity.RESULT_OK, resultUser);
+                QRInfoActivity.this.finish();
+            }
+        });
 
     }
 
