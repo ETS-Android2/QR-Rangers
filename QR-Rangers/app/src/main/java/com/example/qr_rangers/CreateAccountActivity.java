@@ -59,8 +59,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                     Intent intent = new Intent(CreateAccountActivity.this, HomeActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
-                    Toast.makeText(CreateAccountActivity.this, "Hello " + dbUser.getUsername(),
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateAccountActivity.this, "Hello " + dbUser.getUsername() + "!",
+                            Toast.LENGTH_LONG).show();
                 }
             }
         });
