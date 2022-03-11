@@ -40,7 +40,7 @@ public class DbCollection<T extends DbDocument> {
         Task<DocumentSnapshot> documentSnapshotTask = collection.document(id).get();
         while (!documentSnapshotTask.isComplete());
         DocumentSnapshot doc = documentSnapshotTask.getResult();
-        if (doc != null) {
+        if (doc.getData() != null) {
             Map<String, Object> map = doc.getData();
             map.put("id", doc.getId());
             // TODO: Find a way to make this not need you to pass in an instance
