@@ -69,6 +69,7 @@ dependencies {
 
     implementation platform('com.google.firebase:firebase-bom:29.1.0')
     implementation 'com.google.firebase:firebase-firestore:23.0.2'
+    implementation 'com.google.android.gms:play-services-tasks:17.2.1'
 
     implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.3'
 

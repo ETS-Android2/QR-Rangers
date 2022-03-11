@@ -14,6 +14,11 @@
         android:title="@string/hamburger_profile" />
 
     <item
+        android:id="@+id/hamburger_search_button"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Search" />
+
+    <item
         android:id="@+id/hamburger_gallery_button"
         android:icon="@android:drawable/ic_menu_gallery"
         android:title="@string/hamburger_gallery" />
