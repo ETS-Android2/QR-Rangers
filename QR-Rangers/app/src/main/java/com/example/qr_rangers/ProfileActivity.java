@@ -119,6 +119,14 @@ public class ProfileActivity extends AppCompatActivity{
                 drawerLayout.close();
                 return true;
             }
+            else if (item.getItemId()==R.id.hamburger_search_button){
+                // your code
+                Toast.makeText(this, "Search Clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ProfileActivity.this, SearchActivity.class);
+                startActivity(intent);
+                drawerLayout.close();
+                return true;
+            }
             else if (item.getItemId()==R.id.hamburger_gallery_button){
                 // your code
                 Toast.makeText(this, "Gallery Clicked", Toast.LENGTH_SHORT).show();

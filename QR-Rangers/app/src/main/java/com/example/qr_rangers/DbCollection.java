@@ -143,7 +143,7 @@ public class DbCollection<T extends DbDocument> {
      *      Returns an ArrayList containing the User object corresponding with the username
      */
     public ArrayList<User> FindUser(String username){
-        final ArrayList<User> result = new ArrayList<>();
+        ArrayList<User> result = new ArrayList<>();
         Task<QuerySnapshot> task = collection.whereEqualTo("username", username).get();
 //                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 //                    @Override
@@ -212,6 +212,20 @@ public class DbCollection<T extends DbDocument> {
             return true;
         }
         return false;
+    }
+
+    public ArrayList<User> searchSuggestions(String username){
+        ArrayList<User> users = new ArrayList<>();
+        Task<QuerySnapshot> task = collection.whereGreaterThanOrEqualTo("username", username).get();
+        while(!task.isComplete());
+        QuerySnapshot snap = task.getResult();
+        for(DocumentSnapshot doc: snap.getDocuments()){
+            if(!users.contains(doc.toObject(User.class))){
+                users.add(doc.toObject(User.class));
+            }
+        }
+        Log.i("TAG", Integer.toString(snap.size()));
+        return users;
     }
 }
 

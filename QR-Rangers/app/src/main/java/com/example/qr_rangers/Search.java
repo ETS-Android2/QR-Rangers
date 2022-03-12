@@ -1,5 +1,6 @@
 package com.example.qr_rangers;
 
+import android.util.Log;
 import android.widget.ListAdapter;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,5 +50,9 @@ public class Search {
      */
     public boolean CheckUser(String username){
         return db.CheckUser(username);
+    }
+
+    public ArrayList<User> searchSuggestions(String username){
+        return db.searchSuggestions(username);
     }
 }
