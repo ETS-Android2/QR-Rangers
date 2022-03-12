@@ -95,4 +95,12 @@ public class QRListActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent resultUser = new Intent();
+        resultUser.putExtra("user", user);
+        this.setResult(Activity.RESULT_OK, resultUser);
+        this.finish();
+    }
 }
