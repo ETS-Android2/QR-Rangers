@@ -14,6 +14,12 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+/**
+ * This activity introduces new users to the app and gives them the choice to
+ * make a new account or continue on an existing one by scanning its generated QR code.
+ * @author Ryan Haskins
+ * @version 1.3
+ */
 public class IntroActivity extends AppCompatActivity {
 
     @Override
@@ -53,8 +59,6 @@ public class IntroActivity extends AppCompatActivity {
             if (intentResult.getContents() == null) {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
             } else {
-                // if the intentResult is not null we'll set
-                // the content and format of scan message
                 String id = intentResult.getContents();
                 try {
                     if (Database.Users.getById(id, new User("", "", "")) != null) {

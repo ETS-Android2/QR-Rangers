@@ -8,6 +8,12 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
+/**
+ * This is the starting activity that intents to a certain activity depending on
+ * if the user has an existing account.
+ * @author Ryan Haskins
+ * @version 1.1
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
