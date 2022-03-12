@@ -23,6 +23,12 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.io.ByteArrayOutputStream;
 
+/**
+ * Activity that is shown after a valid scan
+ * Enables the user to add location info and a photo to the QR Code before adding it
+ */
+//NOTE: currently displays a dummy value for number of other people who scanned this code
+//TODO: make the number of other users who scanned this code accurate
 public class ScanResultActivity extends AppCompatActivity {
 
     private TextView totalScore;
@@ -121,11 +127,13 @@ public class ScanResultActivity extends AppCompatActivity {
         User localUser = Database.Users.getById(id, new User("","",""));
         return localUser;
     }
-
+/*
+    Should use this when we develop functionality to display the QR code
     public static Bitmap decodeFromFirebaseBase64(String image) {
         byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
+ */
 
     /*Attempts to add qr code to db if user didn't click add data */
     @Override

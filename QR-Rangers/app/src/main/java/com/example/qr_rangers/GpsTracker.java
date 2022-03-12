@@ -135,6 +135,7 @@ class GpsTracker extends Service implements LocationListener {
 
     /**
      * Function to get latitude
+     * @return double latitude value of the coordinate
      * */
 
     public double getLatitude(){
@@ -148,6 +149,7 @@ class GpsTracker extends Service implements LocationListener {
 
     /**
      * Function to get longitude
+     * @return double longitude value of the coordinate
      * */
 
     public double getLongitude(){
@@ -170,7 +172,7 @@ class GpsTracker extends Service implements LocationListener {
 
     /**
      * Function to show settings alert dialog
-     * On pressing Settings button will lauch Settings Options
+     * On pressing Settings button will launch Settings Options
      * */
 
     public void showSettingsAlert(){
