@@ -16,7 +16,7 @@
     <item
         android:id="@+id/hamburger_search_button"
         android:icon="@android:drawable/ic_menu_search"
-        android:title="Search" />
+        android:title="@string/hamburger_search" />
 
     <item
         android:id="@+id/hamburger_gallery_button"
@@ -32,5 +32,10 @@
         android:id="@+id/hamburger_setting_button"
         android:icon="@android:drawable/ic_menu_preferences"
         android:title="@string/hamburger_settings" />
+
+    <item
+        android:id="@+id/hamburger_admin_button"
+        android:icon="@android:drawable/ic_menu_compass"
+        android:title="@string/hamburger_admin" />
 
 </menu>

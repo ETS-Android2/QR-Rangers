@@ -137,8 +137,18 @@ public class ProfileActivity extends AppCompatActivity{
                 drawerLayout.close();
                 return true;
             }
+            else if (item.getItemId()==R.id.hamburger_admin_button){
+                // your code
+                Intent intent = new Intent(ProfileActivity.this, AdminActivity.class);
+                startActivity(intent);
+                drawerLayout.close();
+                return true;
+            }
             return false;
         });
+
+        //hide admin button if user is not an admin
+        navView.getMenu().findItem(R.id.hamburger_admin_button).setVisible(user.isAdmin());
 
     }
 

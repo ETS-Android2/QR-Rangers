@@ -231,5 +231,15 @@ public class User extends DbDocument implements Serializable {
         }
         return username.equals(((User)user).getUsername());
     }
+
+    /**
+     * Returns whether this user is a database administrator
+     *
+     * @return
+     *      Returns true if the user is an admin, false otherwise
+     */
+    public boolean isAdmin() {
+        return getId().equals("7uqGSPkEjCWt4ZNxRaXq");
+    }
 }
 
