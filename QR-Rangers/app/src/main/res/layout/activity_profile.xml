@@ -174,25 +174,5 @@
 
     </LinearLayout>
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/profile_drawer_menu"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".profileActivity"
-        tools:ignore="HardcodedText">
-
-        <!--this the navigation view which draws
-            and shows the navigation drawer-->
-        <!--include the menu created in the menu folder-->
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/profile_nav_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:headerLayout="@layout/home_drawer_header"
-            app:menu="@menu/home_drawer_menu" />
-
-    </androidx.drawerlayout.widget.DrawerLayout>
-
 
 </RelativeLayout>
