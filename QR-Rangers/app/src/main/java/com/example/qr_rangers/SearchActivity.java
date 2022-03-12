@@ -15,11 +15,14 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 
@@ -49,6 +52,17 @@ public class SearchActivity extends AppCompatActivity {
         search_adapter = new CustomList(this, searched);
 
         search_list.setAdapter(search_adapter);
+
+        search_qr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentIntegrator intentIntegrator = new IntentIntegrator(SearchActivity.this);
+                intentIntegrator.setPrompt("Scan a valid user QR Code");
+                intentIntegrator.setOrientationLocked(true);
+                intentIntegrator.setBeepEnabled(false);
+                intentIntegrator.initiateScan();
+            }
+        });
 
         search_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -80,16 +94,19 @@ public class SearchActivity extends AppCompatActivity {
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 search_text.setAlpha((float) 1 - (slideOffset * fadeSpeed));
                 search_list.setAlpha((float) 1 - (slideOffset * fadeSpeed));
+                search_qr.setAlpha((float) 1 - (slideOffset * fadeSpeed));
             }
 
             public void onDrawerOpened(View drawerView){
                 search_text.setClickable(false);
                 search_list.setClickable(false);
+                search_qr.setClickable(false);
             }
 
             public void onDrawerClosed(View drawerView){
                 search_text.setClickable(true);
                 search_list.setClickable(true);
+                search_qr.setClickable(true);
             }
         };
         // pass the toggle button to the menu
@@ -143,6 +160,37 @@ public class SearchActivity extends AppCompatActivity {
             }
             return false;
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        // if the intentResult is null then
+        // toast a message as "cancelled"
+        if (intentResult != null) {
+            if (intentResult.getContents() == null) {
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
+            } else {
+                // if the intentResult is not null we'll set
+                // the content and format of scan message
+                String id = intentResult.getContents();
+                try {
+                    if (Database.Users.getById(id, new User("", "", "")) != null) {
+                        Intent profileIntent = new Intent(SearchActivity.this, ProfileActivity.class);
+                        profileIntent.putExtra("user", Database.Users.getById(id, new User("", "", "")));
+                        startActivity(profileIntent);
+                    }
+                    else {
+                        Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (IllegalArgumentException e) {
+                    Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show();
+                }
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
