@@ -195,18 +195,18 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     public boolean onSearchRequested() {
-//        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-//            query = intent.getStringExtra(SearchManager.QUERY);
-//            searched = search.FindUser(query);
-//        }
         String query = search_text.getQuery().toString();
         //searched = search.FindUser(query);
-        searched = search.searchSuggestions(query);
+        if(!query.trim().isEmpty()) {
+            searched = search.searchSuggestions(query);
+        }
+        else{
+            searched = new ArrayList<User>();
+        }
 
         search_adapter = new CustomList(this, searched);
 
         Log.i("TAG", query);
-
         search_list.setAdapter(search_adapter);
         return super.onSearchRequested();
     }

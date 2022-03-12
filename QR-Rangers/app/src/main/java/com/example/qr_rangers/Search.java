@@ -26,17 +26,6 @@ public class Search {
      *      Returns an ArrayList containing the User object corresponding with the username
      */
     public ArrayList<User> FindUser(String username){
-        //final User[] result = {null};
-//        db.collectionGroup("users").whereEqualTo("username", username).get()
-//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                    private User user;
-//
-//                    @Override
-//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots){
-//                        result[0] = queryDocumentSnapshots.toObjects(user.getClass()).get(0);
-//                    }
-//        });
-//        return result[0];
         return db.FindUser(username);
     }
 
@@ -52,6 +41,15 @@ public class Search {
         return db.CheckUser(username);
     }
 
+    /**
+     * A function to check for usernames that begin with what was queried
+     *
+     * @param username
+     *      The username fragment that is being searched
+     *
+     * @return
+     *      Returns an array list containing all users that begin with the username fragment
+     */
     public ArrayList<User> searchSuggestions(String username){
         return db.searchSuggestions(username);
     }
