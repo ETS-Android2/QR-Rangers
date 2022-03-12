@@ -10,6 +10,11 @@ public class Location implements Serializable {
         this.latitude = latitude;
     }
 
+    public Location() {
+        this.longitude = 0;
+        this.latitude = 0;
+    }
+
     public double getLongitude() {
         return longitude;
     }
