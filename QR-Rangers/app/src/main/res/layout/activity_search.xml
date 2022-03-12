@@ -36,13 +36,23 @@
 
     </androidx.drawerlayout.widget.DrawerLayout>
 
+    <Button
+        android:id="@+id/search_qr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Search with QR">
+    </Button>
+
     <SearchView
         android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="50dp">
     </SearchView>
 
     <ListView
@@ -51,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="80dp">
+        android:layout_marginTop="110dp">
     </ListView>
 
 </RelativeLayout>

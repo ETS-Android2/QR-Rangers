@@ -29,6 +29,7 @@ public class SearchActivity extends AppCompatActivity {
     SearchView search_text;
     ArrayList<User> searched = new ArrayList<>();
     ArrayAdapter<User> search_adapter;
+    Button search_qr;
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -39,6 +40,8 @@ public class SearchActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        search_qr = findViewById(R.id.search_qr);
 
         search_text = findViewById(R.id.search);
         search_list = findViewById(R.id.search_list);
@@ -144,13 +147,11 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     public boolean onSearchRequested() {
-        Intent intent = getIntent();
-        String query = "3";
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            query = intent.getStringExtra(SearchManager.QUERY);
-            searched = search.FindUser(query);
-        }
-        query = search_text.getQuery().toString();
+//        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+//            query = intent.getStringExtra(SearchManager.QUERY);
+//            searched = search.FindUser(query);
+//        }
+        String query = search_text.getQuery().toString();
         //searched = search.FindUser(query);
         searched = search.searchSuggestions(query);
 

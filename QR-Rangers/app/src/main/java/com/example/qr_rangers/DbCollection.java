@@ -216,7 +216,7 @@ public class DbCollection<T extends DbDocument> {
 
     public ArrayList<User> searchSuggestions(String username){
         ArrayList<User> users = new ArrayList<>();
-        Task<QuerySnapshot> task = collection.whereGreaterThanOrEqualTo("username", username).get();
+        Task<QuerySnapshot> task = collection.whereGreaterThanOrEqualTo("username", username).whereLessThanOrEqualTo("username", username+"\uf8ff").get();
         while(!task.isComplete());
         QuerySnapshot snap = task.getResult();
         for(DocumentSnapshot doc: snap.getDocuments()){
