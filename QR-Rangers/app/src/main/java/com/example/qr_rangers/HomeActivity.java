@@ -29,7 +29,6 @@ import com.google.zxing.integration.android.IntentResult;
 public class HomeActivity extends AppCompatActivity{
 
     private FloatingActionButton scan;
-    private TextView welcome;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private User user;
@@ -39,10 +38,6 @@ public class HomeActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        user = loadUser();
-        welcome = findViewById(R.id.welcome);
-        welcome.setText("Welcome, " + user.getUsername() + "!");
 
         scan = findViewById(R.id.buttonScan);
         scan.setOnClickListener(new View.OnClickListener() {
@@ -173,5 +168,20 @@ public class HomeActivity extends AppCompatActivity{
     protected void onResume() {
         super.onResume();
         user = loadUser();
+
+        TextView welcome = findViewById(R.id.welcome);
+        welcome.setText("Welcome, " + user.getUsername() + "!");
+
+        TextView totalScanned = findViewById(R.id.codes);
+        totalScanned.setText(user.getQRNum() + " Codes Scanned");
+
+        TextView totalScore = findViewById(R.id.highscore);
+        totalScore.setText(user.getScoreSum() + " pts.");
+
+        TextView minQR = findViewById(R.id.lowest);
+        minQR.setText(user.getScoreMin() + " pts.");
+
+        TextView maxQR = findViewById(R.id.highest);
+        maxQR.setText(user.getScoreMax() + " pts.");
     }
 }
