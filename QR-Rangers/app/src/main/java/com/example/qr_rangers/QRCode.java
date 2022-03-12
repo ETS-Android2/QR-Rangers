@@ -8,13 +8,15 @@ import android.os.Build;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import java.io.Serializable;
+
 import com.google.api.SystemParametersOrBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class QRCode extends DbDocument{
+public class QRCode extends DbDocument implements Serializable {
     // REMINDER TO CHANGE .equals() DEPENDING ON codeInfo TYPE
     private String /*temp QRCode*/ codeInfo;
     private String photo;

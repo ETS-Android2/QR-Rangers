@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -43,6 +44,11 @@ public class SearchActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
 
         search_qr = findViewById(R.id.search_qr);
 
@@ -85,80 +91,6 @@ public class SearchActivity extends AppCompatActivity {
                 onSearchRequested();
                 return false;
             }
-        });
-
-        // action bar toggle button setup
-        drawerLayout = findViewById(R.id.search_drawer_menu);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.hamburger_open, R.string.hamburger_close) {
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                search_text.setAlpha((float) 1 - (slideOffset * fadeSpeed));
-                search_list.setAlpha((float) 1 - (slideOffset * fadeSpeed));
-                search_qr.setAlpha((float) 1 - (slideOffset * fadeSpeed));
-            }
-
-            public void onDrawerOpened(View drawerView){
-                search_text.setClickable(false);
-                search_list.setClickable(false);
-                search_qr.setClickable(false);
-            }
-
-            public void onDrawerClosed(View drawerView){
-                search_text.setClickable(true);
-                search_list.setClickable(true);
-                search_qr.setClickable(true);
-            }
-        };
-        // pass the toggle button to the menu
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-        // make hamburger icon appear
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-        NavigationView navView = findViewById(R.id.search_nav_view);
-        navView.setNavigationItemSelectedListener(item -> {
-            if (item.getItemId()==R.id.hamburger_home_button){
-                // your code
-                Toast.makeText(this, "Home Clicked", Toast.LENGTH_SHORT).show();
-                Intent barIntent = new Intent(this, HomeActivity.class);
-                startActivity(barIntent);
-                drawerLayout.close();
-                return true;
-            }
-            else if (item.getItemId()==R.id.hamburger_profile_button){
-                // your code
-                Toast.makeText(this, "Profile Clicked", Toast.LENGTH_SHORT).show();
-                drawerLayout.close();
-                return true;
-            }
-            else if (item.getItemId()==R.id.hamburger_search_button){
-                // your code
-                Toast.makeText(this, "Search Clicked", Toast.LENGTH_SHORT).show();
-                Intent barIntent = new Intent(SearchActivity.this, SearchActivity.class);
-                startActivity(barIntent);
-                drawerLayout.close();
-                return true;
-            }
-            else if (item.getItemId()==R.id.hamburger_gallery_button){
-                // your code
-                Toast.makeText(this, "Gallery Clicked", Toast.LENGTH_SHORT).show();
-                drawerLayout.close();
-                return true;
-            }
-            else if (item.getItemId()==R.id.hamburger_map_button){
-                // your code
-                Toast.makeText(this, "Map Clicked", Toast.LENGTH_SHORT).show();
-                drawerLayout.close();
-                return true;
-            }
-            else if (item.getItemId()==R.id.hamburger_setting_button){
-                // your code
-                Toast.makeText(this, "Settings Clicked", Toast.LENGTH_SHORT).show();
-                drawerLayout.close();
-                return true;
-            }
-            return false;
         });
     }
 
@@ -211,15 +143,12 @@ public class SearchActivity extends AppCompatActivity {
         return super.onSearchRequested();
     }
 
-    // override the onOptionsItemSelected()
-    // function to implement
-    // the item click listener callback
-    // to open and close the navigation
-    // drawer when the icon is clicked
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

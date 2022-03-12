@@ -16,25 +16,25 @@
 <!--    </SearchView>-->
 
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/search_drawer_menu"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".profileActivity"
-        tools:ignore="HardcodedText">
+<!--    <androidx.drawerlayout.widget.DrawerLayout-->
+<!--        android:id="@+id/search_drawer_menu"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        tools:context=".profileActivity"-->
+<!--        tools:ignore="HardcodedText">-->
 
-        <!--this the navigation view which draws
-            and shows the navigation drawer-->
-        <!--include the menu created in the menu folder-->
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/search_nav_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:headerLayout="@layout/home_drawer_header"
-            app:menu="@menu/home_drawer_menu" />
+<!--        &lt;!&ndash;this the navigation view which draws-->
+<!--            and shows the navigation drawer&ndash;&gt;-->
+<!--        &lt;!&ndash;include the menu created in the menu folder&ndash;&gt;-->
+<!--        <com.google.android.material.navigation.NavigationView-->
+<!--            android:id="@+id/search_nav_view"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_gravity="start"-->
+<!--            app:headerLayout="@layout/home_drawer_header"-->
+<!--            app:menu="@menu/home_drawer_menu" />-->
 
-    </androidx.drawerlayout.widget.DrawerLayout>
+<!--    </androidx.drawerlayout.widget.DrawerLayout>-->
 
     <Button
         android:id="@+id/search_qr"

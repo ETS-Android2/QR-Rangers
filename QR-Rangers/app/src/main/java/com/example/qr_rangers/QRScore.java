@@ -6,6 +6,8 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * Calculates the score of a given QR code
+ * @author Ronan Sandoval
+ * @version 1.0
  */
 public class QRScore {
 
