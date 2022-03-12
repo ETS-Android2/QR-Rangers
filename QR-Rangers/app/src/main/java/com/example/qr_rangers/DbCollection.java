@@ -143,31 +143,8 @@ public class DbCollection<T extends DbDocument> {
      *      Returns an ArrayList containing the User object corresponding with the username
      */
     public ArrayList<User> FindUser(String username){
-        final ArrayList<User> result = new ArrayList<>();
+        ArrayList<User> result = new ArrayList<>();
         Task<QuerySnapshot> task = collection.whereEqualTo("username", username).get();
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        result.add(new User("Low"));
-//                        Log.i("TAG", "lama");
-//                    }
-//                })
-//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                    private User user = new User("Lone");
-//
-//                    @Override
-//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots){
-//                        result.add(user);
-//                        if(!queryDocumentSnapshots.isEmpty()){
-//                            user = queryDocumentSnapshots.toObjects(user.getClass()).get(0);
-//                            Log.i("TAG","unept");
-//                        }
-//                        if(user != null){
-//                            result.add(user);
-//                        }
-//                        Log.i("TAG", "user");
-//                    }
-//                });
         while(!task.isComplete());
         QuerySnapshot snap = task.getResult();
         for(DocumentSnapshot doc: snap.getDocuments()){
@@ -187,31 +164,36 @@ public class DbCollection<T extends DbDocument> {
      *      A boolean, true if that username is being used, false otherwise
      */
     public boolean CheckUser(String username){
-        //final boolean[] result = {false};
         Query query = collection.whereEqualTo("username", username);
         Task<QuerySnapshot> task = query.get();
-//        addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if(task.isSuccessful()){
-//                    result[0] = true;
-//                }
-//                result[0] = true;
-//                Log.i("TAG", "true aa");
-//            }
-//        })
-//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots){
-//                        result[0] = true;
-//                        Log.i("TAG", "true");
-//                    }
-//                });
         while(!task.isComplete());
         if(!task.getResult().isEmpty()){
             return true;
         }
         return false;
+    }
+
+    /**
+     * A function to check for usernames that begin with what was queried
+     *
+     * @param username
+     *      The username fragment that is being searched
+     *
+     * @return
+     *      Returns an array list containing all users that begin with the username fragment
+     */
+    public ArrayList<User> searchSuggestions(String username){
+        ArrayList<User> users = new ArrayList<>();
+        Task<QuerySnapshot> task = collection.whereGreaterThanOrEqualTo("username", username).whereLessThanOrEqualTo("username", username+"\uf8ff").get();
+        while(!task.isComplete());
+        QuerySnapshot snap = task.getResult();
+        for(DocumentSnapshot doc: snap.getDocuments()){
+            if(!users.contains(doc.toObject(User.class)) && !doc.toObject(User.class).getUsername().equals("admin")){
+                users.add(doc.toObject(User.class));
+            }
+        }
+        Log.i("TAG", Integer.toString(snap.size()));
+        return users;
     }
 }
 
