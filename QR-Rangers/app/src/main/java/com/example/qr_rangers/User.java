@@ -19,7 +19,7 @@ public class User extends DbDocument implements Serializable {
      * @param phoneNumber The phone number of the user
      *
      */
-    User(String username, String email, String phoneNumber) {
+    public User(String username, String email, String phoneNumber) {
         // assert username is unique
         this.username = username;
         this.email = email;
@@ -30,7 +30,7 @@ public class User extends DbDocument implements Serializable {
     /**
      * Constructs a user object. Uses no arguments for serialization
      */
-    User(){
+    public User(){
         this.username = "";
         this.email = "";
         this.phoneNumber = "";
