@@ -20,7 +20,6 @@ public class User extends DbDocument implements Serializable {
      *
      */
     public User(String username, String email, String phoneNumber) {
-        // assert username is unique
         this.username = username;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -57,26 +56,62 @@ public class User extends DbDocument implements Serializable {
         this.username = username;
     }
 
+    /**
+     * Gets the email of the user object
+     *
+     * @return
+     *      A String that represents the email of the user object
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Sets the email of the user object
+     *
+     * @param email
+     *      The new email to replace the original one
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Gets the phone number of the user object
+     *
+     * @return
+     *      A String that represents the phone number of the user object
+     */
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
+    /**
+     * Sets the phone number of the user object
+     *
+     * @param phoneNumber
+     *      The new phone number to replace the original one
+     */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    /**
+     * Gets the QR code list of the user object
+     *
+     * @return
+     *      An arraylist that represents the list of QR codes from the user object
+     */
     public ArrayList<QRCode> getQRList() {
         return QRList;
     }
 
+    /**
+     * Sets the QR code list of the user object
+     *
+     * @param QRList
+     *      The new QR code list to replace the original one
+     */
     public void setQRList(ArrayList<QRCode> QRList) {
         this.QRList = QRList;
     }
