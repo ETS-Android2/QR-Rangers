@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".AdminActivity">
 
+    <FrameLayout
+        android:id="@+id/admin_frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp">
+
+    </FrameLayout>
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/admin_tab_switcher"
         android:layout_width="match_parent"
@@ -21,17 +32,6 @@
             android:layout_height="wrap_content"
             android:text="Codes" />
     </com.google.android.material.tabs.TabLayout>
-
-    <FrameLayout
-        android:id="@+id/admin_frame_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp">
-
-    </FrameLayout>
 
 
 </RelativeLayout>

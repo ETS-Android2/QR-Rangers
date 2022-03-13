@@ -29,14 +29,13 @@
             android:name=".ProfileActivity"
             android:exported="false" />
         <activity
-<<<<<<< HEAD
             android:name=".AdminActivity"
-=======
+            android:exported="false" />
+        <activity
             android:name=".QRListActivity"
             android:exported="false" />
         <activity
             android:name=".QRInfoActivity"
->>>>>>> master
             android:exported="false" />
         <activity
             android:name=".SearchActivity"
