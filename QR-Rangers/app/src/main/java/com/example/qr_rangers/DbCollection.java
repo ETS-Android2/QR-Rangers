@@ -189,7 +189,10 @@ public class DbCollection<T extends DbDocument> {
         QuerySnapshot snap = task.getResult();
         for(DocumentSnapshot doc: snap.getDocuments()){
             if(!users.contains(doc.toObject(User.class)) && !doc.toObject(User.class).getUsername().equals("admin")){
-                users.add(doc.toObject(User.class));
+                User u = doc.toObject(User.class);
+                u.setId(doc.getId());
+                users.add(u);
+
             }
         }
         Log.i("TAG", Integer.toString(snap.size()));

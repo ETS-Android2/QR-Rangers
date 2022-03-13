@@ -59,9 +59,10 @@ public class DeleteUserConfirmationFragment extends DialogFragment {
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        users.remove(users.getItem(index));
                         DbCollection users_collection = new DbCollection("users");
-                        //users_collection.delete(users.getItem(index).getId());
+                        users_collection.delete(users.getItem(index).getId());
+                        users.remove(users.getItem(index));
+
 
                     }
                 }).create();
