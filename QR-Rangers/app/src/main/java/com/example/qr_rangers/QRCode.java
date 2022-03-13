@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.location.Geocoder;
 import android.media.Image;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -120,6 +121,7 @@ public class QRCode extends DbDocument implements Serializable {
         if(!(code instanceof QRCode)){
             throw new IllegalArgumentException();
         }
+        Log.i("Note", this.codeInfo == null ? "null" : "notnull");
         return this.codeInfo.equals(((QRCode) code).codeInfo);
     }
 
