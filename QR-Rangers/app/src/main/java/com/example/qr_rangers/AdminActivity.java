@@ -40,11 +40,7 @@ public class AdminActivity extends AppCompatActivity {
                         break;
                 }
 
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.admin_frame_layout, fragment);
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                fragmentTransaction.commit();
+                switchFragment(fragment);
             }
 
             @Override
@@ -57,5 +53,15 @@ public class AdminActivity extends AppCompatActivity {
 
             }
         });
+
+        switchFragment(new ViewAdminUsersFragment());
+    }
+
+    public void switchFragment(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.admin_frame_layout, fragment);
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.commit();
     }
 }
