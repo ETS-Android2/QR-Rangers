@@ -12,6 +12,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+/**
+ * THIS TEST ASSUMES YOU HAVE DATA ON YOUR PHONE FOR THIS APP
+ */
 public class HomeActivityTest {
     private Solo solo;
 
@@ -33,20 +36,24 @@ public class HomeActivityTest {
     public void profileMenu(){
         solo.assertCurrentActivity("Wrong Activity",HomeActivity.class);
 
-        solo.clickOnView(solo.getView(R.id.home_drawer_menu));
+        solo.clickOnActionBarHomeButton();
 
-        solo.clickOnView(solo.getView(R.id.hamburger_profile_button));
+        solo.clickOnText("Profile");
 
         solo.assertCurrentActivity("Wrong Activity",ProfileActivity.class);
+
+        solo.clickOnView(solo.getView(R.id.viewgallerybutton));
+
+        solo.assertCurrentActivity("Wrong Activity",QRListActivity.class);
     }
 
     @Test
     public void searchMenu(){
         solo.assertCurrentActivity("Wrong Activity",HomeActivity.class);
 
-        solo.clickOnView(solo.getView(R.id.home_drawer_menu));
+        solo.clickOnActionBarHomeButton();
 
-        solo.clickOnView(solo.getView(R.id.hamburger_search_button));
+        solo.clickOnText("Search");
 
         solo.assertCurrentActivity("Wrong Activity",SearchActivity.class);
     }
@@ -55,11 +62,21 @@ public class HomeActivityTest {
     public void galleryMenu(){
         solo.assertCurrentActivity("Wrong Activity",HomeActivity.class);
 
-        solo.clickOnView(solo.getView(R.id.home_drawer_menu));
+        solo.clickOnActionBarHomeButton();
 
-        solo.clickOnView(solo.getView(R.id.hamburger_gallery_button));
+        solo.clickOnText("Gallery");
 
         solo.assertCurrentActivity("Wrong Activity",QRListActivity.class);
+
+        Search search = new Search();
+
+        User test = search.FindUser("TestUser").get(0);
+
+        if(test.getQRList().size() > 0){
+            solo.clickOnText(Integer.toString(test.getScoreMax()) + " pts");
+
+            solo.assertCurrentActivity("Wrong Activity",QRInfoActivity.class);
+        }
     }
 
     @After

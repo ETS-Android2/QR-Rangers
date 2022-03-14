@@ -5,12 +5,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 public class UserTest {
-    User user = new User("TestUser", "testuser@gmail.com", "7802374823");
+    private User user = new User("TestUser", "testuser@gmail.com", "7802374823");
 
     @Test
     void userName(){
@@ -40,9 +40,9 @@ public class UserTest {
         list.add(code);
         assertEquals(user.getQRList().size(), 1);
         assertEquals(user.getQRNum(), 1);
-        assertEquals(user.getScoreMax(), 111);
-        assertEquals(user.getScoreMin(), 111);
-        assertEquals(user.getScoreSum(), 111);
+        assertEquals(user.getScoreMax(), 15);
+        assertEquals(user.getScoreMin(), 15);
+        assertEquals(user.getScoreSum(), 15);
         assertTrue(user.getQRList().contains(code));
     }
 

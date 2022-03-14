@@ -5,20 +5,14 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class QRCodeTest {
-    QRCode code;
-
-    @Before
-    void setupTest(){
-        code = new QRCode("696ce4dbd7bb57cbfe58b64f530f428b74999cb37e2ee60980490cd9552de3a6", null, null);
-    }
+    private QRCode code = new QRCode("696ce4dbd7bb57cbfe58b64f530f428b74999cb37e2ee60980490cd9552de3a6", null, null);
 
     @Test
     void scoreTest(){
-        assertEquals(code.getScore(), 111);
+        assertEquals(code.getScore(), 15);
     }
 
     @Test
