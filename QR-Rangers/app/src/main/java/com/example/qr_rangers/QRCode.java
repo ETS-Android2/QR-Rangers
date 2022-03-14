@@ -143,7 +143,7 @@ public class QRCode extends DbDocument implements Serializable {
         if(!(code instanceof QRCode)){
             throw new IllegalArgumentException();
         }
-        Log.i("Note", this.codeInfo == null ? "null" : "notnull");
+        
         return this.codeInfo.equals(((QRCode) code).codeInfo);
     }
 
