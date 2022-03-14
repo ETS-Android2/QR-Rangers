@@ -10,9 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
+
+/**
+ * Code adapted for the ListViews of Users taken from the Lab CustomList sample code
+ * and altered to match the User classes better.
+ */
 
 public class CustomList extends ArrayAdapter<User> {
 

@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * An object that represents the user, containing all their QR Codes and scores
+ *
+ * @author: Jawdat
+ * @version: 1.0.4
+ */
 public class User extends DbDocument implements Serializable {
     private String username;
     private String email;

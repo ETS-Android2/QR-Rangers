@@ -1,15 +1,13 @@
 package com.example.qr_rangers;
 
-import android.util.Log;
-import android.widget.ListAdapter;
-
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * An object to keep track of a DbCollection in order to locate users for Search
+ *
+ * Author: Jawdat
+ * Version: 1.0.2
+ */
 public class Search {
     private DbCollection db;
 
