@@ -1,21 +1,22 @@
 package com.example.qr_rangers;
 
-import android.graphics.Bitmap;
-import android.location.Geocoder;
-import android.media.Image;
 import android.os.Build;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import java.io.Serializable;
-
-import com.google.api.SystemParametersOrBuilder;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * An object that represents a QR Code object, containing its score, information,
+ * photo, comment and location
+ *
+ * @author: Jawdat
+ * @version: 1.0.2
+ */
 public class QRCode extends DbDocument implements Serializable {
     // REMINDER TO CHANGE .equals() DEPENDING ON codeInfo TYPE
     private String /*temp QRCode*/ codeInfo;
