@@ -45,6 +45,8 @@ public class HomeActivityTest {
         solo.clickOnView(solo.getView(R.id.viewgallerybutton));
 
         solo.assertCurrentActivity("Wrong Activity",QRListActivity.class);
+
+        solo.clickOnActionBarHomeButton();
     }
 
     @Test
