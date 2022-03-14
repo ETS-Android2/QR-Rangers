@@ -26,9 +26,9 @@ import java.util.HashMap;
  * @version 1.0
  */
 public class ViewAdminCodesFragment extends Fragment {
-    GridView codeGrid;
-    ArrayList<QRCode> codes;
-    ArrayAdapter<QRCode> codesAdapter;
+    private GridView codeGrid;
+    private ArrayList<QRCode> codes;
+    private ArrayAdapter<QRCode> codesAdapter;
     public ViewAdminCodesFragment(){
 
     }

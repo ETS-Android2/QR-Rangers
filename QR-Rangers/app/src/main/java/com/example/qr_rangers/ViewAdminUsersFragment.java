@@ -22,9 +22,9 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public class ViewAdminUsersFragment extends Fragment {
-    ListView usersList;
-    ArrayList<User> users = new ArrayList<>();
-    ArrayAdapter<User> usersAdapter;
+    private ListView usersList;
+    private ArrayList<User> users = new ArrayList<>();
+    private ArrayAdapter<User> usersAdapter;
     public ViewAdminUsersFragment(){
 
     }
