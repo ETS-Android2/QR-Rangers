@@ -24,7 +24,7 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 
 /**
- * Fragment to confirm user deletion
+ * Fragment to confirm user deletion in the admin pane
  *
  * @author Alexander Salm
  * @version 1.0

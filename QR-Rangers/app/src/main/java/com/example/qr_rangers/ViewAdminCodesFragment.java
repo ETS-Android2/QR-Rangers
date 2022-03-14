@@ -20,6 +20,11 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Fragment that display's a list of all QR codes registered
+ * @author Alexander Salm
+ * @version 1.0
+ */
 public class ViewAdminCodesFragment extends Fragment {
     GridView codeGrid;
     ArrayList<QRCode> codes;

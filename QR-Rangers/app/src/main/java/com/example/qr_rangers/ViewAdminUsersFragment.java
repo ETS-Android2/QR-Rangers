@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 
 /**
- * Fragment to display the admin users list.
+ * Fragment to display the admin users list, with the ability to delete a user.
  *
  * @author Alexander Salm
  * @version 1.0
