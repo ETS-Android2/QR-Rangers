@@ -54,6 +54,27 @@ public class QRCode extends DbDocument implements Serializable {
      */
     public QRCode() {}
 
+
+    /**
+     * Getter for the QR code data
+     *
+     * @return
+     *      String representing the QR Code data
+     */
+    public String getCodeInfo() {
+        return codeInfo;
+    }
+
+    /**
+     * Setter for the QR code data
+     *
+     * @param codeInfo
+     *      String to set the QR Code data to
+     */
+    public void setCodeInfo(String codeInfo) {
+        this.codeInfo = codeInfo;
+    }
+
     /**
      * A getter function to get the score of the QR Code
      *
