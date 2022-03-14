@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "916004589759",
+    "project_id": "cmput301-qr-rangers-cae21",
+    "storage_bucket": "cmput301-qr-rangers-cae21.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916004589759:android:fd800b3a67984cafe9f60a",
+        "android_client_info": {
+          "package_name": "com.example.qr_rangers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916004589759-7g949fc9o03v4a5rekb8l2ovh396lus0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1KTv93_E0hjJDK9De1VMK3o3AmS9bIQQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "916004589759-7g949fc9o03v4a5rekb8l2ovh396lus0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
