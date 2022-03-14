@@ -219,6 +219,13 @@ public class User extends DbDocument implements Serializable {
         return QRList.size();
     }
 
+    /**
+     * Creates a new User object from a map representation
+     * @param map
+     * The map containing the values for the object
+     * @return
+     *      Returns the created User object
+     */
     @Override
     public DbDocument fromMap(Map<String, Object> map) {
         User user = new User((String) map.get("username"), (String) map.get("email"), (String) map.get("phoneNumber"));
@@ -229,6 +236,11 @@ public class User extends DbDocument implements Serializable {
         return user;
     }
 
+    /**
+     * Converts the User into a map representation for inserting into the Firestore
+     * @return
+     *      Returns the map representation of the User
+     */
     @Override
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();

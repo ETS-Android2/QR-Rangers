@@ -123,6 +123,13 @@ public class QRCode extends DbDocument implements Serializable {
         return this.codeInfo.equals(((QRCode) code).codeInfo);
     }
 
+    /**
+     * Creates a new QrCode object from a mapped representation
+     * @param map
+     *      The map containing the values for the object
+     * @return
+     *      Returns the created QrCode object
+     */
     @Override
     public DbDocument fromMap(Map<String, Object> map) {
         Map<String, Object> locMap = (Map<String, Object>) map.get("location");
@@ -135,6 +142,11 @@ public class QRCode extends DbDocument implements Serializable {
         return qrCode;
     }
 
+    /**
+     * Converts the QrCode into a map representation for inserting into the Firestore
+     * @return
+     *      Returns the map representation of the object
+     */
     @Override
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
