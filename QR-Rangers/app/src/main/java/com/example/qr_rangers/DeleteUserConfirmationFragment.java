@@ -30,8 +30,8 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public class DeleteUserConfirmationFragment extends DialogFragment {
-    ArrayAdapter<User> users;
-    int index;
+    private ArrayAdapter<User> users;
+    private int index;
     public DeleteUserConfirmationFragment(ArrayAdapter<User> users, int i){
         super();
         this.users = users;
