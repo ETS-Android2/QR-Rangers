@@ -1,11 +1,5 @@
 package com.example.qr_rangers;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,6 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -38,6 +38,23 @@ public class HomeActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        user = loadUser();
+
+        TextView welcome = findViewById(R.id.welcome);
+        welcome.setText("Welcome, " + user.getUsername() + "!");
+
+        TextView totalScanned = findViewById(R.id.codes);
+        totalScanned.setText(user.getQRNum() + " Codes Scanned");
+
+        TextView totalScore = findViewById(R.id.highscore);
+        totalScore.setText(user.getScoreSum() + " pts.");
+
+        TextView minQR = findViewById(R.id.lowest);
+        minQR.setText(user.getScoreMin() + " pts.");
+
+        TextView maxQR = findViewById(R.id.highest);
+        maxQR.setText(user.getScoreMax() + " pts.");
 
         scan = findViewById(R.id.buttonScan);
         scan.setOnClickListener(new View.OnClickListener() {

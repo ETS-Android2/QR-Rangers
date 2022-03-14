@@ -58,5 +58,8 @@ public class IntroActivityTest {
     @After
     public void tearDown() throws Exception{
         solo.finishOpenedActivities();
+//        DbCollection db = new DbCollection("users");
+//        Search search = new Search();
+//        db.delete(search.searchSuggestions("TestUser").get(0).getId());
     }
 }
