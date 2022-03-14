@@ -103,8 +103,19 @@ public class HomeActivity extends AppCompatActivity{
                 drawerLayout.close();
                 return true;
             }
+            else if (item.getItemId()==R.id.hamburger_admin_button){
+                // your code
+                Intent intent = new Intent(HomeActivity.this, AdminActivity.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
+                drawerLayout.close();
+                return true;
+            }
             return false;
         });
+
+
+
     }
 
     @Override
@@ -183,5 +194,12 @@ public class HomeActivity extends AppCompatActivity{
 
         TextView maxQR = findViewById(R.id.highest);
         maxQR.setText(user.getScoreMax() + " pts.");
+
+        Log.i("USER", "ID: " + user.getId());
+        Log.i("USER", user.isAdmin() ? "LOGGED IN AS ADMIN" : "LOGGED IN AS BASIC");
+
+        //hide admin button if user is not an admin
+        NavigationView navView = findViewById(R.id.home_nav_view);
+        navView.getMenu().findItem(R.id.hamburger_admin_button).setVisible(user.isAdmin());
     }
 }
