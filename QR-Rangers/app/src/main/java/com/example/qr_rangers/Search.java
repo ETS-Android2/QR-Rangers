@@ -5,8 +5,8 @@ import java.util.ArrayList;
 /**
  * An object to keep track of a DbCollection in order to locate users for Search
  *
- * Author: Jawdat
- * Version: 1.0.2
+ * @author Jawdat
+ * @version 1.0.2
  */
 public class Search {
     private DbCollection db;

@@ -28,8 +28,8 @@ import java.util.ArrayList;
  * An activity that displays options for the user to search for other user profiles
  * through QR code or username
  *
- * @author: Jawdat
- * @version: 1.1.1
+ * @author Jawdat
+ * @version 1.1.1
  */
 public class SearchActivity extends AppCompatActivity {
     Search search = new Search();

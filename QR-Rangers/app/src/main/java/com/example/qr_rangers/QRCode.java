@@ -1,7 +1,6 @@
 package com.example.qr_rangers;
 
 import android.os.Build;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -15,8 +14,8 @@ import java.util.Objects;
  * An object that represents a QR Code object, containing its score, information,
  * photo, comment and location
  *
- * @author: Jawdat
- * @version: 1.0.2
+ * @author Jawdat
+ * @version 1.0.2
  */
 public class QRCode extends DbDocument implements Serializable {
     // REMINDER TO CHANGE .equals() DEPENDING ON codeInfo TYPE

@@ -17,7 +17,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 /**
- * THIS TEST ASSUMES YOU HAVE NO DATA ON YOUR PHONE FOR THIS APP
+ * THIS TEST ASSUMES TestUser DOESN'T EXIST, REMOVE FROM THE DATABASE ON SUBSEQUENT TESTS
  */
 public class IntroActivityTest {
     private Solo solo;
