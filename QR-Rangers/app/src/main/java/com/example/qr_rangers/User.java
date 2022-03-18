@@ -8,14 +8,15 @@ import java.util.Map;
 /**
  * An object that represents the user, containing all their QR Codes and scores
  *
- * @author Jawdat
- * @version 1.0.4
+ * @author Jawdat and Ryan
+ * @version 1.0.7
  */
 public class User extends DbDocument implements Serializable {
     private String username;
     private String email;
     private String phoneNumber;
     private ArrayList<QRCode> QRList;
+    protected Rankings userRanks;
 
     /**
      * Constructs a user object
@@ -29,7 +30,8 @@ public class User extends DbDocument implements Serializable {
         this.username = username;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        QRList = new ArrayList<QRCode>();
+        this.QRList = new ArrayList<QRCode>();
+        this.userRanks = new Rankings();
     }
 
     /**
@@ -262,6 +264,7 @@ public class User extends DbDocument implements Serializable {
         map.put("username", this.getUsername());
         map.put("email", this.getEmail());
         map.put("phoneNumber", this.getPhoneNumber());
+        map.put("rankings", userRanks.toMap());
         return map;
     }
 
