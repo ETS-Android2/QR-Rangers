@@ -61,10 +61,10 @@ public class IntroActivity extends AppCompatActivity {
             } else {
                 String id = intentResult.getContents();
                 try {
-                    if (Database.Users.getById(id, new User("", "", "")) != null) {
+                    if (Database.Users.getById(id) != null) {
                         saveID(id);
                         Toast.makeText(this,
-                                "Hello again " + Database.Users.getById(id, new User("", "", "")).getUsername() + "!",
+                                "Hello again " + Database.Users.getById(id).getUsername() + "!",
                                 Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(IntroActivity.this, HomeActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

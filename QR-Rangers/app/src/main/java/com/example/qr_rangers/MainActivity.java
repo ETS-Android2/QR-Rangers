@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         String id = loadID();
         if (id != null) {
-            if (Database.Users.getById(id, new User("", "", "")) != null) {
+            if (Database.Users.getById(id) != null) {
                 Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);

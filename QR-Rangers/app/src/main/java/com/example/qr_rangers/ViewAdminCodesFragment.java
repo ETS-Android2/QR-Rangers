@@ -46,15 +46,7 @@ public class ViewAdminCodesFragment extends Fragment {
 
         HashMap<QRCode, User> map = new HashMap<QRCode, User>();
 
-        codes = new ArrayList<QRCode>();
-        ArrayList<User> users = new DbCollection("users").searchSuggestions("");
-        for (int i = 0; i < users.size(); i++) {
-            ArrayList<QRCode> usersCodes = users.get(i).getQRList();
-            for (int x = 0; x < usersCodes.size(); x++) {
-                codes.add(usersCodes.get(x));
-                map.put(usersCodes.get(x), users.get(i));
-            }
-        }
+        codes = Database.QrCodes.getAll();
 
         codesAdapter = new QRListAdapter(getActivity(), codes);
         codeGrid.setAdapter(codesAdapter);

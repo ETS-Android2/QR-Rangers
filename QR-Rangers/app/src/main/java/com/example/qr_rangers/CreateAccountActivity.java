@@ -48,7 +48,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                     nameWarning.setText("Please enter a username");
                     nameWarning.setVisibility(View.VISIBLE);
                 }
-                else if (Database.Users.CheckUser(username.getText().toString())) {
+                else if (Database.Users.existsName(username.getText().toString())) {
                     nameWarning.setText("Username already taken");
                     nameWarning.setVisibility(View.VISIBLE);
                 }

@@ -70,9 +70,8 @@ public class HomeActivityTest {
 
         solo.assertCurrentActivity("Wrong Activity",QRListActivity.class);
 
-        Search search = new Search();
 
-        User test = search.FindUser("TestUser").get(0);
+        User test = Database.Users.getByName("TestUser");
 
         if(test.getQRList().size() > 0){
             solo.clickOnText(Integer.toString(test.getScoreMax()) + " pts");

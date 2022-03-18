@@ -148,12 +148,11 @@ public class HomeActivity extends AppCompatActivity{
                 // if the intentResult is not null we'll set
                 // the content and format of scan message
                 QRCode checkDuplicateQR = new QRCode(intentResult.getContents(),null,null);
-                if (!user.AddQR(checkDuplicateQR)){
+                if (user.HasQR(checkDuplicateQR)){
                     Toast.makeText(getBaseContext(), "You already scanned this one!", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     int totalScore = user.getScoreSum();
-                    user.DeleteQR(checkDuplicateQR);
                     Intent intent = new Intent(HomeActivity.this, ScanResultActivity.class);
                     intent.putExtra("content", intentResult.getContents());
                     intent.putExtra("totalScore",String.valueOf(totalScore));
@@ -187,7 +186,7 @@ public class HomeActivity extends AppCompatActivity{
     private User loadUser() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String id = sharedPreferences.getString("ID", null);
-        User localUser = Database.Users.getById(id, new User("", "", ""));
+        User localUser = Database.Users.getById(id);
         localUser.setId(id); //added for qr generation support, it needs the id field to be filled out
         return localUser;
     }
@@ -213,10 +212,10 @@ public class HomeActivity extends AppCompatActivity{
         maxQR.setText(user.getScoreMax() + " pts.");
 
         Log.i("USER", "ID: " + user.getId());
-        Log.i("USER", user.isAdmin() ? "LOGGED IN AS ADMIN" : "LOGGED IN AS BASIC");
+        Log.i("USER", Database.Admins.isAdmin(user.getId()) ? "LOGGED IN AS ADMIN" : "LOGGED IN AS BASIC");
 
         //hide admin button if user is not an admin
         NavigationView navView = findViewById(R.id.home_nav_view);
-        navView.getMenu().findItem(R.id.hamburger_admin_button).setVisible(user.isAdmin());
+        navView.getMenu().findItem(R.id.hamburger_admin_button).setVisible(Database.Admins.isAdmin(user.getId()));
     }
 }

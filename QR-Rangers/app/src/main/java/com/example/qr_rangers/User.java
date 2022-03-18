@@ -1,5 +1,7 @@
 package com.example.qr_rangers;
 
+import com.google.android.gms.tasks.Task;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -132,7 +134,8 @@ public class User extends DbDocument implements Serializable {
         if (QRList.contains(code)) {
             return false;
         }
-        QRList.add(code);
+        QRCode dbCode = Database.QrCodes.add(code);
+        QRList.add(dbCode);
         return true;
     }
 
@@ -148,6 +151,10 @@ public class User extends DbDocument implements Serializable {
         } else { // Not sure why this would ever happen but
             throw new IllegalArgumentException();
         }
+    }
+
+    public boolean HasQR(QRCode code) {
+        return this.QRList.contains(code);
     }
 
     /**
@@ -232,13 +239,18 @@ public class User extends DbDocument implements Serializable {
      * @return
      *      Returns the created User object
      */
-    @Override
-    public DbDocument fromMap(Map<String, Object> map) {
+    public static User fromMap(Map<String, Object> map) {
         User user = new User((String) map.get("username"), (String) map.get("email"), (String) map.get("phoneNumber"));
         user.setId((String) map.get("id"));
-        QRCode helper = new QRCode();
-        ArrayList<HashMap> qrList = (ArrayList<HashMap>) map.get("QRList");
-        for (int i = 0; i < qrList.size(); i++) user.AddQR((QRCode) helper.fromMap(qrList.get(i)));
+        ArrayList<String> qrIds = (ArrayList<String>) map.get("QRList");
+        ArrayList<QRCode> qrList = new ArrayList<>();
+        for (int i = 0; i < qrIds.size(); i++) {
+            QRCode code = Database.QrCodes.getById(qrIds.get(i));
+            if (code != null) {
+                qrList.add(code);
+            }
+        }
+        user.setQRList(qrList);
         return user;
     }
 
@@ -250,9 +262,9 @@ public class User extends DbDocument implements Serializable {
     @Override
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
-        ArrayList<HashMap> qrList = new ArrayList<>();
+        ArrayList<String> qrList = new ArrayList<>();
         for (int i = 0; i < this.QRList.size(); i++) {
-            qrList.add((HashMap) this.QRList.get(i).toMap());
+            qrList.add(this.QRList.get(i).getId());
         }
         map.put("QRList", qrList);
         map.put("qrnum", this.getQRNum());
@@ -283,16 +295,6 @@ public class User extends DbDocument implements Serializable {
             throw new IllegalArgumentException();
         }
         return username.equals(((User)user).getUsername());
-    }
-
-    /**
-     * Returns whether this user is a database administrator
-     *
-     * @return
-     *      Returns true if the user is an admin, false otherwise
-     */
-    public boolean isAdmin() {
-        return getId().equals("7uqGSPkEjCWt4ZNxRaXq");
     }
 }
 

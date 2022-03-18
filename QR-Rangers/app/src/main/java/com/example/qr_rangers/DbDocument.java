@@ -26,14 +26,14 @@ public abstract class DbDocument implements Serializable {
         this.id = id;
     }
 
-    /**
-     * Creates a new object from a key-value map representation
-     * @param map
-     *      The map containing the values for the object
-     * @return
-     *      Returns the created DbDocument object
-     */
-    public abstract DbDocument fromMap(Map<String, Object> map);
+//    /**
+//     * Creates a new object from a key-value map representation
+//     * @param map
+//     *      The map containing the values for the object
+//     * @return
+//     *      Returns the created DbDocument object
+//     */
+//    public abstract DbDocument fromMap(Map<String, Object> map);
 
     /**
      * Converts the object to a key-value map to insert into the Firestore
