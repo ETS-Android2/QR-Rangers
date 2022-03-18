@@ -134,7 +134,13 @@ public class User extends DbDocument implements Serializable {
         if (QRList.contains(code)) {
             return false;
         }
-        QRCode dbCode = Database.QrCodes.add(code);
+        QRCode dbCode;
+        if (!Database.QrCodes.existsName(code.getCodeInfo())) {
+            dbCode = Database.QrCodes.add(code);
+        } else {
+            dbCode = Database.QrCodes.getByName(code.getCodeInfo());
+        }
+
         QRList.add(dbCode);
         return true;
     }
