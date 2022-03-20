@@ -52,7 +52,11 @@ public class QrCodeDbCollection implements IDbCollection<QRCode> {
         Task<QuerySnapshot> task = collection.whereEqualTo("codeInfo", name).get();
         while(!task.isComplete());
         QuerySnapshot snap = task.getResult();
-        DocumentSnapshot doc = snap.getDocuments().get(0);
+        List<DocumentSnapshot> docs = snap.getDocuments();
+        if (docs.size() == 0) {
+            return null;
+        }
+        DocumentSnapshot doc = docs.get(0);
         if (doc.getData() != null) {
             Map<String, Object> map = doc.getData();
             map.put("id", doc.getId());
