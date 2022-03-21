@@ -70,7 +70,7 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         mapController.setZoom(3);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,100,1,this);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,this);
 
         GeoPoint center = new GeoPoint(0,0);
         mapController.animateTo(center);
@@ -95,8 +95,8 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
     public void addMarker (GeoPoint center){
         Marker marker = new Marker(mapView);
         marker.setPosition(center);
-        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        marker.setIcon(getResources().getDrawable(R.drawable.ic_menu_mylocation));
+        marker.setAnchor(0, 0);//Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        marker.setIcon(getResources().getDrawable(R.drawable.ic_menu_compass));
         mapView.getOverlays().clear();
         mapView.getOverlays().add(marker);
         mapView.invalidate();
