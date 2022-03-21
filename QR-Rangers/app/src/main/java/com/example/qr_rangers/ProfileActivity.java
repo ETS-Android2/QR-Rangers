@@ -51,12 +51,32 @@ public class ProfileActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
         user = (User) getIntent().getSerializableExtra("user");
+
+        nameText = findViewById(R.id.profilename);
+        nameText.setText(user.getUsername());
+
+        totalScoreText = findViewById(R.id.totalscore);
+        String totalScore = String.valueOf(user.getScoreSum()) + " pts.";
+        totalScoreText.setText(totalScore);
+
+        codesScannedText = findViewById(R.id.codesscanned);
+        String codesScanned = String.valueOf(user.getQRNum());
+        codesScannedText.setText(String.valueOf(codesScanned));
+
+        scoreRankingText = findViewById(R.id.scoreranking);
+        String rankScore = String.valueOf(user.userRanks.getTotalScoreRank());
+        scoreRankingText.setText("#" + rankScore);
+
+        scanRankingText = findViewById(R.id.scanranking);
+        String rankAmount = String.valueOf(user.userRanks.getQRScannedRank());
+        scanRankingText.setText("#" + rankAmount);
 
 
 
@@ -106,8 +126,12 @@ public class ProfileActivity extends AppCompatActivity{
         codesScannedText.setText(String.valueOf(codesScanned));
 
         scoreRankingText = findViewById(R.id.scoreranking);
+        String rankScore = "#" + String.valueOf(user.userRanks.getTotalScoreRank());
+        scoreRankingText.setText(rankScore);
 
         scanRankingText = findViewById(R.id.scanranking);
+        String rankAmount = "#" + String.valueOf(user.userRanks.getQRScannedRank());
+        scanRankingText.setText(rankAmount);
     }
 
     @Override
