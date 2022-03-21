@@ -40,7 +40,7 @@ public class ViewAdminUsersFragment extends Fragment {
 
         usersList = view.findViewById(R.id.admin_users_list);
 
-        users = new DbCollection("users").searchSuggestions("");
+        users = Database.Users.getAll();
 
         usersAdapter = new CustomList(getActivity(), users);
 

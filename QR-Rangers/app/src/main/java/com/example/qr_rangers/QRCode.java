@@ -153,8 +153,7 @@ public class QRCode extends DbDocument implements Serializable {
      * @return
      *      Returns the created QrCode object
      */
-    @Override
-    public DbDocument fromMap(Map<String, Object> map) {
+    public static QRCode fromMap(Map<String, Object> map) {
         Map<String, Object> locMap = (Map<String, Object>) map.get("location");
         QRCode qrCode = new QRCode((String) map.get("codeInfo"), (String) map.get("photo"),null);
         if (locMap != null) {

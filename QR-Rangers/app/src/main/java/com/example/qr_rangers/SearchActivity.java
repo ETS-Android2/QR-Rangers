@@ -32,7 +32,6 @@ import java.util.ArrayList;
  * @version 1.1.1
  */
 public class SearchActivity extends AppCompatActivity {
-    Search search = new Search();
     ListView search_list;
     SearchView search_text;
     ArrayList<User> searched = new ArrayList<>();
@@ -114,9 +113,9 @@ public class SearchActivity extends AppCompatActivity {
                 // the content and format of scan message
                 String id = intentResult.getContents();
                 try {
-                    if (Database.Users.getById(id, new User("", "", "")) != null) {
+                    if (Database.Users.getById(id) != null) {
                         Intent profileIntent = new Intent(SearchActivity.this, ProfileActivity.class);
-                        profileIntent.putExtra("user", Database.Users.getById(id, new User("", "", "")));
+                        profileIntent.putExtra("user", Database.Users.getById(id));
                         startActivity(profileIntent);
                     }
                     else {
@@ -136,7 +135,7 @@ public class SearchActivity extends AppCompatActivity {
         String query = search_text.getQuery().toString();
         //searched = search.FindUser(query);
         if(!query.trim().isEmpty()) {
-            searched = search.searchSuggestions(query);
+            searched = Database.Users.searchSuggestions(query);
         }
         else{
             searched = new ArrayList<User>();
