@@ -50,6 +50,36 @@ public class QRCode extends DbDocument implements Serializable {
     }
 
     /**
+     * Constructor for QR codes that need their info to be replaced with the hash for privacy reasons
+     */
+    QRCode(String /*temp, QRCode*/ info, @Nullable String photo, @Nullable Location location,boolean hideInfo){
+        QRScore qrScore = new QRScore();
+        codeInfo = info;
+        score = qrScore.calculateScore(this);
+        if (hideInfo)
+        {
+            codeInfo = qrScore.convertToSHA256(this).substring(0,10);
+        }
+        if(!Objects.isNull(photo)){
+            this.photo = photo; // temp
+        }
+
+        if(!Objects.isNull(location)){
+            this.location = location; // temp
+            /*
+        //CODE TO ADD THE ROUNDED COORDS TO HASH
+            double latitude = location.getLatitude();
+            double longitude = location.getLongitude();
+            latitude = (double) Math.round(latitude * 10000) / 10000;
+            longitude = (double) Math.round(longitude * 10000) / 10000;
+
+            codeInfo = codeInfo.concat(String.valueOf(latitude)).concat(String.valueOf(longitude));
+             */
+        }
+
+    }
+
+    /**
      * Empty constructor for use with getting QRCodes from the db
      */
     public QRCode() {}

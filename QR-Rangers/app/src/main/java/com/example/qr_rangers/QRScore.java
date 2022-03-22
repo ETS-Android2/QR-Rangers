@@ -34,7 +34,7 @@ public class QRScore {
      * @return
      *      SHA-256 hash String of QR code
      */
-    private String convertToSHA256(QRCode qr) {
+    public String convertToSHA256(QRCode qr) {
         // TODO: Implement obtaining contents from QRCode
         String codeString = qr.toString();
         // https://www.baeldung.com/sha-256-hashing-java
