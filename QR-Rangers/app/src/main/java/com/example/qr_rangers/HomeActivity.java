@@ -147,17 +147,11 @@ public class HomeActivity extends AppCompatActivity{
             } else {
                 // if the intentResult is not null we'll set
                 // the content and format of scan message
-                QRCode checkDuplicateQR = new QRCode(intentResult.getContents(),null,null,true);
-                if (user.HasQR(checkDuplicateQR)){
-                    Toast.makeText(getBaseContext(), "You already scanned this one!", Toast.LENGTH_SHORT).show();
-                }
-                else {
                     int totalScore = user.getScoreSum();
                     Intent intent = new Intent(HomeActivity.this, ScanResultActivity.class);
                     intent.putExtra("content", intentResult.getContents());
                     intent.putExtra("totalScore",String.valueOf(totalScore));
                     startActivity(intent);
-                }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
