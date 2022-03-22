@@ -78,6 +78,7 @@ public class ScanResultActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                cameraButton.setClickable(false);
                 if (attachLocation.isChecked()){
                     if(gpsTracker.canGetLocation()){
                         double longitude = gpsTracker.getLongitude();
