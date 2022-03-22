@@ -93,14 +93,13 @@ public class ScanResultActivity extends AppCompatActivity {
                     imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
                 }
                 QRCode QrToSave = new QRCode(content,imageEncoded,location,true);
-
+                if (user.HasQR(QrToSave)){
+                    Toast.makeText(getBaseContext(), "You already scanned this one!", Toast.LENGTH_SHORT).show();
+                }
                 try {
                     user.AddQR(QrToSave);
                     Database.Users.update(user);
-                    /*
-                    if (imageEncoded != null)
-                            imgPreview.setImageBitmap(decodeFromFirebaseBase64(imageEncoded));
-                */
+
                 }
                 catch (Exception e) {
                     System.out.println(e.toString());

@@ -66,15 +66,18 @@ public class QRCode extends DbDocument implements Serializable {
 
         if(!Objects.isNull(location)){
             this.location = location; // temp
-            /*
         //CODE TO ADD THE ROUNDED COORDS TO HASH
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
-            latitude = (double) Math.round(latitude * 10000) / 10000;
-            longitude = (double) Math.round(longitude * 10000) / 10000;
-
-            codeInfo = codeInfo.concat(String.valueOf(latitude)).concat(String.valueOf(longitude));
-             */
+            latitude = (double) Math.round(latitude * 100) / 100;
+            longitude = (double) Math.round(longitude * 100) / 100;
+            String latitudeAsString = String.valueOf(latitude);
+            String longitudeAsString = String.valueOf(longitude);
+            if(latitude>0)
+                latitudeAsString="+" + latitudeAsString;
+            if(longitude>0)
+                longitudeAsString="+" + longitudeAsString;
+            codeInfo = codeInfo.concat(latitudeAsString).concat(longitudeAsString);
         }
 
     }
