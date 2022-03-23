@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -33,6 +34,8 @@ import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.mylocation.DirectedLocationOverlay;
 
+import java.util.ArrayList;
+
 /**
  * This is an activity that shows the user a map of all nearby scanned QR codes
  * @author Alexander Salm
@@ -48,11 +51,14 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
     private GpsTracker tracker;
     private Location location;
 
+    private ArrayList<QRCode> codes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        codes = Database.QrCodes.getAll();
 
         if (Build.VERSION.SDK_INT >= M) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED ||
@@ -92,18 +98,18 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         GeoPoint center = new GeoPoint(location.getLatitude(),location.getLongitude());
         Log.e("LOCATION", "lat: " + Double.toString(location.getLatitude()) + " | lon: " + Double.toString(location.getLongitude()));
         mapController.animateTo(center);
-        addMarker(center);
+        makeScreen(center);
 
         mapView.setMapListener(new MapListener() {
             @Override
             public boolean onScroll(ScrollEvent event) {
-                Log.i("NOTE", "onScroll()");
+                //Log.i("NOTE", "onScroll()");
                 return false;
             }
 
             @Override
             public boolean onZoom(ZoomEvent event) {
-                Log.i("NOTE", "onZoom()");
+                //Log.i("NOTE", "onZoom()");
                 return false;
             }
         });
@@ -113,12 +119,38 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
     public void addMarker (GeoPoint center){
         Marker marker = new Marker(mapView);
         marker.setPosition(center);
-        marker.setAnchor(0, 0);//Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        marker.setIcon(getResources().getDrawable(R.drawable.ic_menu_compass));
+        marker.setAnchor(0.5f, 0.5f);//Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        marker.setIcon(getResources().getDrawable(R.drawable.person));
         mapView.getOverlays().clear();
         mapView.getOverlays().add(marker);
         mapView.invalidate();
         marker.setTitle("You are here");
+    }
+
+    public void addCode(QRCode code){
+        Marker marker = new Marker(mapView);
+        marker.setPosition(new GeoPoint(code.getLocation().getLatitude(), code.getLocation().getLongitude()));
+        marker.setAnchor(0.5f, 1);//Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        marker.setIcon(getResources().getDrawable(R.drawable.marker_default));
+        mapView.getOverlays().add(marker);
+        marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener(){
+            @Override
+            public boolean onMarkerClick(Marker marker, MapView mapView){
+                Log.i("NOTE", "Marker clicked!");
+                return true;
+            }
+        });
+        mapView.invalidate();
+    }
+
+    public void makeScreen(GeoPoint playerCenter){
+        addMarker(playerCenter);
+
+        for(int i = 0; i < codes.size(); i++){
+            if (codes.get(i).getLocation() != null) {
+                addCode(codes.get(i));
+            }
+        }
     }
 
     @Override
@@ -144,7 +176,7 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         GeoPoint center = new GeoPoint(lat, lon);
 
         mapController.animateTo(center);
-        addMarker(center);
+        makeScreen(center);
 
         Log.i("NOTE", "New location: {Lat: " + Double.toString(lat) + ", Long: " + Double.toString(lon) + "}");
     }
