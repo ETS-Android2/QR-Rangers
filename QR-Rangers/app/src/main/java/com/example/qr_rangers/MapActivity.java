@@ -62,15 +62,16 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
             }
         }
 
-        tracker = new GpsTracker(getApplicationContext());
-        if(!tracker.canGetLocation())
+        tracker = new GpsTracker(MapActivity.this);
+        if(!tracker.canGetLocation()) {
             tracker.showSettingsAlert();
-
-        if(tracker.canGetLocation()) {
+            Log.i("NOTE", "Could not get location...");
+        }
+        else {
             double longitude = tracker.getLongitude();
             double latitude = tracker.getLatitude();
-            tracker.stopUsingGPS();
             location = new Location(longitude, latitude);
+            Log.i("NOTE", "Got location: " + Double.toString(location.getLatitude()) + " " + Double.toString(location.getLongitude()));
         }
 
         ActionBar actionBar = getSupportActionBar();
@@ -89,6 +90,7 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         mapController.setZoom(3);
 
         GeoPoint center = new GeoPoint(location.getLatitude(),location.getLongitude());
+        Log.e("LOCATION", "lat: " + Double.toString(location.getLatitude()) + " | lon: " + Double.toString(location.getLongitude()));
         mapController.animateTo(center);
         addMarker(center);
 
