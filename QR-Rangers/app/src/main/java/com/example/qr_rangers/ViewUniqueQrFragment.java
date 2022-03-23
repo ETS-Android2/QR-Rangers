@@ -30,11 +30,11 @@ public class ViewUniqueQrFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_admin_users, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_unique_qr, null);
 
-        usersList = view.findViewById(R.id.admin_users_list);
+        usersList = view.findViewById(R.id.unique_qr_list);
 
-        users = Database.Users.getAll();
+        //users = Database.Users.getAll();
 
         usersAdapter = new CustomList(getActivity(), users);
 

@@ -30,11 +30,11 @@ public class ViewHighScoreFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_admin_users, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_high_score, null);
 
-        usersList = view.findViewById(R.id.admin_users_list);
+        usersList = view.findViewById(R.id.high_score_list);
 
-        users = Database.Users.getAll();
+        users.add(Database.Users.getByName("dodooo"));
 
         usersAdapter = new CustomList(getActivity(), users);
 
