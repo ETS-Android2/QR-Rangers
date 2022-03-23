@@ -112,8 +112,10 @@ public class HomeActivity extends AppCompatActivity{
             }
             else if (item.getItemId()==R.id.hamburger_map_button){
                 // your code
-                Toast.makeText(this, "Map Clicked", Toast.LENGTH_SHORT).show();
-                drawerLayout.close();
+                Intent intent = new Intent(HomeActivity.this, MapActivity.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
+                drawerLayout.close();;
                 return true;
             }
             else if (item.getItemId()==R.id.hamburger_setting_button){
