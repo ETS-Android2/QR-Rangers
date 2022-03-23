@@ -21,7 +21,7 @@ import androidx.fragment.app.DialogFragment;
 /**
  * Activity to that showcases information about a User's scanned QR Code
  * @author Ronan Sandoval
- * @version 1.0
+ * @version 1.1
  */
 public class QRInfoActivity extends AppCompatActivity {
 
@@ -35,6 +35,8 @@ public class QRInfoActivity extends AppCompatActivity {
     ImageView image;
 
     Button deleteButton;
+    Button editCommentButton;
+    Button viewMapButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,18 +76,18 @@ public class QRInfoActivity extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Log.i("Note", qr == null ? "null" : "notnull");
-//                user.DeleteQR(qr);
-//                Database.Users.update(user);
-//                Intent resultUser = new Intent();
-//                resultUser.putExtra("user", user);
-//                QRInfoActivity.this.setResult(Activity.RESULT_OK, resultUser);
-//                QRInfoActivity.this.finish();
 
                 DialogFragment deleteQRFragment = new DeleteQRConfirmationFragment(qr, user);
                 deleteQRFragment.show(getSupportFragmentManager(), "Delete_QR");
             }
         });
+
+        editCommentButton = findViewById(R.id.qr_edit_comment);
+        if (!isMyAccount) {
+            editCommentButton.setVisibility(View.INVISIBLE);
+        }
+
+        viewMapButton = findViewById(R.id.qr_info_view_map);
 
     }
 
