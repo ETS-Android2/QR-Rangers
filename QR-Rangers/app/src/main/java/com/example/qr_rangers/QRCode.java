@@ -119,6 +119,14 @@ public class QRCode extends DbDocument implements Serializable {
     }
 
     /**
+     *
+     * @param score
+     */
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    /**
      * A getter function to get the image of the QR Code
      *
      * @return
@@ -189,6 +197,7 @@ public class QRCode extends DbDocument implements Serializable {
     public static QRCode fromMap(Map<String, Object> map) {
         Map<String, Object> locMap = (Map<String, Object>) map.get("location");
         QRCode qrCode = new QRCode((String) map.get("codeInfo"), (String) map.get("photo"),null);
+        qrCode.setScore(Math.toIntExact((Long) map.get("score")));
         if (locMap != null) {
             qrCode.setLocation(new Location((double) locMap.get("longitude"), (double) locMap.get("latitude")));
         }
