@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 /**
  * Activity to that showcases information about a User's scanned QR Code
@@ -26,6 +27,7 @@ public class QRInfoActivity extends AppCompatActivity {
 
     QRCode qr;
     User user;
+    Boolean isMyAccount;
 
     TextView scannerText;
     TextView scoreText;
@@ -46,6 +48,7 @@ public class QRInfoActivity extends AppCompatActivity {
 
         qr = (QRCode) getIntent().getSerializableExtra("qr");
         user = (User) getIntent().getSerializableExtra("user");
+        isMyAccount = getIntent().getBooleanExtra("isMyAccount", false);
 
         scannerText = findViewById(R.id.qr_info_scanner);
         scannerText.setText(user.getUsername());
@@ -65,16 +68,22 @@ public class QRInfoActivity extends AppCompatActivity {
         }
 
         deleteButton = findViewById(R.id.qr_info_delete);
+        if (!isMyAccount) {
+            deleteButton.setVisibility(View.INVISIBLE);
+        }
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("Note", qr == null ? "null" : "notnull");
-                user.DeleteQR(qr);
-                Database.Users.update(user);
-                Intent resultUser = new Intent();
-                resultUser.putExtra("user", user);
-                QRInfoActivity.this.setResult(Activity.RESULT_OK, resultUser);
-                QRInfoActivity.this.finish();
+//                Log.i("Note", qr == null ? "null" : "notnull");
+//                user.DeleteQR(qr);
+//                Database.Users.update(user);
+//                Intent resultUser = new Intent();
+//                resultUser.putExtra("user", user);
+//                QRInfoActivity.this.setResult(Activity.RESULT_OK, resultUser);
+//                QRInfoActivity.this.finish();
+
+                DialogFragment deleteQRFragment = new DeleteQRConfirmationFragment(qr, user);
+                deleteQRFragment.show(getSupportFragmentManager(), "Delete_QR");
             }
         });
 
