@@ -41,6 +41,8 @@ public class ScanResultActivity extends AppCompatActivity {
     private User user;
     private QRCode qr = new QRCode();
 
+    private ImageButton cameraButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +64,7 @@ public class ScanResultActivity extends AppCompatActivity {
         gpsTracker = new GpsTracker(ScanResultActivity.this);
         if(!gpsTracker.canGetLocation())
             gpsTracker.showSettingsAlert();
-        ImageButton cameraButton = findViewById(R.id.cameraButton);
+        cameraButton = findViewById(R.id.cameraButton);
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -118,6 +120,7 @@ public class ScanResultActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == pic_id && resultCode == Activity.RESULT_OK) {
              photo = (Bitmap) data.getExtras().get("data");
+             cameraButton.setImageBitmap(photo);
         }
     }
     //Imported it from HomeActivity for now, should refactor

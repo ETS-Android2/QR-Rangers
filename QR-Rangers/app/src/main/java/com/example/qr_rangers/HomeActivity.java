@@ -89,6 +89,7 @@ public class HomeActivity extends AppCompatActivity{
                 // your code
                 Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
                 intent.putExtra("user", user);
+                intent.putExtra("isMyAccount", true);
                 startActivity(intent);
                 drawerLayout.close();
                 return true;
@@ -104,6 +105,7 @@ public class HomeActivity extends AppCompatActivity{
                 // your code
                 Intent intent = new Intent(HomeActivity.this, QRListActivity.class);
                 intent.putExtra("user", user);
+                intent.putExtra("isMyAccount", true);
                 startActivity(intent);
                 drawerLayout.close();
                 return true;

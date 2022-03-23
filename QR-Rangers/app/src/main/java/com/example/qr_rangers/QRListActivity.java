@@ -35,6 +35,7 @@ public class QRListActivity extends AppCompatActivity {
     QRListAdapter qrListAdapter;
 
     User user;
+    Boolean isMyAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class QRListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_qr_list);
 
         user = (User) getIntent().getSerializableExtra("user");
+        isMyAccount = getIntent().getBooleanExtra("isMyAccount", false);
 
         nameText = findViewById(R.id.qr_list_name);
         String nameString = user.getUsername() + "'s Gallery";
@@ -77,6 +79,7 @@ public class QRListActivity extends AppCompatActivity {
                 Intent intent = new Intent(QRListActivity.this, QRInfoActivity.class);
                 intent.putExtra("qr", qrListAdapter.getItem(i));
                 intent.putExtra("user", user);
+                intent.putExtra("isMyAccount", isMyAccount);
                 infoLauncher.launch(intent);
             }
         });
