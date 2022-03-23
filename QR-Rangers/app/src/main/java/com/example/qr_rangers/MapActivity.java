@@ -7,6 +7,7 @@ import static android.os.Build.VERSION_CODES.M;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -50,6 +51,7 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
     private DirectedLocationOverlay locationOverlay;
     private GpsTracker tracker;
     private Location location;
+    private User user;
 
     private ArrayList<QRCode> codes;
 
@@ -58,6 +60,7 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        user = (User) getIntent().getSerializableExtra("user");
         codes = Database.QrCodes.getAll();
 
         if (Build.VERSION.SDK_INT >= M) {
@@ -136,7 +139,10 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener(){
             @Override
             public boolean onMarkerClick(Marker marker, MapView mapView){
-                Log.i("NOTE", "Marker clicked!");
+                Intent intent = new Intent(MapActivity.this, QRInfoActivity.class);
+                intent.putExtra("qr", code);
+                intent.putExtra("user", user);
+                startActivity(intent);
                 return true;
             }
         });
