@@ -1,7 +1,6 @@
 package com.example.qr_rangers;
 
 import android.os.Bundle;
-import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -10,14 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
-
 public class LeaderboardActivity extends AppCompatActivity {
-    DbCollection<User> db = new DbCollection<>("users");
-    ArrayList<User> leaders = new ArrayList<User>();
-
-    ListView board;
-
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
