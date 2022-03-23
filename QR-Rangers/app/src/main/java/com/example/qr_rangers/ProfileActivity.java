@@ -43,6 +43,7 @@ public class ProfileActivity extends AppCompatActivity{
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
     private User user;
+    private Boolean isMyAccount;
 
     private final float fadeSpeed = (float)1.5;
 
@@ -58,6 +59,7 @@ public class ProfileActivity extends AppCompatActivity{
         actionBar.setDisplayShowHomeEnabled(true);
 
         user = (User) getIntent().getSerializableExtra("user");
+        isMyAccount = getIntent().getBooleanExtra("isMyAccount", false);
 
         nameText = findViewById(R.id.profilename);
         nameText.setText(user.getUsername());
@@ -95,11 +97,17 @@ public class ProfileActivity extends AppCompatActivity{
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileActivity.this, QRListActivity.class);
                 intent.putExtra("user", user);
+                intent.putExtra("isMyAccount", isMyAccount);
                 galleryLauncher.launch(intent);
             }
         });
 
         shareProfileButton = findViewById(R.id.shareprofilebutton);
+
+        if (!isMyAccount) {
+            shareProfileButton.setVisibility(View.INVISIBLE);
+        }
+
         shareProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
