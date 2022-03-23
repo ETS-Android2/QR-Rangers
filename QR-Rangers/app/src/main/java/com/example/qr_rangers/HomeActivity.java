@@ -92,7 +92,8 @@ public class HomeActivity extends AppCompatActivity{
                 startActivity(intent);
                 drawerLayout.close();
                 return true;
-            }else if (item.getItemId()==R.id.hamburger_search_button){
+            }
+            else if (item.getItemId()==R.id.hamburger_search_button){
                 // your code
                 Toast.makeText(this, "Search Clicked", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
@@ -104,6 +105,12 @@ public class HomeActivity extends AppCompatActivity{
                 // your code
                 Intent intent = new Intent(HomeActivity.this, QRListActivity.class);
                 intent.putExtra("user", user);
+                startActivity(intent);
+                drawerLayout.close();
+                return true;
+            }
+            else if (item.getItemId()==R.id.hamburger_leaderboard_button){
+                Intent intent = new Intent(HomeActivity.this, LeaderboardActivity.class);
                 startActivity(intent);
                 drawerLayout.close();
                 return true;
