@@ -41,13 +41,15 @@ public class ScanResultActivity extends AppCompatActivity {
     private User user;
     private QRCode qr = new QRCode();
 
+    private ImageButton cameraButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_result);
         Intent intent = getIntent();
         String content = intent.getStringExtra("content");
-        qr = new QRCode(content,null,null);
+        qr = new QRCode(content,null,null,true);
         user = loadUser();
         int score = qr.getScore();
         TextView scoreTextView = findViewById(R.id.textViewScore);
@@ -62,7 +64,7 @@ public class ScanResultActivity extends AppCompatActivity {
         gpsTracker = new GpsTracker(ScanResultActivity.this);
         if(!gpsTracker.canGetLocation())
             gpsTracker.showSettingsAlert();
-        ImageButton cameraButton = findViewById(R.id.cameraButton);
+        cameraButton = findViewById(R.id.cameraButton);
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -78,6 +80,7 @@ public class ScanResultActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                cameraButton.setClickable(false);
                 if (attachLocation.isChecked()){
                     if(gpsTracker.canGetLocation()){
                         double longitude = gpsTracker.getLongitude();
@@ -92,15 +95,14 @@ public class ScanResultActivity extends AppCompatActivity {
                     photo.compress(Bitmap.CompressFormat.JPEG, 70, baos);
                     imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
                 }
-                QRCode QrToSave = new QRCode(content,imageEncoded,location);
-
+                QRCode QrToSave = new QRCode(content,imageEncoded,location,true);
+                if (user.HasQR(QrToSave)){
+                    Toast.makeText(getBaseContext(), "You already scanned this one!", Toast.LENGTH_SHORT).show();
+                }
                 try {
                     user.AddQR(QrToSave);
                     Database.Users.update(user);
-                    /*
-                    if (imageEncoded != null)
-                            imgPreview.setImageBitmap(decodeFromFirebaseBase64(imageEncoded));
-                */
+
                 }
                 catch (Exception e) {
                     System.out.println(e.toString());
@@ -118,6 +120,7 @@ public class ScanResultActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == pic_id && resultCode == Activity.RESULT_OK) {
              photo = (Bitmap) data.getExtras().get("data");
+             cameraButton.setImageBitmap(photo);
         }
     }
     //Imported it from HomeActivity for now, should refactor

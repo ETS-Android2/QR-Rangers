@@ -50,6 +50,39 @@ public class QRCode extends DbDocument implements Serializable {
     }
 
     /**
+     * Constructor for QR codes that need their info to be replaced with the hash for privacy reasons
+     */
+    QRCode(String /*temp, QRCode*/ info, @Nullable String photo, @Nullable Location location,boolean hideInfo){
+        QRScore qrScore = new QRScore();
+        codeInfo = info;
+        score = qrScore.calculateScore(this);
+        if (hideInfo)
+        {
+            codeInfo = qrScore.convertToSHA256(this).substring(0,10);
+        }
+        if(!Objects.isNull(photo)){
+            this.photo = photo; // temp
+        }
+
+        if(!Objects.isNull(location)){
+            this.location = location; // temp
+        //CODE TO ADD THE ROUNDED COORDS TO HASH
+            double latitude = location.getLatitude();
+            double longitude = location.getLongitude();
+            latitude = (double) Math.round(latitude * 100) / 100;
+            longitude = (double) Math.round(longitude * 100) / 100;
+            String latitudeAsString = String.valueOf(latitude);
+            String longitudeAsString = String.valueOf(longitude);
+            if(latitude>0)
+                latitudeAsString="+" + latitudeAsString;
+            if(longitude>0)
+                longitudeAsString="+" + longitudeAsString;
+            codeInfo = codeInfo.concat(latitudeAsString).concat(longitudeAsString);
+        }
+
+    }
+
+    /**
      * Empty constructor for use with getting QRCodes from the db
      */
     public QRCode() {}
@@ -83,6 +116,14 @@ public class QRCode extends DbDocument implements Serializable {
      */
     public int getScore(){
         return score;
+    }
+
+    /**
+     *
+     * @param score
+     */
+    public void setScore(int score) {
+        this.score = score;
     }
 
     /**
@@ -156,6 +197,7 @@ public class QRCode extends DbDocument implements Serializable {
     public static QRCode fromMap(Map<String, Object> map) {
         Map<String, Object> locMap = (Map<String, Object>) map.get("location");
         QRCode qrCode = new QRCode((String) map.get("codeInfo"), (String) map.get("photo"),null);
+        qrCode.setScore(Math.toIntExact((Long) map.get("score")));
         if (locMap != null) {
             qrCode.setLocation(new Location((double) locMap.get("longitude"), (double) locMap.get("latitude")));
         }

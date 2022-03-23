@@ -89,6 +89,7 @@ public class HomeActivity extends AppCompatActivity{
                 // your code
                 Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
                 intent.putExtra("user", user);
+                intent.putExtra("isMyAccount", true);
                 startActivity(intent);
                 drawerLayout.close();
                 return true;
@@ -105,6 +106,7 @@ public class HomeActivity extends AppCompatActivity{
                 // your code
                 Intent intent = new Intent(HomeActivity.this, QRListActivity.class);
                 intent.putExtra("user", user);
+                intent.putExtra("isMyAccount", true);
                 startActivity(intent);
                 drawerLayout.close();
                 return true;
@@ -117,8 +119,10 @@ public class HomeActivity extends AppCompatActivity{
             }
             else if (item.getItemId()==R.id.hamburger_map_button){
                 // your code
-                Toast.makeText(this, "Map Clicked", Toast.LENGTH_SHORT).show();
-                drawerLayout.close();
+                Intent intent = new Intent(HomeActivity.this, MapActivity.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
+                drawerLayout.close();;
                 return true;
             }
             else if (item.getItemId()==R.id.hamburger_setting_button){
@@ -154,17 +158,11 @@ public class HomeActivity extends AppCompatActivity{
             } else {
                 // if the intentResult is not null we'll set
                 // the content and format of scan message
-                QRCode checkDuplicateQR = new QRCode(intentResult.getContents(),null,null);
-                if (user.HasQR(checkDuplicateQR)){
-                    Toast.makeText(getBaseContext(), "You already scanned this one!", Toast.LENGTH_SHORT).show();
-                }
-                else {
                     int totalScore = user.getScoreSum();
                     Intent intent = new Intent(HomeActivity.this, ScanResultActivity.class);
                     intent.putExtra("content", intentResult.getContents());
                     intent.putExtra("totalScore",String.valueOf(totalScore));
                     startActivity(intent);
-                }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
