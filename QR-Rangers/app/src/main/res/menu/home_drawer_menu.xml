@@ -24,6 +24,11 @@
         android:title="@string/hamburger_gallery" />
 
     <item
+        android:id="@+id/hamburger_leaderboard_button"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:title="Leaderboard"/>
+
+    <item
         android:id="@+id/hamburger_map_button"
         android:icon="@android:drawable/ic_dialog_map"
         android:title="@string/hamburger_map" />

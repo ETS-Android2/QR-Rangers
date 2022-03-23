@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/jawda/OneDrive/Desktop/QR-Rangers/QR-Rangers/app/src/main/res/menu/home_drawer_menu.xml" value="0.37209302325581395" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.45260416666666664" />
         <entry key="app/src/main/res/layout/fragment_qr_view.xml" value="0.45260416666666664" />
