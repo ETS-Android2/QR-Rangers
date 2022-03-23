@@ -40,12 +40,13 @@ import org.osmdroid.views.overlay.mylocation.DirectedLocationOverlay;
  */
 public class MapActivity extends AppCompatActivity implements LocationListener {
 
-    MapView map = null;
+    private MapView map = null;
     private MapView mapView;
     private MapController mapController;
-    private LocationManager locationManager;
     private CompassOverlay compassOverlay;
     private DirectedLocationOverlay locationOverlay;
+    private GpsTracker tracker;
+    private Location location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,17 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
                 String[] perms = {Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE};
                 requestPermissions(perms, 1);
             }
+        }
+
+        tracker = new GpsTracker(getApplicationContext());
+        if(!tracker.canGetLocation())
+            tracker.showSettingsAlert();
+
+        if(tracker.canGetLocation()) {
+            double longitude = tracker.getLongitude();
+            double latitude = tracker.getLatitude();
+            tracker.stopUsingGPS();
+            location = new Location(longitude, latitude);
         }
 
         ActionBar actionBar = getSupportActionBar();
@@ -76,10 +88,7 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         mapController = (MapController) mapView.getController();
         mapController.setZoom(3);
 
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,this);
-
-        GeoPoint center = new GeoPoint(0,0);
+        GeoPoint center = new GeoPoint(location.getLatitude(),location.getLongitude());
         mapController.animateTo(center);
         addMarker(center);
 
@@ -141,9 +150,6 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        if (locationManager != null){
-            locationManager.removeUpdates(this);
-        }
     }
 
     @Override
