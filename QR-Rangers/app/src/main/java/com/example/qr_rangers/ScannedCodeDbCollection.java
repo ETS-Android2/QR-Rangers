@@ -11,20 +11,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-public class QrCodeDbCollection implements IDbCollection<QRCode> {
+public class ScannedCodeDbCollection implements IDbCollection<ScannedCode> {
     private CollectionReference collection;
 
-    public QrCodeDbCollection(CollectionReference collection) {
+    public ScannedCodeDbCollection(CollectionReference collection) {
         this.collection = collection;
     }
-    /**
-     * Gets a QRCode by its generated id if it exists
-     *
-     * @param id The generated id of the QRCode
-     * @return Returns the QRCode if it exists or null
-     */
+
     @Override
-    public QRCode getById(String id) {
+    public ScannedCode getById(String id) {
         if (id == null) {
             return null;
         }
@@ -34,21 +29,26 @@ public class QrCodeDbCollection implements IDbCollection<QRCode> {
         if (doc.getData() != null) {
             Map<String, Object> map = doc.getData();
             map.put("id", doc.getId());
-            return QRCode.fromMap(map);
+            return ScannedCode.fromMap(map);
         }
         return null;
     }
 
     /**
-     * Gets a QRCode by its name field if it exists
-     *
-     * @param name The hash of the QRCode to search for
-     * @return Returns the QRCode if it exists or null
+     * @deprecated Use the method with codeId and userId
+     * @param name
+     *      The name of the document to find (either username or hash)
+     * @return
+     *      Always returns null
      */
     @Override
-    public QRCode getByName(String name) {
+    public ScannedCode getByName(String name) {
+        return null;
+    }
+
+    public ScannedCode getByName(String codeId, String userId) {
         ArrayList<User> result = new ArrayList<>();
-        Task<QuerySnapshot> task = collection.whereEqualTo("codeInfo", name).get();
+        Task<QuerySnapshot> task = collection.whereEqualTo("code", codeId).whereEqualTo("user", userId).get();
         while(!task.isComplete());
         QuerySnapshot snap = task.getResult();
         List<DocumentSnapshot> docs = snap.getDocuments();
@@ -59,42 +59,31 @@ public class QrCodeDbCollection implements IDbCollection<QRCode> {
         if (doc.getData() != null) {
             Map<String, Object> map = doc.getData();
             map.put("id", doc.getId());
-            return QRCode.fromMap(map);
+            return ScannedCode.fromMap(map);
         }
         return null;
     }
 
-    /**
-     * Gets all QRCodes within the collection
-     *
-     * @return Returns a list of all QRCodes within the collection
-     */
     @Override
-    public ArrayList<QRCode> getAll() {
+    public ArrayList<ScannedCode> getAll() {
         Task<QuerySnapshot> task = collection.get();
         while(!task.isComplete());
         List<DocumentSnapshot> docs = task.getResult().getDocuments();
 
-        ArrayList<QRCode> result = new ArrayList<>();
+        ArrayList<ScannedCode> result = new ArrayList<>();
         for (DocumentSnapshot doc : docs) {
             if (doc.getData() != null) {
                 Map<String, Object> map = doc.getData();
                 map.put("id", doc.getId());
-                result.add(QRCode.fromMap(map));
+                result.add(ScannedCode.fromMap(map));
             }
         }
 
         return result;
     }
 
-    /**
-     * Updates a QRCode within the collection
-     *
-     * @param data The new data for the QRCode
-     * @return Returns the QRCode within collection after the operation
-     */
     @Override
-    public QRCode update(QRCode data) {
+    public ScannedCode update(ScannedCode data) {
         if (data.getId() == null || data.getId().isEmpty()) {
             throw new IllegalArgumentException("Id not provided");
         }
@@ -116,19 +105,13 @@ public class QrCodeDbCollection implements IDbCollection<QRCode> {
         if (documentSnapshot != null) {
             Map<String, Object> map = documentSnapshot.getData();
             map.put("id", documentSnapshot.getId());
-            return QRCode.fromMap(map);
+            return ScannedCode.fromMap(map);
         }
         return null;
     }
 
-    /**
-     * Adds a new QRCode to the collection
-     *
-     * @param data The QRCode to add
-     * @return Returns the QRCode with generated id within collection
-     */
     @Override
-    public QRCode add(QRCode data) {
+    public ScannedCode add(ScannedCode data) {
         Map<String, Object> sanitizedData = data.toMap();
         Task<DocumentReference> addTask = collection.add(sanitizedData);
 
@@ -139,17 +122,10 @@ public class QrCodeDbCollection implements IDbCollection<QRCode> {
         if (doc != null) {
             Map<String, Object> map = doc.getData();
             map.put("id", doc.getId());
-            return QRCode.fromMap(map);
+            return ScannedCode.fromMap(map);
         }
-        return null;
-    }
+        return null;    }
 
-    /**
-     * Deletes a specified QRCode within the collection if it exists
-     *
-     * @param id The id of the QRCode to delete
-     * @return Returns the task for deleting the QRCode
-     */
     @Override
     public Task<Void> delete(String id) {
         if (id == null) {
@@ -165,22 +141,21 @@ public class QrCodeDbCollection implements IDbCollection<QRCode> {
     }
 
     /**
-     * Checks if a QRCode with the specified hash exists within the collection
-     *
-     * @param name The hash of the QRCode to search for
-     * @return Returns whether the document exists or not
+     * @deprecated Use the method with codeInfo and userId
+     * @param name
+     *      The name field of the document to find (either username or hash)
+     * @return
+     *      Always returns false
      */
     @Override
     public boolean existsName(String name) {
-        return this.getByName(name) != null;
+        return false;
     }
 
-    /**
-     * Checks if a QRCode with the specified id exists within the collection
-     *
-     * @param id The id of the QRCode to search for
-     * @return Returns whether the QRCode exists or not
-     */
+    public boolean existsName(String codeId, String userId) {
+        return this.getByName(codeId, userId) != null;
+    }
+
     @Override
     public boolean existsId(String id) {
         return this.getById(id) != null;

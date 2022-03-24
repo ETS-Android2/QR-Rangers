@@ -17,7 +17,7 @@ public class User extends DbDocument implements Serializable {
     private String username;
     private String email;
     private String phoneNumber;
-    private ArrayList<QRCode> QRList;
+    private ArrayList<ScannedCode> QRList;
     protected Rankings userRanks;
 
     /**
@@ -32,7 +32,7 @@ public class User extends DbDocument implements Serializable {
         this.username = username;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.QRList = new ArrayList<QRCode>();
+        this.QRList = new ArrayList<ScannedCode>();
         this.userRanks = new Rankings();
     }
 
@@ -43,7 +43,7 @@ public class User extends DbDocument implements Serializable {
         this.username = "";
         this.email = "";
         this.phoneNumber = "";
-        QRList = new ArrayList<QRCode>();
+        QRList = new ArrayList<ScannedCode>();
     }
 
     /**
@@ -112,7 +112,7 @@ public class User extends DbDocument implements Serializable {
      * @return
      *      An arraylist that represents the list of QR codes from the user object
      */
-    public ArrayList<QRCode> getQRList() {
+    public ArrayList<ScannedCode> getQRList() {
         return QRList;
     }
 
@@ -122,7 +122,7 @@ public class User extends DbDocument implements Serializable {
      * @param QRList
      *      The new QR code list to replace the original one
      */
-    public void setQRList(ArrayList<QRCode> QRList) {
+    public void setQRList(ArrayList<ScannedCode> QRList) {
         this.QRList = QRList;
     }
 
@@ -132,15 +132,15 @@ public class User extends DbDocument implements Serializable {
      * @param code The QRCode that is to be added
      * @return Returns true if the add works, returns false if the QR Code already exists in the list, avoids duplicates
      */
-    public boolean AddQR(QRCode code) {
+    public boolean AddQR(ScannedCode code) {
         if (QRList.contains(code)) {
             return false;
         }
-        QRCode dbCode;
-        if (!Database.QrCodes.existsName(code.getCodeInfo())) {
-            dbCode = Database.QrCodes.add(code);
+        ScannedCode dbCode;
+        if (!Database.ScannedCodes.existsName(code.getCode().getId(), code.getUser().getId())) {
+            dbCode = Database.ScannedCodes.add(code);
         } else {
-            dbCode = Database.QrCodes.getByName(code.getCodeInfo());
+            dbCode = Database.ScannedCodes.getByName(code.getCode().getId(), code.getUser().getId());
         }
 
         QRList.add(dbCode);
@@ -153,7 +153,7 @@ public class User extends DbDocument implements Serializable {
      * @param code The QRCode we want to delete
      * @throws IllegalArgumentException If the QRCode does not exist in the list
      */
-    public void DeleteQR(QRCode code) {
+    public void DeleteQR(ScannedCode code) {
         if (QRList.contains(code)) {
             QRList.remove(code);
         } else { // Not sure why this would ever happen but
@@ -161,7 +161,7 @@ public class User extends DbDocument implements Serializable {
         }
     }
 
-    public boolean HasQR(QRCode code) {
+    public boolean HasQR(ScannedCode code) {
         return this.QRList.contains(code);
     }
 
@@ -173,8 +173,8 @@ public class User extends DbDocument implements Serializable {
      */
     public int getScoreSum() {
         int score = 0;
-        for (QRCode code : QRList) {
-            score += code.getScore();
+        for (ScannedCode code : QRList) {
+            score += code.getCode().getScore();
         }
         return score;
     }
@@ -194,9 +194,9 @@ public class User extends DbDocument implements Serializable {
         }
         return max_code;*/
         int score = 0;
-        for (QRCode code: QRList) {
-            if(code.getScore() > score){
-                score = code.getScore();
+        for (ScannedCode code: QRList) {
+            if(code.getCode().getScore() > score){
+                score = code.getCode().getScore();
             }
         }
         return score;
@@ -218,9 +218,9 @@ public class User extends DbDocument implements Serializable {
         return min_code;*/
         if(getQRNum() > 0) {
             int score = Integer.MAX_VALUE;
-            for (QRCode code : QRList) {
-                if (code.getScore() < score) {
-                    score = code.getScore();
+            for (ScannedCode code : QRList) {
+                if (code.getCode().getScore() < score) {
+                    score = code.getCode().getScore();
                 }
             }
             return score;
@@ -251,9 +251,9 @@ public class User extends DbDocument implements Serializable {
         User user = new User((String) map.get("username"), (String) map.get("email"), (String) map.get("phoneNumber"));
         user.setId((String) map.get("id"));
         ArrayList<String> qrIds = (ArrayList<String>) map.get("QRList");
-        ArrayList<QRCode> qrList = new ArrayList<>();
+        ArrayList<ScannedCode> qrList = new ArrayList<>();
         for (int i = 0; i < qrIds.size(); i++) {
-            QRCode code = Database.QrCodes.getById(qrIds.get(i));
+            ScannedCode code = Database.ScannedCodes.getById(qrIds.get(i));
             if (code != null) {
                 qrList.add(code);
             }
@@ -271,8 +271,8 @@ public class User extends DbDocument implements Serializable {
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
         ArrayList<String> qrList = new ArrayList<>();
-        for (int i = 0; i < this.QRList.size(); i++) {
-            qrList.add(this.QRList.get(i).getId());
+        for (ScannedCode code : this.QRList) {
+            qrList.add(code.getId());
         }
         map.put("QRList", qrList);
         map.put("qrnum", this.getQRNum());

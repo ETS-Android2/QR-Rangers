@@ -6,8 +6,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 /**
@@ -19,30 +21,24 @@ import java.util.Objects;
  */
 public class QRCode extends DbDocument implements Serializable {
     // REMINDER TO CHANGE .equals() DEPENDING ON codeInfo TYPE
-    private String /*temp QRCode*/ codeInfo;
-    private String photo;
-    private Location location;
+    private String codeInfo;
+    private ArrayList<ScannedCode> scannedCodes;
     private int score;
-    private String comment; // I'm not sure if this should go here necessarily
+    private Location location;
 
     /**
      * Initializes the QRCode object for display and comparison
      *
-     * @param photo
-     *      Contains the image that will be used to represent the QRCode
      * @param info
      *      Contains the QR Code information that will be used to calculate score and determine what QRCode it was
      * @param location
      *      Contains the Geological location of the QRCode
      */
     @RequiresApi(api = Build.VERSION_CODES.N) // I don't really know what to do about this
-    QRCode(String /*temp, QRCode*/ info, @Nullable String photo, @Nullable Location location){
+    QRCode(String /*temp, QRCode*/ info, @Nullable Location location){
         QRScore qrScore = new QRScore();
         codeInfo = info;
         score = qrScore.calculateScore(this);
-        if(!Objects.isNull(photo)){
-            this.photo = photo; // temp
-        }
         if(!Objects.isNull(location)){
             this.location = location; // temp
         }
@@ -52,16 +48,13 @@ public class QRCode extends DbDocument implements Serializable {
     /**
      * Constructor for QR codes that need their info to be replaced with the hash for privacy reasons
      */
-    QRCode(String /*temp, QRCode*/ info, @Nullable String photo, @Nullable Location location,boolean hideInfo){
+    QRCode(String /*temp, QRCode*/ info, @Nullable Location location, boolean hideInfo){
         QRScore qrScore = new QRScore();
         codeInfo = info;
         score = qrScore.calculateScore(this);
         if (hideInfo)
         {
             codeInfo = qrScore.convertToSHA256(this).substring(0,10);
-        }
-        if(!Objects.isNull(photo)){
-            this.photo = photo; // temp
         }
 
         if(!Objects.isNull(location)){
@@ -126,24 +119,53 @@ public class QRCode extends DbDocument implements Serializable {
         this.score = score;
     }
 
-    /**
-     * A getter function to get the image of the QR Code
-     *
-     * @return
-     *      The URL to the image that was used for the QR Code
-     */
-    public String getPhoto(){
-        return photo;
+    public ArrayList<ScannedCode> getScannedCodes() {
+        return this.scannedCodes;
     }
 
-    /**
-     * A setter function to set a new image for the QR Code
-     *
-     * @param photo
-     *      The URL to the image image that will be used for the QR Code
-     */
-    public void setPhoto(String photo){
-        this.photo = photo;
+    public void setScannedCodes(ArrayList<ScannedCode> scannedCodes) {
+        this.scannedCodes = scannedCodes;
+    }
+
+    public void addScannedCode(ScannedCode scannedCode) {
+        this.scannedCodes.add(scannedCode);
+    }
+
+    public void updateScannedCode(ScannedCode scannedCode) {
+        if (!this.scannedCodes.contains(scannedCode)) {
+            throw new NoSuchElementException("ScannedCode does not exist");
+        }
+
+        int index = this.scannedCodes.indexOf(scannedCode);
+        this.scannedCodes.set(index, scannedCode);
+    }
+
+    public void deleteScannedCode(ScannedCode scannedCode) {
+        this.scannedCodes.remove(scannedCode);
+    }
+
+    public ArrayList<String> getComments() {
+        ArrayList<String> comments = new ArrayList<>();
+        for (ScannedCode code : this.scannedCodes) {
+            comments.add(code.getComment());
+        }
+        return comments;
+    }
+
+    public ArrayList<String> getPictures() {
+        ArrayList<String> pictures = new ArrayList<>();
+        for (ScannedCode code : this.scannedCodes) {
+            pictures.add(code.getPicture());
+        }
+        return pictures;
+    }
+
+    public ArrayList<Location> getLocationsScanned() {
+        ArrayList<Location> locations = new ArrayList<>();
+        for (ScannedCode code : this.scannedCodes) {
+            locations.add(code.getLocationScanned());
+        }
+        return locations;
     }
 
     /**
@@ -196,12 +218,21 @@ public class QRCode extends DbDocument implements Serializable {
      */
     public static QRCode fromMap(Map<String, Object> map) {
         Map<String, Object> locMap = (Map<String, Object>) map.get("location");
-        QRCode qrCode = new QRCode((String) map.get("codeInfo"), (String) map.get("photo"),null);
-        qrCode.setScore(Math.toIntExact((Long) map.get("score")));
+        QRCode qrCode = new QRCode((String) map.get("codeInfo"), null, false);
         if (locMap != null) {
             qrCode.setLocation(new Location((double) locMap.get("longitude"), (double) locMap.get("latitude")));
         }
+        qrCode.setScore(Math.toIntExact((Long) map.get("score")));
         qrCode.setId((String) map.get("id"));
+        ArrayList<ScannedCode> scannedCodes = new ArrayList<>();
+        ArrayList<String> codeIds = (ArrayList<String>) map.get("scannedCodes");
+        if (codeIds == null) {
+            codeIds = new ArrayList<>();
+        }
+        for (String id : codeIds) {
+            scannedCodes.add(Database.ScannedCodes.getById(id));
+        }
+        qrCode.setScannedCodes(scannedCodes);
         // TODO: Add in setting score values from the map once setters are complete
         return qrCode;
     }
@@ -216,10 +247,12 @@ public class QRCode extends DbDocument implements Serializable {
         Map<String, Object> map = new HashMap<>();
         // TODO: Figure out if we want this
         map.put("codeInfo", this.codeInfo);
-        map.put("photo", this.getPhoto());
-        map.put("location", this.getLocation());
         map.put("score", this.getScore());
-        map.put("comment", this.comment);
+        ArrayList<String> scannedCodes = new ArrayList<>();
+        for (ScannedCode code : this.scannedCodes) {
+            scannedCodes.add(code.getId());
+        }
+        map.put("scannedCodes", scannedCodes);
         return map;
     }
     @Override
