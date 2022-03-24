@@ -139,6 +139,9 @@ public class User extends DbDocument implements Serializable {
         ScannedCode dbCode;
         if (!Database.ScannedCodes.existsName(code.getCode().getId(), code.getUser().getId())) {
             dbCode = Database.ScannedCodes.add(code);
+            QRCode qrCode = Database.QrCodes.getById(code.getCode().getId());
+            qrCode.addScannedCode(code);
+            Database.QrCodes.update(qrCode);
         } else {
             dbCode = Database.ScannedCodes.getByName(code.getCode().getId(), code.getUser().getId());
         }
@@ -156,6 +159,7 @@ public class User extends DbDocument implements Serializable {
     public void DeleteQR(ScannedCode code) {
         if (QRList.contains(code)) {
             QRList.remove(code);
+            Database.ScannedCodes.delete(code.getId());
         } else { // Not sure why this would ever happen but
             throw new IllegalArgumentException();
         }
