@@ -39,7 +39,6 @@ public class ViewHighScoreFragment extends Fragment {
 
         users = Database.Users.getAll();
         users.add(Database.Users.getByName("dodooo"));
-        Toast.makeText(getContext(), String.valueOf(users.size()), Toast.LENGTH_SHORT).show();
 
         usersAdapter = new CustomList(getActivity(), users);
 

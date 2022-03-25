@@ -35,6 +35,7 @@ public class ProfileActivity extends AppCompatActivity{
     private TextView codesScannedText;
     private TextView scoreRankingText;
     private TextView scanRankingText;
+    private TextView bestQRRankingText;
 
     private Button viewGalleryButton;
     private Button shareProfileButton;
@@ -79,6 +80,10 @@ public class ProfileActivity extends AppCompatActivity{
         scanRankingText = findViewById(R.id.scanranking);
         String rankAmount = String.valueOf(user.userRanks.getQRScannedRank());
         scanRankingText.setText("#" + rankAmount);
+
+        bestQRRankingText = findViewById(R.id.bestqrranking);
+        String rankBest = String.valueOf(user.userRanks.getBestQRRank());
+        bestQRRankingText.setText("#" + rankBest);
 
 
 
@@ -140,6 +145,10 @@ public class ProfileActivity extends AppCompatActivity{
         scanRankingText = findViewById(R.id.scanranking);
         String rankAmount = "#" + String.valueOf(user.userRanks.getQRScannedRank());
         scanRankingText.setText(rankAmount);
+
+        bestQRRankingText = findViewById(R.id.bestqrranking);
+        String rankBest = String.valueOf(user.userRanks.getBestQRRank());
+        bestQRRankingText.setText("#" + rankBest);
     }
 
     @Override
