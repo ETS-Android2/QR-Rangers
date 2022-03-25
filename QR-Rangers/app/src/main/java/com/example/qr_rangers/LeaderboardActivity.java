@@ -53,7 +53,7 @@ public class LeaderboardActivity extends AppCompatActivity {
             }
         });
 
-        switchFragment(new ViewAdminUsersFragment());
+        switchFragment(new ViewHighScoreFragment());
     }
 
     public void switchFragment(Fragment fragment){

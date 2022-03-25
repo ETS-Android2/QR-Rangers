@@ -282,7 +282,7 @@ public class User extends DbDocument implements Serializable {
         map.put("username", this.getUsername());
         map.put("email", this.getEmail());
         map.put("phoneNumber", this.getPhoneNumber());
-        map.put("rankings", userRanks.toMap());
+        map.put("rankings", this.userRanks.toMap());
         return map;
     }
 

@@ -49,15 +49,6 @@ public class ViewNumCodesFragment extends Fragment {
             }
         });
 
-        usersList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.i("NOTE", "Long press on " + Integer.toString(i));
-                DialogFragment deleteUserFragment = new DeleteUserConfirmationFragment(usersAdapter, i);
-                deleteUserFragment.show(getActivity().getSupportFragmentManager(), "Delete_User");
-                return true;
-            }
-        });
         return view;
     }
 }

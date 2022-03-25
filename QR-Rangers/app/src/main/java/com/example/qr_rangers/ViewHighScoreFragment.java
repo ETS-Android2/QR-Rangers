@@ -9,9 +9,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+
+import com.google.protobuf.Value;
 
 import java.util.ArrayList;
 
@@ -34,7 +37,9 @@ public class ViewHighScoreFragment extends Fragment {
 
         usersList = view.findViewById(R.id.high_score_list);
 
+        users = Database.Users.getAll();
         users.add(Database.Users.getByName("dodooo"));
+        Toast.makeText(getContext(), String.valueOf(users.size()), Toast.LENGTH_SHORT).show();
 
         usersAdapter = new CustomList(getActivity(), users);
 
@@ -49,15 +54,6 @@ public class ViewHighScoreFragment extends Fragment {
             }
         });
 
-        usersList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l){
-                Log.i("NOTE", "Long press on " + Integer.toString(i));
-                DialogFragment deleteUserFragment = new DeleteUserConfirmationFragment(usersAdapter, i);
-                deleteUserFragment.show(getActivity().getSupportFragmentManager(), "Delete_User");
-                return true;
-            }
-        });
         return view;
     }
 }

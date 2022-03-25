@@ -58,6 +58,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 else {
                     newUser = new User(username.getText().toString(), email.getText().toString(),
                             phoneNumber.getText().toString());
+                    newUser.userRanks.initRanks();
                     User dbUser = Database.Users.add(newUser);
                     saveID(dbUser.getId());
                     Intent intent = new Intent(CreateAccountActivity.this, HomeActivity.class);

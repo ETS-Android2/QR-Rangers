@@ -1,5 +1,7 @@
 package com.example.qr_rangers;
 
+import android.provider.ContactsContract;
+
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -19,9 +21,14 @@ public class Rankings implements Serializable {
      * Constructs a rank object
      */
     public Rankings() {
-        this.totalScoreRank = -1;
-        this.bestQRRank = -1;
-        this.QRScannedRank = -1;
+
+    }
+
+    public void initRanks() {
+        int last = Database.Users.getAll().size() + 1;
+        setBestQRRank(last);
+        setQRScannedRank(last);
+        setTotalScoreRank(last);
     }
 
     /**
