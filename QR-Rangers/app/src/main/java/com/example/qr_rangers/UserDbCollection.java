@@ -117,6 +117,40 @@ public class UserDbCollection implements IDbCollection<User> {
     }
 
     /**
+     * Gets all Users within the collection
+     */
+    public void updateRanks(String rankType, int currentRank) {
+        Task<QuerySnapshot> task = collection.orderBy(rankType, Query.Direction.DESCENDING).limit(currentRank+1).get();
+        while(!task.isComplete());
+        List<DocumentSnapshot> docs = task.getResult().getDocuments();
+
+        ArrayList<User> result = new ArrayList<>();
+        int i = 1;
+        for (DocumentSnapshot doc : docs) {
+            if (doc.getData() != null) {
+                Map<String, Object> map = doc.getData();
+                map.put("id", doc.getId());
+                User user = User.fromMap(map);
+                switch (rankType) {
+                    case "scoreSum":
+                        user.getUserRanks().setTotalScoreRank(i);
+                        break;
+                    case "qrnum":
+                        user.getUserRanks().setQRScannedRank(i);
+                        break;
+                    case "scoreMax":
+                        user.getUserRanks().setBestQRRank(i);
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Not a valid rank to update!");
+                }
+                Database.Users.update(user);
+                i += 1;
+            }
+        }
+    }
+
+    /**
      * Updates a User within the collection
      * @param data
      *  The new data for the User
