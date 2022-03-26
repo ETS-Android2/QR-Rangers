@@ -18,7 +18,7 @@ public class User extends DbDocument implements Serializable {
     private String email;
     private String phoneNumber;
     private ArrayList<QRCode> QRList;
-    protected Rankings userRanks;
+    private Rankings userRanks;
 
     /**
      * Constructs a user object
@@ -240,6 +240,14 @@ public class User extends DbDocument implements Serializable {
         return QRList.size();
     }
 
+    public Rankings getUserRanks() {
+        return userRanks;
+    }
+
+    public void setUserRanks(Rankings userRanks) {
+        this.userRanks = userRanks;
+    }
+
     /**
      * Creates a new User object from a map representation
      * @param map
@@ -259,6 +267,7 @@ public class User extends DbDocument implements Serializable {
             }
         }
         user.setQRList(qrList);
+        user.userRanks = Rankings.fromMap((Map) map.get("rankings"));
         return user;
     }
 

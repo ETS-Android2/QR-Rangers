@@ -37,8 +37,7 @@ public class ViewHighScoreFragment extends Fragment {
 
         usersList = view.findViewById(R.id.high_score_list);
 
-        users = Database.Users.getAll();
-        users.add(Database.Users.getByName("dodooo"));
+        users = Database.Users.displayLeaderboard("scoreSum");
 
         usersAdapter = new CustomList(getActivity(), users);
 

@@ -74,15 +74,15 @@ public class ProfileActivity extends AppCompatActivity{
         codesScannedText.setText(String.valueOf(codesScanned));
 
         scoreRankingText = findViewById(R.id.scoreranking);
-        String rankScore = String.valueOf(user.userRanks.getTotalScoreRank());
+        String rankScore = String.valueOf(user.getUserRanks().getTotalScoreRank());
         scoreRankingText.setText("#" + rankScore);
 
         scanRankingText = findViewById(R.id.scanranking);
-        String rankAmount = String.valueOf(user.userRanks.getQRScannedRank());
+        String rankAmount = String.valueOf(user.getUserRanks().getQRScannedRank());
         scanRankingText.setText("#" + rankAmount);
 
         bestQRRankingText = findViewById(R.id.bestqrranking);
-        String rankBest = String.valueOf(user.userRanks.getBestQRRank());
+        String rankBest = String.valueOf(user.getUserRanks().getBestQRRank());
         bestQRRankingText.setText("#" + rankBest);
 
 
@@ -139,15 +139,15 @@ public class ProfileActivity extends AppCompatActivity{
         codesScannedText.setText(String.valueOf(codesScanned));
 
         scoreRankingText = findViewById(R.id.scoreranking);
-        String rankScore = "#" + String.valueOf(user.userRanks.getTotalScoreRank());
+        String rankScore = "#" + String.valueOf(user.getUserRanks().getTotalScoreRank());
         scoreRankingText.setText(rankScore);
 
         scanRankingText = findViewById(R.id.scanranking);
-        String rankAmount = "#" + String.valueOf(user.userRanks.getQRScannedRank());
+        String rankAmount = "#" + String.valueOf(user.getUserRanks().getQRScannedRank());
         scanRankingText.setText(rankAmount);
 
         bestQRRankingText = findViewById(R.id.bestqrranking);
-        String rankBest = String.valueOf(user.userRanks.getBestQRRank());
+        String rankBest = String.valueOf(user.getUserRanks().getBestQRRank());
         bestQRRankingText.setText("#" + rankBest);
     }
 

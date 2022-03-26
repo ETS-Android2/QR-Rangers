@@ -6,6 +6,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -78,6 +79,28 @@ public class UserDbCollection implements IDbCollection<User> {
     @Override
     public ArrayList<User> getAll() {
         Task<QuerySnapshot> task = collection.get();
+        while(!task.isComplete());
+        List<DocumentSnapshot> docs = task.getResult().getDocuments();
+
+        ArrayList<User> result = new ArrayList<>();
+        for (DocumentSnapshot doc : docs) {
+            if (doc.getData() != null) {
+                Map<String, Object> map = doc.getData();
+                map.put("id", doc.getId());
+                result.add(User.fromMap(map));
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Gets all Users within the collection
+     * @return
+     *      Returns a list of all documents within the collection
+     */
+    public ArrayList<User> displayLeaderboard(String rankType) {
+        Task<QuerySnapshot> task = collection.orderBy(rankType, Query.Direction.DESCENDING).limit(11).get();
         while(!task.isComplete());
         List<DocumentSnapshot> docs = task.getResult().getDocuments();
 

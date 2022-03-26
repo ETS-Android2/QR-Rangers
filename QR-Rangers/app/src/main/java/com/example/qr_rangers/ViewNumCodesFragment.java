@@ -34,7 +34,7 @@ public class ViewNumCodesFragment extends Fragment {
 
         usersList = view.findViewById(R.id.num_codes_list);
 
-        //users = Database.Users.getAll();
+        users = Database.Users.displayLeaderboard("qrnum");
 
         usersAdapter = new CustomList(getActivity(), users);
 
