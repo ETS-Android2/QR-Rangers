@@ -25,7 +25,7 @@ import androidx.fragment.app.DialogFragment;
  */
 public class QRInfoActivity extends AppCompatActivity {
 
-    QRCode qr;
+    ScannedCode qr;
     User user;
     Boolean isMyAccount;
 
@@ -48,14 +48,14 @@ public class QRInfoActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
-        qr = (QRCode) getIntent().getSerializableExtra("qr");
+        qr = (ScannedCode) getIntent().getSerializableExtra("qr");
         user = (User) getIntent().getSerializableExtra("user");
         isMyAccount = getIntent().getBooleanExtra("isMyAccount", false);
 
         scannerText = findViewById(R.id.qr_info_scanner);
         scannerText.setText(user.getUsername());
         scoreText = findViewById(R.id.qr_info_points);
-        String scoreString = qr.getScore() + " pts.";
+        String scoreString = qr.getCode().getScore() + " pts.";
         scoreText.setText(scoreString);
         //TODO: Get comments
         commentText = findViewById(R.id.qr_info_comment);

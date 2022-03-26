@@ -11,14 +11,14 @@ public class ScannedCode extends DbDocument implements Serializable {
     private User user;
     private Location locationScanned;
     private String comment;
-    private String picture;
+    private String photo;
 
     public ScannedCode(QRCode code, User user, @Nullable Location locationScanned, @Nullable String comment, @Nullable String picture) {
         this.code = code;
         this.user = user;
         this.locationScanned = locationScanned;
         this.comment = comment;
-        this.picture = picture;
+        this.photo = picture;
     }
 
     public QRCode getCode() {
@@ -53,12 +53,12 @@ public class ScannedCode extends DbDocument implements Serializable {
         this.comment = comment;
     }
 
-    public String getPicture() {
-        return picture;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public static ScannedCode fromMap(Map<String, Object> map) {
@@ -77,7 +77,7 @@ public class ScannedCode extends DbDocument implements Serializable {
         map.put("user", user.getId());
         map.put("locationScanned", locationScanned);
         map.put("comment", comment);
-        map.put("picture", picture);
+        map.put("picture", photo);
         return map;
     }
 

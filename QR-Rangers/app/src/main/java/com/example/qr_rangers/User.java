@@ -18,6 +18,7 @@ public class User extends DbDocument implements Serializable {
     private String email;
     private String phoneNumber;
     private ArrayList<ScannedCode> QRList;
+    private ArrayList<String> QRIds;
     protected Rankings userRanks;
 
     /**
@@ -113,6 +114,10 @@ public class User extends DbDocument implements Serializable {
      *      An arraylist that represents the list of QR codes from the user object
      */
     public ArrayList<ScannedCode> getQRList() {
+        // Load QRList from database if it hasn't yet
+        if (this.QRList.size() != this.QRIds.size()) {
+            this.loadQRList();
+        }
         return QRList;
     }
 
@@ -127,12 +132,22 @@ public class User extends DbDocument implements Serializable {
     }
 
     /**
+     * Sets the list of ScannedCode ids for the User
+     * @param QRIds
+     *      List of ScannedCode ids
+     */
+    public void setQRIds(ArrayList<String> QRIds) {
+        this.QRIds = QRIds;
+    }
+
+    /**
      * Adds a QR Code to the user's list
      *
      * @param code The QRCode that is to be added
      * @return Returns true if the add works, returns false if the QR Code already exists in the list, avoids duplicates
      */
     public boolean AddQR(ScannedCode code) {
+        this.loadQRList();
         if (QRList.contains(code)) {
             return false;
         }
@@ -147,6 +162,7 @@ public class User extends DbDocument implements Serializable {
         }
 
         QRList.add(dbCode);
+        QRIds.add(dbCode.getId());
         return true;
     }
 
@@ -157,8 +173,10 @@ public class User extends DbDocument implements Serializable {
      * @throws IllegalArgumentException If the QRCode does not exist in the list
      */
     public void DeleteQR(ScannedCode code) {
+        this.loadQRList();
         if (QRList.contains(code)) {
             QRList.remove(code);
+            QRIds.remove(code.getId());
             Database.ScannedCodes.delete(code.getId());
         } else { // Not sure why this would ever happen but
             throw new IllegalArgumentException();
@@ -166,6 +184,7 @@ public class User extends DbDocument implements Serializable {
     }
 
     public boolean HasQR(ScannedCode code) {
+        this.loadQRList();
         return this.QRList.contains(code);
     }
 
@@ -176,6 +195,7 @@ public class User extends DbDocument implements Serializable {
      *      Returns the sum of all of the scores in the QR List
      */
     public int getScoreSum() {
+        this.loadQRList();
         int score = 0;
         for (ScannedCode code : QRList) {
             score += code.getCode().getScore();
@@ -197,6 +217,7 @@ public class User extends DbDocument implements Serializable {
             }
         }
         return max_code;*/
+        this.loadQRList();
         int score = 0;
         for (ScannedCode code: QRList) {
             if(code.getCode().getScore() > score){
@@ -220,6 +241,7 @@ public class User extends DbDocument implements Serializable {
             }
         }
         return min_code;*/
+        this.loadQRList();
         if(getQRNum() > 0) {
             int score = Integer.MAX_VALUE;
             for (ScannedCode code : QRList) {
@@ -241,7 +263,23 @@ public class User extends DbDocument implements Serializable {
      *      Returns the number of codes in the QR List
      */
     public int getQRNum(){
+        this.loadQRList();
         return QRList.size();
+    }
+
+    /**
+     * Loads ScannedCodes from ids
+     */
+    public void loadQRList() {
+        if (this.QRList.size() == this.QRIds.size()) {
+            return;
+        }
+        for (String id : this.QRIds) {
+            ScannedCode code = Database.ScannedCodes.getById(id);
+            if (code != null) {
+                this.QRList.add(code);
+            }
+        }
     }
 
     /**
@@ -254,15 +292,7 @@ public class User extends DbDocument implements Serializable {
     public static User fromMap(Map<String, Object> map) {
         User user = new User((String) map.get("username"), (String) map.get("email"), (String) map.get("phoneNumber"));
         user.setId((String) map.get("id"));
-        ArrayList<String> qrIds = (ArrayList<String>) map.get("QRList");
-        ArrayList<ScannedCode> qrList = new ArrayList<>();
-        for (int i = 0; i < qrIds.size(); i++) {
-            ScannedCode code = Database.ScannedCodes.getById(qrIds.get(i));
-            if (code != null) {
-                qrList.add(code);
-            }
-        }
-        user.setQRList(qrList);
+        user.setQRIds((ArrayList<String>) map.get("QRList"));
         return user;
     }
 

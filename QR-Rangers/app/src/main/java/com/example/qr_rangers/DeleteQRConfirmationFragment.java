@@ -23,9 +23,9 @@ import androidx.fragment.app.DialogFragment;
  * @version 1.0
  */
 public class DeleteQRConfirmationFragment extends DialogFragment {
-    private QRCode qr;
+    private ScannedCode qr;
     private User user;
-    public DeleteQRConfirmationFragment(QRCode qr, User user){
+    public DeleteQRConfirmationFragment(ScannedCode qr, User user){
         super();
         this.qr = qr;
         this.user = user;

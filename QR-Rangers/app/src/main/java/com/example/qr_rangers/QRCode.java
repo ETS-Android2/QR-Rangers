@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 
 /**
@@ -131,15 +130,6 @@ public class QRCode extends DbDocument implements Serializable {
         this.scannedCodes.add(scannedCode);
     }
 
-    public void updateScannedCode(ScannedCode scannedCode) {
-        if (!this.scannedCodes.contains(scannedCode)) {
-            throw new NoSuchElementException("ScannedCode does not exist");
-        }
-
-        int index = this.scannedCodes.indexOf(scannedCode);
-        this.scannedCodes.set(index, scannedCode);
-    }
-
     public void deleteScannedCode(ScannedCode scannedCode) {
         this.scannedCodes.remove(scannedCode);
     }
@@ -155,7 +145,7 @@ public class QRCode extends DbDocument implements Serializable {
     public ArrayList<String> getPictures() {
         ArrayList<String> pictures = new ArrayList<>();
         for (ScannedCode code : this.scannedCodes) {
-            pictures.add(code.getPicture());
+            pictures.add(code.getPhoto());
         }
         return pictures;
     }

@@ -21,11 +21,11 @@ import java.util.ArrayList;
  * @author Ronan Sandoval
  * @version 1.0
  */
-public class QRListAdapter extends ArrayAdapter<QRCode> {
-    private ArrayList<QRCode> qrList;
+public class QRListAdapter extends ArrayAdapter<ScannedCode> {
+    private ArrayList<ScannedCode> qrList;
     private Context context;
 
-    public QRListAdapter(Context context, ArrayList<QRCode> qrList) {
+    public QRListAdapter(Context context, ArrayList<ScannedCode> qrList) {
         super(context, 0, qrList);
         this.qrList = qrList;
         this.context = context;
@@ -40,12 +40,12 @@ public class QRListAdapter extends ArrayAdapter<QRCode> {
             view = LayoutInflater.from(context).inflate(R.layout.qr_item, parent, false);
         }
 
-        QRCode qr = qrList.get(position);
+        ScannedCode qr = qrList.get(position);
 
         ImageView qrImage = view.findViewById(R.id.qr_item_image);
         TextView qrScore = view.findViewById(R.id.qr_item_points);
 
-        String scoreText = Integer.toString(qr.getScore()) + " pts.";
+        String scoreText = Integer.toString(qr.getCode().getScore()) + " pts.";
         qrScore.setText(scoreText);
 
         if (qr.getPhoto() != null) {
