@@ -102,9 +102,9 @@ public class ScanResultActivity extends AppCompatActivity {
                 try {
                     user.AddQR(QrToSave);
                     Database.Users.update(user);
-                    Database.Users.updateRanks("scoreSum", user.getUserRanks().getTotalScoreRank());
-                    Database.Users.updateRanks("qrnum", user.getUserRanks().getQRScannedRank());
-                    Database.Users.updateRanks("scoreMax", user.getUserRanks().getBestQRRank());
+                    Database.Users.updateRanks("scoreSum", user.getUserRanks().getTotalScoreRank(), user);
+                    Database.Users.updateRanks("qrnum", user.getUserRanks().getQRScannedRank(), user);
+                    Database.Users.updateRanks("scoreMax", user.getUserRanks().getBestQRRank(), user);
 
                 }
                 catch (Exception e) {
