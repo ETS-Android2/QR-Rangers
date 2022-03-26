@@ -33,10 +33,11 @@ public class LeaderboardActivity extends AppCompatActivity {
                         fragment = new ViewHighScoreFragment();
                         break;
                     case 1:
-                        fragment = new ViewNumCodesFragment();
+                        fragment = new ViewUniqueQrFragment();
                         break;
                     case 2:
-                        fragment = new ViewUniqueQrFragment();
+                        fragment = new ViewNumCodesFragment();
+                        break;
                 }
 
                 switchFragment(fragment);

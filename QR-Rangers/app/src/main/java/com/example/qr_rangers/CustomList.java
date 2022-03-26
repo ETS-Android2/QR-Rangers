@@ -32,7 +32,6 @@ public class CustomList extends ArrayAdapter<User> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//        return super.getView(position, convertView, parent);
         View view = convertView;
 
         if(view == null){
@@ -42,10 +41,14 @@ public class CustomList extends ArrayAdapter<User> {
         User user = profiles.get(position);
 
         TextView username = view.findViewById(R.id.user_text);
-//        TextView provinceName = view.findViewById(R.id.province_text);
 
-        username.setText(user.getUsername());
-//        provinceName.setText(city.getProvinceName());
+        if(context.getClass() == LeaderboardActivity.class){
+            username.setText(position+1 + ". " + user.getUsername());
+        }
+        else
+        {
+            username.setText(user.getUsername());
+        }
 
         return view;
     }
