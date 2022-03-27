@@ -62,23 +62,12 @@
         android:textSize="16sp" />
 
     <Button
-        android:id="@+id/qr_edit_comment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/qr_info_comment"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:text="Edit Comment"
-        android:textSize="16sp" />
-
-    <Button
         android:id="@+id/qr_info_view_map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/qr_info_comment"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="200dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:text="View on Map"
         android:textSize="16sp" />
