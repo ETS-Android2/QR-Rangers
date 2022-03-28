@@ -96,11 +96,12 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         mapView.setMultiTouchControls(true);
 
         mapController = (MapController) mapView.getController();
-        mapController.setZoom(3);
+
 
         GeoPoint center = new GeoPoint(location.getLatitude(),location.getLongitude());
         Log.e("LOCATION", "lat: " + Double.toString(location.getLatitude()) + " | lon: " + Double.toString(location.getLongitude()));
-        mapController.animateTo(center);
+        mapController.setCenter(center);
+        mapController.setZoom(18);
         makeScreen(center);
 
         mapView.setMapListener(new MapListener() {
