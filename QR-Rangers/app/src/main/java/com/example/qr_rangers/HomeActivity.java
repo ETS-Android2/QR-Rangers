@@ -88,7 +88,6 @@ public class HomeActivity extends AppCompatActivity{
                 filteredCodes.add(codes.get(i));
             }
         }
-        Log.e("NOTE", "PAST LOOP");
         filteredCodes.sort(new CodeComparatorByDistance(location));
         GridView qrGrid = findViewById(R.id.nearby_codes_grid);
         NearbyCodesAdapter adapter = new NearbyCodesAdapter(this, filteredCodes);
