@@ -21,13 +21,13 @@ import java.util.ArrayList;
  * @author Ronan Sandoval
  * @version 1.0
  */
-public class QRListAdapter extends ArrayAdapter<QRCode> {
-    private ArrayList<QRCode> qrList;
+public class ScannedCodesAdapter extends ArrayAdapter<ScannedCode> {
+    private ArrayList<ScannedCode> scannedCodes;
     private Context context;
 
-    public QRListAdapter(Context context, ArrayList<QRCode> qrList) {
-        super(context, 0, qrList);
-        this.qrList = qrList;
+    public ScannedCodesAdapter(Context context, ArrayList<ScannedCode> scannedCodes) {
+        super(context, 0, scannedCodes);
+        this.scannedCodes = scannedCodes;
         this.context = context;
     }
 
@@ -40,16 +40,16 @@ public class QRListAdapter extends ArrayAdapter<QRCode> {
             view = LayoutInflater.from(context).inflate(R.layout.qr_item, parent, false);
         }
 
-        QRCode qr = qrList.get(position);
+        ScannedCode qr = scannedCodes.get(position);
 
         ImageView qrImage = view.findViewById(R.id.qr_item_image);
         TextView qrScore = view.findViewById(R.id.qr_item_points);
 
-        String scoreText = Integer.toString(qr.getScore()) + " pts.";
+        String scoreText = Integer.toString(qr.getCode().getScore()) + " pts.";
         qrScore.setText(scoreText);
 
         if (qr.getPhoto() != null) {
-            byte[] imageBits = android.util.Base64.decode(qr.getPhoto(), Base64.DEFAULT);
+            byte[] imageBits = Base64.decode(qr.getPhoto(), Base64.DEFAULT);
             Bitmap bitImage = BitmapFactory.decodeByteArray(imageBits, 0, imageBits.length);
             qrImage.setImageBitmap(bitImage);
         } else {

@@ -162,8 +162,10 @@ public class QrCodeDbCollection implements IDbCollection<QRCode> {
             throw new NoSuchElementException(String.format("No such document with id %s", id));
         }
         ArrayList<String> scannedCodeIds = (ArrayList<String>) data.get("scannedCodes");
-        for (String codeId : scannedCodeIds) {
-            Database.ScannedCodes.deleteFromQR(codeId);
+        if (scannedCodeIds != null) {
+            for (String codeId : scannedCodeIds) {
+                Database.ScannedCodes.deleteFromQR(codeId);
+            }
         }
         return collection.document(id).delete();
     }

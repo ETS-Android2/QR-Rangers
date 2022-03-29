@@ -1,5 +1,7 @@
 package com.example.qr_rangers;
 
+import android.util.Log;
+
 import com.google.android.gms.tasks.Task;
 
 import java.io.Serializable;
@@ -33,7 +35,8 @@ public class User extends DbDocument implements Serializable {
         this.username = username;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.QRList = new ArrayList<ScannedCode>();
+        this.QRList = new ArrayList<>();
+        this.QRIds = new ArrayList<>();
         this.userRanks = new Rankings();
     }
 
@@ -44,7 +47,8 @@ public class User extends DbDocument implements Serializable {
         this.username = "";
         this.email = "";
         this.phoneNumber = "";
-        QRList = new ArrayList<ScannedCode>();
+        QRList = new ArrayList<>();
+        QRIds = new ArrayList<>();
     }
 
     /**
@@ -126,6 +130,10 @@ public class User extends DbDocument implements Serializable {
      */
     public void setQRList(ArrayList<ScannedCode> QRList) {
         this.QRList = QRList;
+    }
+
+    public ArrayList<String> getQRIds() {
+        return this.QRIds;
     }
 
     /**
@@ -286,9 +294,13 @@ public class User extends DbDocument implements Serializable {
      *      Returns the created User object
      */
     public static User fromMap(Map<String, Object> map) {
+        Log.d("USER", "User fromMap");
         User user = new User((String) map.get("username"), (String) map.get("email"), (String) map.get("phoneNumber"));
         user.setId((String) map.get("id"));
         user.setQRIds((ArrayList<String>) map.get("QRList"));
+        if (user.getQRIds() == null) {
+            user.setQRIds(new ArrayList<>());
+        }
         return user;
     }
 

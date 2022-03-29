@@ -1,5 +1,7 @@
 package com.example.qr_rangers;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -62,6 +64,7 @@ public class ScannedCode extends DbDocument implements Serializable {
     }
 
     public static ScannedCode fromMap(Map<String, Object> map) {
+        Log.d("SCANNEDCODE", "ScannedCode fromMap");
         return new ScannedCode(
                 Database.QrCodes.getById((String) map.get("code")),
                 Database.Users.getById((String) map.get("user")),

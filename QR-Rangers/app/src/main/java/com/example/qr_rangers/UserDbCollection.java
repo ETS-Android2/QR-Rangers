@@ -173,8 +173,10 @@ public class UserDbCollection implements IDbCollection<User> {
 
         // Delete ScannedCodes
         ArrayList<String> scannedCodeIds = (ArrayList<String>) data.get("qrList");
-        for (String codeId : scannedCodeIds) {
-            Database.ScannedCodes.deleteFromUser(codeId);
+        if (scannedCodeIds != null) {
+            for (String codeId : scannedCodeIds) {
+                Database.ScannedCodes.deleteFromUser(codeId);
+            }
         }
         return collection.document(id).delete();
     }

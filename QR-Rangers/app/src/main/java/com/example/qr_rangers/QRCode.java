@@ -1,6 +1,7 @@
 package com.example.qr_rangers;
 
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -43,7 +44,8 @@ public class QRCode extends DbDocument implements Serializable {
         if(!Objects.isNull(location)){
             this.location = location; // temp
         }
-
+        scannedCodes = new ArrayList<>();
+        scannedCodeIds = new ArrayList<>();
     }
 
     /**
@@ -73,14 +75,9 @@ public class QRCode extends DbDocument implements Serializable {
                 longitudeAsString="+" + longitudeAsString;
             codeInfo = codeInfo.concat(latitudeAsString).concat(longitudeAsString);
         }
-
+        scannedCodes = new ArrayList<>();
+        scannedCodeIds = new ArrayList<>();
     }
-
-    /**
-     * Empty constructor for use with getting QRCodes from the db
-     */
-    public QRCode() {}
-
 
     /**
      * Getter for the QR code data
@@ -246,6 +243,7 @@ public class QRCode extends DbDocument implements Serializable {
      *      Returns the created QrCode object
      */
     public static QRCode fromMap(Map<String, Object> map) {
+        Log.d("QRCODE", "QRCode From Map");
         Map<String, Object> locMap = (Map<String, Object>) map.get("location");
         QRCode qrCode = new QRCode((String) map.get("codeInfo"), null, false);
         if (locMap != null) {
@@ -254,6 +252,9 @@ public class QRCode extends DbDocument implements Serializable {
         qrCode.setScore(Math.toIntExact((Long) map.get("score")));
         qrCode.setId((String) map.get("id"));
         qrCode.setScannedCodeIds((ArrayList<String>) map.get("scannedCodes"));
+        if (qrCode.getScannedCodeIds() == null) {
+            qrCode.setScannedCodeIds(new ArrayList<>());
+        }
         return qrCode;
     }
 

@@ -76,7 +76,7 @@ public class HomeActivityTest {
         if(test.getQRList().size() > 0){
             solo.clickOnText(Integer.toString(test.getScoreMax()) + " pts");
 
-            solo.assertCurrentActivity("Wrong Activity",QRInfoActivity.class);
+            solo.assertCurrentActivity("Wrong Activity", ScannedCodeInfoActivity.class);
         }
     }
 

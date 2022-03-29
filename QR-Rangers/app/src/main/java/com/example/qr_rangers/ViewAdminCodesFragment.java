@@ -44,8 +44,6 @@ public class ViewAdminCodesFragment extends Fragment {
 
         codeGrid = view.findViewById(R.id.admin_qr_list_grid);
 
-        HashMap<QRCode, User> map = new HashMap<QRCode, User>();
-
         codes = Database.QrCodes.getAll();
 
         codesAdapter = new QRListAdapter(getActivity(), codes);
@@ -70,21 +68,20 @@ public class ViewAdminCodesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(), QRInfoActivity.class);
-                intent.putExtra("qr", codes.get(i));
-                intent.putExtra("user", map.get(codesAdapter.getItem(i)));
+                    intent.putExtra("qr", codes.get(i));
                 infoLauncher.launch(intent);
             }
         });
 
-        /*codeGrid.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+        codeGrid.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l){
                 Log.i("NOTE", "Long press on " + Integer.toString(i));
-                DialogFragment deleteCodeFragment = new DeleteCodeConfirmationFragment(codesAdapter, i);
-                deleteCodefragment.show(getActivity().getSupportFragmentManager(), "Delete_Code");
+                DialogFragment deleteCodeFragment = new DeleteQRConfirmationFragment(codesAdapter.getItem(i));
+                deleteCodeFragment.show(getActivity().getSupportFragmentManager(), "Delete_Code");
                 return true;
             }
-        });*/
+        });
         return view;
     }
 }

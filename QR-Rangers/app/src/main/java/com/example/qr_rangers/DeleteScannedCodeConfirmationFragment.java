@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,11 +22,13 @@ import androidx.fragment.app.DialogFragment;
  * @author Alexander Salm, Ronan Sandoval
  * @version 1.0
  */
-public class DeleteQRConfirmationFragment extends DialogFragment {
-    private QRCode qr;
-    public DeleteQRConfirmationFragment(QRCode qr){
+public class DeleteScannedCodeConfirmationFragment extends DialogFragment {
+    private ScannedCode qr;
+    private User user;
+    public DeleteScannedCodeConfirmationFragment(ScannedCode qr, User user){
         super();
         this.qr = qr;
+        this.user = user;
     }
 
     @Override
@@ -50,8 +53,11 @@ public class DeleteQRConfirmationFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Log.i("Note", qr == null ? "null" : "notnull");
-                        Database.QrCodes.delete(qr.getId());
+                        Database.ScannedCodes.delete(qr.getId());
+                        user.DeleteQR(qr);
+                        Database.Users.update(user);
                         Intent resultUser = new Intent();
+                        resultUser.putExtra("user", user);
                         getActivity().setResult(Activity.RESULT_OK, resultUser);
                         getActivity().finish();
                     }
