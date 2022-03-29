@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -224,6 +225,14 @@ public class HomeActivity extends AppCompatActivity{
         User localUser = Database.Users.getById(id);
         localUser.setId(id); //added for qr generation support, it needs the id field to be filled out
         return localUser;
+    }
+
+    @Override
+    public void onBackPressed(){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawers();
+            return;
+        }
     }
 
     @Override
