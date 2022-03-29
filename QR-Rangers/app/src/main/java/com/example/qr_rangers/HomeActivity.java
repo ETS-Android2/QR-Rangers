@@ -7,6 +7,8 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.util.ArrayList;
+
 /**
  * This is an activity that provides the user with their account information and basic actions.
  * @author Ryan Haskins, Alexander Salm, Ronan Sandoval
@@ -32,7 +36,6 @@ public class HomeActivity extends AppCompatActivity{
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private User user;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,40 @@ public class HomeActivity extends AppCompatActivity{
                 intentIntegrator.setOrientationLocked(true);
                 intentIntegrator.setBeepEnabled(false);
                 intentIntegrator.initiateScan();
+            }
+        });
+
+        // nearby codes setup
+        GpsTracker tracker = new GpsTracker(this);
+        if (!tracker.canGetLocation()) {
+            tracker.showSettingsAlert();
+            Log.i("NOTE", "Could not get location...");
+        }
+
+        Location location = new Location(tracker.getLocation().getLongitude(), tracker.getLocation().getLatitude());
+        ArrayList<QRCode> codes = Database.QrCodes.getAll();
+        ArrayList<QRCode> userCodes = user.getQRList();
+        ArrayList<QRCode> filteredCodes = new ArrayList<QRCode>();
+        for(int i = 0; i < codes.size(); i++){
+            if (codes.get(i).getLocation() != null && !userCodes.contains(codes.get(i))){
+                filteredCodes.add(codes.get(i));
+            }
+        }
+        Log.e("NOTE", "PAST LOOP");
+        filteredCodes.sort(new CodeComparatorByDistance(location));
+        GridView qrGrid = findViewById(R.id.nearby_codes_grid);
+        NearbyCodesAdapter adapter = new NearbyCodesAdapter(this, filteredCodes);
+        qrGrid.setAdapter(adapter);
+
+        qrGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.i("NOTE", "GRID CLICK");
+                Intent intent = new Intent(HomeActivity.this, QRInfoActivity.class);
+                intent.putExtra("qr", adapter.getItem(i));
+                intent.putExtra("user", user);
+                intent.putExtra("isMyAccount", false);
+                startActivity(intent);
             }
         });
 
