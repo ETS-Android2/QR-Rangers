@@ -105,8 +105,16 @@ public class ScanResultActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "You already scanned this one!", Toast.LENGTH_SHORT).show();
                 }
                 try {
+                    boolean qrChanged = false;
                     if (qr.getLocation() == null && location != null) {
                         qr.setLocation(location);
+                        qrChanged = true;
+                    }
+                    if (qr.getPhoto() == null && photo != null) {
+                        qr.setPhoto(photo.toString());
+                        qrChanged = true;
+                    }
+                    if (qrChanged) {
                         Database.QrCodes.update(qr);
                     }
                     user.AddQR(codeToSave);

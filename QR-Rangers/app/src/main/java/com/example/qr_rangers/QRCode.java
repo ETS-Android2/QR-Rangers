@@ -25,6 +25,7 @@ public class QRCode extends DbDocument implements Serializable {
     private ArrayList<ScannedCode> scannedCodes;
     private int score;
     private Location location;
+    private String photo;
 
     /**
      * Initializes the QRCode object for display and comparison
@@ -206,6 +207,14 @@ public class QRCode extends DbDocument implements Serializable {
      */
     public void setLocation(Location location){
         this.location = location;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     /**
