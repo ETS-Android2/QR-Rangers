@@ -21,6 +21,7 @@ import java.util.Objects;
 public class QRCode extends DbDocument implements Serializable {
     // REMINDER TO CHANGE .equals() DEPENDING ON codeInfo TYPE
     private String codeInfo;
+    private ArrayList<String> scannedCodeIds;
     private ArrayList<ScannedCode> scannedCodes;
     private int score;
     private Location location;
@@ -118,7 +119,25 @@ public class QRCode extends DbDocument implements Serializable {
         this.score = score;
     }
 
+    public void loadScannedCodes() {
+        if (this.scannedCodes.size() == this.scannedCodeIds.size()) return;
+
+        this.scannedCodes = new ArrayList<>();
+        for (String id : this.scannedCodeIds) {
+            this.scannedCodes.add(Database.ScannedCodes.getById(id));
+        }
+    }
+
+    public ArrayList<String> getScannedCodeIds() {
+        return scannedCodeIds;
+    }
+
+    public void setScannedCodeIds(ArrayList<String> scannedCodeIds) {
+        this.scannedCodeIds = scannedCodeIds;
+    }
+
     public ArrayList<ScannedCode> getScannedCodes() {
+        this.loadScannedCodes();
         return this.scannedCodes;
     }
 
@@ -126,15 +145,24 @@ public class QRCode extends DbDocument implements Serializable {
         this.scannedCodes = scannedCodes;
     }
 
+    public int getScannedCount() {
+        return this.scannedCodeIds.size();
+    }
+
     public void addScannedCode(ScannedCode scannedCode) {
         this.scannedCodes.add(scannedCode);
+        this.scannedCodeIds.add(scannedCode.getId());
     }
 
     public void deleteScannedCode(ScannedCode scannedCode) {
-        this.scannedCodes.remove(scannedCode);
+        if (this.scannedCodes.size() > 0) {
+            this.scannedCodes.remove(scannedCode);
+        }
+        this.scannedCodeIds.remove(scannedCode.getId());
     }
 
     public ArrayList<String> getComments() {
+        this.loadScannedCodes();
         ArrayList<String> comments = new ArrayList<>();
         for (ScannedCode code : this.scannedCodes) {
             comments.add(code.getComment());
@@ -143,6 +171,7 @@ public class QRCode extends DbDocument implements Serializable {
     }
 
     public ArrayList<String> getPictures() {
+        this.loadScannedCodes();
         ArrayList<String> pictures = new ArrayList<>();
         for (ScannedCode code : this.scannedCodes) {
             pictures.add(code.getPhoto());
@@ -151,6 +180,7 @@ public class QRCode extends DbDocument implements Serializable {
     }
 
     public ArrayList<Location> getLocationsScanned() {
+        this.loadScannedCodes();
         ArrayList<Location> locations = new ArrayList<>();
         for (ScannedCode code : this.scannedCodes) {
             locations.add(code.getLocationScanned());
@@ -214,16 +244,7 @@ public class QRCode extends DbDocument implements Serializable {
         }
         qrCode.setScore(Math.toIntExact((Long) map.get("score")));
         qrCode.setId((String) map.get("id"));
-        ArrayList<ScannedCode> scannedCodes = new ArrayList<>();
-        ArrayList<String> codeIds = (ArrayList<String>) map.get("scannedCodes");
-        if (codeIds == null) {
-            codeIds = new ArrayList<>();
-        }
-        for (String id : codeIds) {
-            scannedCodes.add(Database.ScannedCodes.getById(id));
-        }
-        qrCode.setScannedCodes(scannedCodes);
-        // TODO: Add in setting score values from the map once setters are complete
+        qrCode.setScannedCodeIds((ArrayList<String>) map.get("scannedCodes"));
         return qrCode;
     }
 
@@ -238,11 +259,7 @@ public class QRCode extends DbDocument implements Serializable {
         // TODO: Figure out if we want this
         map.put("codeInfo", this.codeInfo);
         map.put("score", this.getScore());
-        ArrayList<String> scannedCodes = new ArrayList<>();
-        for (ScannedCode code : this.scannedCodes) {
-            scannedCodes.add(code.getId());
-        }
-        map.put("scannedCodes", scannedCodes);
+        map.put("scannedCodes", this.scannedCodeIds);
         return map;
     }
     @Override

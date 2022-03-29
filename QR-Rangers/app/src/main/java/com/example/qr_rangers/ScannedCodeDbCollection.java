@@ -137,6 +137,73 @@ public class ScannedCodeDbCollection implements IDbCollection<ScannedCode> {
         if (data.getData() == null) {
             throw new NoSuchElementException(String.format("No such document with id %s", id));
         }
+
+        Map<String, Object> map = data.getData();
+        map.put("id", data.getId());
+        ScannedCode code = ScannedCode.fromMap(map);
+
+        // Delete code from user
+        String userId = data.get("user", String.class);
+        User user = Database.Users.getById(userId);
+        user.DeleteQR(code);
+        Database.Users.update(user);
+
+        // Delete code from QR Code
+        String codeId = data.get("code", String.class);
+        QRCode qrCode = Database.QrCodes.getById(codeId);
+        qrCode.deleteScannedCode(code);
+        Database.QrCodes.update(qrCode);
+
+        return collection.document(id).delete();
+    }
+
+    public Task<Void> deleteFromQR(String id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Id must be provided");
+        }
+
+        Task<DocumentSnapshot> dataTask = collection.document(id).get();
+        while (!dataTask.isComplete());
+        DocumentSnapshot data = dataTask.getResult();
+        if (data.getData() == null) {
+            throw new NoSuchElementException(String.format("No such document with id %s", id));
+        }
+
+        Map<String, Object> map = data.getData();
+        map.put("id", data.getId());
+        ScannedCode code = ScannedCode.fromMap(map);
+
+        // Delete code from user
+        String userId = data.get("user", String.class);
+        User user = Database.Users.getById(userId);
+        user.DeleteQR(code);
+        Database.Users.update(user);
+
+        return collection.document(id).delete();
+    }
+
+    public Task<Void> deleteFromUser(String id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Id must be provided");
+        }
+
+        Task<DocumentSnapshot> dataTask = collection.document(id).get();
+        while (!dataTask.isComplete());
+        DocumentSnapshot data = dataTask.getResult();
+        if (data.getData() == null) {
+            throw new NoSuchElementException(String.format("No such document with id %s", id));
+        }
+
+        Map<String, Object> map = data.getData();
+        map.put("id", data.getId());
+        ScannedCode code = ScannedCode.fromMap(map);
+
+        // Delete code from QR Code
+        String codeId = data.get("code", String.class);
+        QRCode qrCode = Database.QrCodes.getById(codeId);
+        qrCode.deleteScannedCode(code);
+        Database.QrCodes.update(qrCode);
+
         return collection.document(id).delete();
     }
 

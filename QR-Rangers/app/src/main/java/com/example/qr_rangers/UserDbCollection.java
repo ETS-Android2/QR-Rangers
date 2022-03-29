@@ -170,6 +170,12 @@ public class UserDbCollection implements IDbCollection<User> {
         if (data.getData() == null) {
             throw new NoSuchElementException(String.format("No such document with id %s", id));
         }
+
+        // Delete ScannedCodes
+        ArrayList<String> scannedCodeIds = (ArrayList<String>) data.get("qrList");
+        for (String codeId : scannedCodeIds) {
+            Database.ScannedCodes.deleteFromUser(codeId);
+        }
         return collection.document(id).delete();
     }
 

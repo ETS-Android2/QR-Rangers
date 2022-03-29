@@ -114,10 +114,7 @@ public class User extends DbDocument implements Serializable {
      *      An arraylist that represents the list of QR codes from the user object
      */
     public ArrayList<ScannedCode> getQRList() {
-        // Load QRList from database if it hasn't yet
-        if (this.QRList.size() != this.QRIds.size()) {
-            this.loadQRList();
-        }
+        this.loadQRList();
         return QRList;
     }
 
@@ -147,8 +144,7 @@ public class User extends DbDocument implements Serializable {
      * @return Returns true if the add works, returns false if the QR Code already exists in the list, avoids duplicates
      */
     public boolean AddQR(ScannedCode code) {
-        this.loadQRList();
-        if (QRList.contains(code)) {
+        if (QRIds.contains(code.getId())) {
             return false;
         }
         ScannedCode dbCode;
@@ -173,9 +169,10 @@ public class User extends DbDocument implements Serializable {
      * @throws IllegalArgumentException If the QRCode does not exist in the list
      */
     public void DeleteQR(ScannedCode code) {
-        this.loadQRList();
-        if (QRList.contains(code)) {
-            QRList.remove(code);
+        if (QRIds.contains(code.getId())) {
+            if (QRList.size() > 0) {
+                QRList.remove(code);
+            }
             QRIds.remove(code.getId());
             Database.ScannedCodes.delete(code.getId());
         } else { // Not sure why this would ever happen but
@@ -263,8 +260,7 @@ public class User extends DbDocument implements Serializable {
      *      Returns the number of codes in the QR List
      */
     public int getQRNum(){
-        this.loadQRList();
-        return QRList.size();
+        return QRIds.size();
     }
 
     /**
@@ -304,11 +300,8 @@ public class User extends DbDocument implements Serializable {
     @Override
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
-        ArrayList<String> qrList = new ArrayList<>();
-        for (ScannedCode code : this.QRList) {
-            qrList.add(code.getId());
-        }
-        map.put("QRList", qrList);
+
+        map.put("QRList", this.QRIds);
         map.put("qrnum", this.getQRNum());
         map.put("scoreMax", this.getScoreMax());
         map.put("scoreMin", this.getScoreMin());
