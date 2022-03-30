@@ -164,7 +164,7 @@ public class User extends DbDocument implements Serializable {
         if (!Database.ScannedCodes.existsName(code.getCode().getId(), code.getUser().getId())) {
             dbCode = Database.ScannedCodes.add(code);
             QRCode qrCode = Database.QrCodes.getById(code.getCode().getId());
-            qrCode.addScannedCode(code);
+            qrCode.addScannedCode(dbCode);
             Database.QrCodes.update(qrCode);
         } else {
             dbCode = Database.ScannedCodes.getByName(code.getCode().getId(), code.getUser().getId());
