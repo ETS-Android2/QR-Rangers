@@ -52,8 +52,8 @@ public class QRInfoActivity extends AppCompatActivity {
 
 //        scannerText = findViewById(R.id.qr_info_scanner);
 //        scannerText.setText(user.getUsername());
-        scannedByText = findViewById(R.id.qr_info_scanned_by);
-        scannedByText.setText("" + qr.getScannedCount());
+        scannedByText = findViewById(R.id.qr_info_others);
+        scannedByText.setText(String.format("Scanned by %d people", qr.getScannedCount()));
         scoreText = findViewById(R.id.qr_info_points);
         String scoreString = qr.getScore() + " pts.";
         scoreText.setText(scoreString);
