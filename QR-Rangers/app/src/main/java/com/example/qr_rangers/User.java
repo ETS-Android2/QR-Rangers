@@ -176,10 +176,10 @@ public class User extends DbDocument implements Serializable {
     }
 
     /**
-     * Removes a particular QRCode from the list
+     * Removes a particular ScannedCode from the list
      *
-     * @param code The QRCode we want to delete
-     * @throws IllegalArgumentException If the QRCode does not exist in the list
+     * @param code The ScannedCode we want to delete
+     * @throws IllegalArgumentException If the ScannedCode does not exist in the list
      */
     public void DeleteQR(ScannedCode code) {
         if (QRIds.contains(code.getId())) {
@@ -187,7 +187,7 @@ public class User extends DbDocument implements Serializable {
                 QRList.remove(code);
             }
             QRIds.remove(code.getId());
-            Database.ScannedCodes.delete(code.getId());
+            Database.ScannedCodes.deleteFromUser(code.getId());
         } else { // Not sure why this would ever happen but
             throw new IllegalArgumentException();
         }

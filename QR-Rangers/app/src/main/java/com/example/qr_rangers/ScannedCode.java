@@ -174,6 +174,6 @@ public class ScannedCode extends DbDocument implements Serializable {
         if (!(obj instanceof ScannedCode)) {
             throw new IllegalArgumentException();
         }
-        return obj != null && ((ScannedCode) obj).getId() == this.getId();
+        return obj != null && ((ScannedCode) obj).getId().compareTo(this.getId()) == 0;
     }
 }

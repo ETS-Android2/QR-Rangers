@@ -62,8 +62,7 @@ public class ScanResultActivity extends AppCompatActivity {
         totalScore = findViewById(R.id.newtotalscore);
         totalScore.setText(String.valueOf(intent.getStringExtra("totalScore")));
         TextView codeUserCount = findViewById(R.id.codeusercount);
-        //TODO: Set codeuser count from database
-        //codeUserCount.setText();
+        codeUserCount.setText("" + qr.getScannedCount());
         EditText commentBox = findViewById(R.id.commentbox);
         //imgPreview = findViewById(R.id.imageView);
         gpsTracker = new GpsTracker(ScanResultActivity.this);

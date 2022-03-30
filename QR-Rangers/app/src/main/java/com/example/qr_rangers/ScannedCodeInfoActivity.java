@@ -27,6 +27,7 @@ public class ScannedCodeInfoActivity extends AppCompatActivity {
     Boolean isMyAccount;
 
     TextView scannerText;
+    TextView scannedByText;
     TextView scoreText;
     TextView commentText;
     ImageView image;
@@ -51,11 +52,13 @@ public class ScannedCodeInfoActivity extends AppCompatActivity {
 
         scannerText = findViewById(R.id.qr_info_scanner);
         scannerText.setText(user.getUsername());
+        scannedByText = findViewById(R.id.qr_info_others);
+        scannedByText.setText(String.format("Scanned by %d other people", qr.getCode().getScannedCount() - 1));
         scoreText = findViewById(R.id.qr_info_points);
         String scoreString = qr.getCode().getScore() + " pts.";
         scoreText.setText(scoreString);
-        //TODO: Get comments
         commentText = findViewById(R.id.qr_info_comment);
+        commentText.setText(qr.getComment());
 
         image = findViewById(R.id.qr_info_image);
         if (qr.getPhoto() != null) {
@@ -73,7 +76,6 @@ public class ScannedCodeInfoActivity extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 DialogFragment deleteQRFragment = new DeleteScannedCodeConfirmationFragment(qr, user);
                 deleteQRFragment.show(getSupportFragmentManager(), "Delete_QR");
             }

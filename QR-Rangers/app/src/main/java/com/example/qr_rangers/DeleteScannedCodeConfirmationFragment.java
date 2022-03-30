@@ -49,18 +49,14 @@ public class DeleteScannedCodeConfirmationFragment extends DialogFragment {
                 .setView(view)
                 .setTitle("Delete QR Code")
                 .setNegativeButton("Cancel", null)
-                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Log.i("Note", qr == null ? "null" : "notnull");
-                        Database.ScannedCodes.delete(qr.getId());
-                        user.DeleteQR(qr);
-                        Database.Users.update(user);
-                        Intent resultUser = new Intent();
-                        resultUser.putExtra("user", user);
-                        getActivity().setResult(Activity.RESULT_OK, resultUser);
-                        getActivity().finish();
-                    }
+                .setPositiveButton("Delete", (dialogInterface, i) -> {
+                    Log.i("Note", qr == null ? "null" : "notnull");
+                    user.DeleteQR(qr);
+                    Database.Users.update(user);
+                    Intent resultUser = new Intent();
+                    resultUser.putExtra("user", user);
+                    getActivity().setResult(Activity.RESULT_OK, resultUser);
+                    getActivity().finish();
                 }).create();
 
     }
