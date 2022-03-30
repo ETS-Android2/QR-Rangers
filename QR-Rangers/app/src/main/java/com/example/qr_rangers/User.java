@@ -201,8 +201,10 @@ public class User extends DbDocument implements Serializable {
      *      Returns whether or not the User has the ScannedCode
      */
     public boolean HasQR(ScannedCode code) {
-        this.loadQRList();
-        return this.QRList.contains(code);
+        if (code.getUser() != this) {
+            return false;
+        }
+        return Database.ScannedCodes.existsName(code.getCode().getId(), code.getUser().getId());
     }
 
     /**

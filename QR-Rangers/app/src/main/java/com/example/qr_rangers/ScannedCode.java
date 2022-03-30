@@ -138,12 +138,19 @@ public class ScannedCode extends DbDocument implements Serializable {
      */
     public static ScannedCode fromMap(Map<String, Object> map) {
         Log.d("SCANNEDCODE", "ScannedCode fromMap");
-        return new ScannedCode(
+        HashMap locMap = (HashMap) map.get("locationScanned");
+        Location location = null;
+        if (locMap != null) {
+            location = new Location((double) locMap.get("longitude"), (double) locMap.get("latitude"));
+        }
+        ScannedCode code =  new ScannedCode(
                 Database.QrCodes.getById((String) map.get("code")),
                 Database.Users.getById((String) map.get("user")),
-                (Location) map.get("locationScanned"),
+                location,
                 (String) map.get("comment"),
                 (String) map.get("picture"));
+        code.setId((String) map.get("id"));
+        return code;
     }
 
     /**

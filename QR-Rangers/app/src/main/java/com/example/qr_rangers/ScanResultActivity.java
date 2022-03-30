@@ -103,26 +103,27 @@ public class ScanResultActivity extends AppCompatActivity {
                 ScannedCode codeToSave = new ScannedCode(qr,user,location,imageEncoded,commentBox.getText().toString());
                 if (user.HasQR(codeToSave)){
                     Toast.makeText(getBaseContext(), "You already scanned this one!", Toast.LENGTH_SHORT).show();
-                }
-                try {
-                    boolean qrChanged = false;
-                    if (qr.getLocation() == null && location != null) {
-                        qr.setLocation(location);
-                        qrChanged = true;
+                } else {
+                    try {
+                        boolean qrChanged = false;
+                        if (qr.getLocation() == null && location != null) {
+                            qr.setLocation(location);
+                            qrChanged = true;
+                        }
+                        if (qr.getPhoto() == null && photo != null) {
+                            qr.setPhoto(photo.toString());
+                            qrChanged = true;
+                        }
+                        if (qrChanged) {
+                            Database.QrCodes.update(qr);
+                        }
+                        user.AddQR(codeToSave);
+                        Database.Users.update(user);
                     }
-                    if (qr.getPhoto() == null && photo != null) {
-                        qr.setPhoto(photo.toString());
-                        qrChanged = true;
+                    catch (Exception e) {
+                        System.out.println(e.toString());
+                        Toast.makeText(ScanResultActivity.this,"exception encountered".concat(e.toString()),Toast.LENGTH_SHORT).show();
                     }
-                    if (qrChanged) {
-                        Database.QrCodes.update(qr);
-                    }
-                    user.AddQR(codeToSave);
-                    Database.Users.update(user);
-                }
-                catch (Exception e) {
-                    System.out.println(e.toString());
-                    Toast.makeText(ScanResultActivity.this,"exception encountered".concat(e.toString()),Toast.LENGTH_SHORT).show();
                 }
              finish();
             }
