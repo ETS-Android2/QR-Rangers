@@ -100,7 +100,7 @@ public class ScanResultActivity extends AppCompatActivity {
                     photo.compress(Bitmap.CompressFormat.JPEG, 70, baos);
                     imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
                 }
-                ScannedCode codeToSave = new ScannedCode(qr,user,location,imageEncoded,commentBox.getText().toString());
+                ScannedCode codeToSave = new ScannedCode(qr,user,location,commentBox.getText().toString(),imageEncoded);
                 if (user.HasQR(codeToSave)){
                     Toast.makeText(getBaseContext(), "You already scanned this one!", Toast.LENGTH_SHORT).show();
                 } else {
