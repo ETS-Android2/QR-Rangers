@@ -313,6 +313,7 @@ public class QRCode extends DbDocument implements Serializable {
         // TODO: Figure out if we want this
         map.put("codeInfo", this.codeInfo);
         map.put("score", this.getScore());
+        map.put("location", this.location);
         map.put("scannedCodes", this.scannedCodeIds);
         return map;
     }
