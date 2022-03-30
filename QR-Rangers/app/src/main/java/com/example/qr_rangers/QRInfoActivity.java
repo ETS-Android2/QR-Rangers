@@ -25,16 +25,13 @@ import java.util.ArrayList;
 public class QRInfoActivity extends AppCompatActivity {
 
     QRCode qr;
-    User user;
-    Boolean isMyAccount;
 
-    TextView scannedByText;
+    TextView scannerText;
     TextView scoreText;
     TextView commentText;
     ImageView image;
 
     Button deleteButton;
-    Button editCommentButton;
     Button viewMapButton;
 
     @Override
@@ -48,12 +45,10 @@ public class QRInfoActivity extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(true);
 
         qr = (QRCode) getIntent().getSerializableExtra("qr");
-        isMyAccount = getIntent().getBooleanExtra("isMyAccount", false);
 
-//        scannerText = findViewById(R.id.qr_info_scanner);
-//        scannerText.setText(user.getUsername());
-        scannedByText = findViewById(R.id.qr_info_others);
-        scannedByText.setText(String.format("Scanned by %d people", qr.getScannedCount()));
+        scannerText = findViewById(R.id.qr_info_scanner);
+        scannerText.setText(String.format("%d people", qr.getScannedCount()));
+
         scoreText = findViewById(R.id.qr_info_points);
         String scoreString = qr.getScore() + " pts.";
         scoreText.setText(scoreString);
@@ -74,21 +69,11 @@ public class QRInfoActivity extends AppCompatActivity {
         }
 
         deleteButton = findViewById(R.id.qr_info_delete);
-        if (!isMyAccount) {
-            deleteButton.setVisibility(View.INVISIBLE);
-        }
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogFragment deleteQRFragment = new DeleteQRConfirmationFragment(qr);
-                deleteQRFragment.show(getSupportFragmentManager(), "Delete_QR");
-            }
-        });
 
-        editCommentButton = findViewById(R.id.qr_edit_comment);
-        if (!isMyAccount) {
-            editCommentButton.setVisibility(View.INVISIBLE);
-        }
+        deleteButton.setOnClickListener(view -> {
+            DialogFragment deleteQRFragment = new DeleteQRConfirmationFragment(qr);
+            deleteQRFragment.show(getSupportFragmentManager(), "Delete_QR");
+        });
 
         viewMapButton = findViewById(R.id.qr_info_view_map);
 

@@ -54,12 +54,13 @@ public class ViewAdminCodesFragment extends Fragment {
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
-                        /*if (result.getData() != null) {
-                            user = (User) result.getData().getSerializableExtra("user");
-                            qrListAdapter = new QRListAdapter(QRListActivity.this, user.getQRList());
-                            qrGrid.setAdapter(qrListAdapter);
-                            qrListAdapter.notifyDataSetChanged();
-                        }*/
+                        if (result.getData() != null) {
+                            QRCode deletedCode = (QRCode) result.getData().getSerializableExtra("deletedCode");
+                            codes.remove(deletedCode);
+                            codesAdapter = new QRListAdapter(getActivity(), codes);
+                            codeGrid.setAdapter(codesAdapter);
+                            codesAdapter.notifyDataSetChanged();
+                        }
 
                     }
                 });

@@ -51,8 +51,9 @@ public class DeleteQRConfirmationFragment extends DialogFragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Log.i("Note", qr == null ? "null" : "notnull");
                         Database.QrCodes.delete(qr.getId());
-                        Intent resultUser = new Intent();
-                        getActivity().setResult(Activity.RESULT_OK, resultUser);
+                        Intent intent = new Intent();
+                        intent.putExtra("deletedCode", qr);
+                        getActivity().setResult(Activity.RESULT_OK, intent);
                         getActivity().finish();
                     }
                 }).create();
