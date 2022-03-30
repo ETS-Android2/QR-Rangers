@@ -112,10 +112,10 @@ public class User extends DbDocument implements Serializable {
     }
 
     /**
-     * Gets the QR code list of the user object
+     * Gets the ScannedCode list of the user object
      *
      * @return
-     *      An arraylist that represents the list of QR codes from the user object
+     *      An arraylist that represents the list of ScannedCodes from the user object
      */
     public ArrayList<ScannedCode> getQRList() {
         this.loadQRList();
@@ -132,6 +132,11 @@ public class User extends DbDocument implements Serializable {
         this.QRList = QRList;
     }
 
+    /**
+     * Gets the list of ids for ScannedCodes attached to the User
+     * @return
+     *      Returns the list of ids
+     */
     public ArrayList<String> getQRIds() {
         return this.QRIds;
     }
@@ -188,6 +193,13 @@ public class User extends DbDocument implements Serializable {
         }
     }
 
+    /**
+     * Checks if the User has a ScannedCode
+     * @param code
+     *      The ScannedCode to check
+     * @return
+     *      Returns whether or not the User has the ScannedCode
+     */
     public boolean HasQR(ScannedCode code) {
         this.loadQRList();
         return this.QRList.contains(code);

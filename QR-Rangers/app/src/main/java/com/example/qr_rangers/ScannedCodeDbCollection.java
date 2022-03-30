@@ -18,6 +18,13 @@ public class ScannedCodeDbCollection implements IDbCollection<ScannedCode> {
         this.collection = collection;
     }
 
+    /**
+     * Gets a ScannedCode by its generated id if it exists
+     * @param id
+     *      The generated id of the ScannedCode
+     * @return
+     *      Returns the ScannedCode if it exists or null
+     */
     @Override
     public ScannedCode getById(String id) {
         if (id == null) {
@@ -46,8 +53,16 @@ public class ScannedCodeDbCollection implements IDbCollection<ScannedCode> {
         return null;
     }
 
+    /**
+     * Gets a ScannedCode by its QRCode and User if it exists
+     * @param codeId
+     *      The id of the QRCode that was scanned
+     * @param userId
+     *      The id of the User that scanned the code
+     * @return
+     *      Returns the ScannedCode if it exists or null
+     */
     public ScannedCode getByName(String codeId, String userId) {
-        ArrayList<User> result = new ArrayList<>();
         Task<QuerySnapshot> task = collection.whereEqualTo("code", codeId).whereEqualTo("user", userId).get();
         while(!task.isComplete());
         QuerySnapshot snap = task.getResult();
@@ -64,6 +79,11 @@ public class ScannedCodeDbCollection implements IDbCollection<ScannedCode> {
         return null;
     }
 
+    /**
+     * Gets all ScannedCodes within the collection
+     * @return
+     *      Returns a list of all ScannedCodes within the collection
+     */
     @Override
     public ArrayList<ScannedCode> getAll() {
         Task<QuerySnapshot> task = collection.get();
@@ -82,6 +102,13 @@ public class ScannedCodeDbCollection implements IDbCollection<ScannedCode> {
         return result;
     }
 
+    /**
+     * Updates a ScannedCode within the collection
+     * @param data
+     *  The new data for the document
+     * @return
+     *  Returns the ScannedCode within collection after the operation
+     */
     @Override
     public ScannedCode update(ScannedCode data) {
         if (data.getId() == null || data.getId().isEmpty()) {
@@ -110,6 +137,13 @@ public class ScannedCodeDbCollection implements IDbCollection<ScannedCode> {
         return null;
     }
 
+    /**
+     * Adds a new ScannedCode to the collection
+     * @param data
+     *  The ScannedCode to add
+     * @return
+     *  Returns the ScannedCode with id within collection
+     */
     @Override
     public ScannedCode add(ScannedCode data) {
         Map<String, Object> sanitizedData = data.toMap();
@@ -124,8 +158,16 @@ public class ScannedCodeDbCollection implements IDbCollection<ScannedCode> {
             map.put("id", doc.getId());
             return ScannedCode.fromMap(map);
         }
-        return null;    }
+        return null;
+    }
 
+    /**
+     * Deletes a specified ScannedCode within the collection if it exists
+     * @param id
+     *  The generated id of the ScannedCode to delete
+     * @return
+     *  Returns the task for deleting the document
+     */
     @Override
     public Task<Void> delete(String id) {
         if (id == null) {
@@ -157,6 +199,13 @@ public class ScannedCodeDbCollection implements IDbCollection<ScannedCode> {
         return collection.document(id).delete();
     }
 
+    /**
+     * Deletes a specified ScannedCode from the collection without removing itself from the associated QRCode
+     * @param id
+     *      The id of the ScannedCode to delete if it exists
+     * @return
+     *      Returns the Task for deleting the document
+     */
     public Task<Void> deleteFromQR(String id) {
         if (id == null) {
             throw new IllegalArgumentException("Id must be provided");
@@ -182,6 +231,13 @@ public class ScannedCodeDbCollection implements IDbCollection<ScannedCode> {
         return collection.document(id).delete();
     }
 
+    /**
+     * Deletes a specified ScannedCode from the collection without removing itself from the associated User
+     * @param id
+     *      The id of the ScannedCode to delete if it exists
+     * @return
+     *      Returns the Task for deleting the document
+     */
     public Task<Void> deleteFromUser(String id) {
         if (id == null) {
             throw new IllegalArgumentException("Id must be provided");
@@ -219,10 +275,26 @@ public class ScannedCodeDbCollection implements IDbCollection<ScannedCode> {
         return false;
     }
 
+    /**
+     * Checks if a ScannedCode exists within the collection based off of its QRCode and User
+     * @param codeId
+     *      The id of the QRCode scanned
+     * @param userId
+     *      The id of the User that scanned the code
+     * @return
+     *      Returns whether or not the ScannedCode exists
+     */
     public boolean existsName(String codeId, String userId) {
         return this.getByName(codeId, userId) != null;
     }
 
+    /**
+     * Checks if a ScannedCode with the specified id exists within the collection
+     * @param id
+     *      The id of the ScannedCode to search for
+     * @return
+     *      Returns whether the ScannedCode exists or not
+     */
     @Override
     public boolean existsId(String id) {
         return this.getById(id) != null;

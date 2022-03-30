@@ -117,6 +117,9 @@ public class QRCode extends DbDocument implements Serializable {
         this.score = score;
     }
 
+    /**
+     * Helper method to load ScannedCodes from the database if they haven't already
+     */
     public void loadScannedCodes() {
         if (this.scannedCodes.size() == this.scannedCodeIds.size()) return;
 
@@ -126,32 +129,58 @@ public class QRCode extends DbDocument implements Serializable {
         }
     }
 
+    /**
+     * Getter for the list of ids of related ScannedCodes
+     * @return
+     *      Returns a list of ids
+     */
     public ArrayList<String> getScannedCodeIds() {
         return scannedCodeIds;
     }
 
+    /**
+     * Setter for the list of ids of related ScannedCodes
+     * @param scannedCodeIds
+     *      The new list of ids
+     */
     public void setScannedCodeIds(ArrayList<String> scannedCodeIds) {
         this.scannedCodeIds = scannedCodeIds;
     }
 
+    /**
+     * Gets the list of related ScannedCodes
+     * @return
+     *      A list of ScannedCodes for this QR Code
+     */
     public ArrayList<ScannedCode> getScannedCodes() {
         this.loadScannedCodes();
         return this.scannedCodes;
     }
 
-    public void setScannedCodes(ArrayList<ScannedCode> scannedCodes) {
-        this.scannedCodes = scannedCodes;
-    }
-
+    /**
+     * Gets the number of times this QR Code has been scanned
+     * @return
+     *      Returns the number of times this code has been scanned
+     */
     public int getScannedCount() {
         return this.scannedCodeIds.size();
     }
 
+    /**
+     * Method that adds a related ScannedCode to this code
+     * @param scannedCode
+     *      The ScannedCode to add
+     */
     public void addScannedCode(ScannedCode scannedCode) {
         this.scannedCodes.add(scannedCode);
         this.scannedCodeIds.add(scannedCode.getId());
     }
 
+    /**
+     * Method that deletes a ScannedCode from this code
+     * @param scannedCode
+     *      The ScannedCode to delete
+     */
     public void deleteScannedCode(ScannedCode scannedCode) {
         if (this.scannedCodes.size() > 0) {
             this.scannedCodes.remove(scannedCode);
@@ -159,6 +188,11 @@ public class QRCode extends DbDocument implements Serializable {
         this.scannedCodeIds.remove(scannedCode.getId());
     }
 
+    /**
+     * Helper method to retrieve all attached comments from scans of this code
+     * @return
+     *      Returns a list of user comments
+     */
     public ArrayList<String> getComments() {
         this.loadScannedCodes();
         ArrayList<String> comments = new ArrayList<>();
@@ -168,6 +202,11 @@ public class QRCode extends DbDocument implements Serializable {
         return comments;
     }
 
+    /**
+     * Helper method to retrieve all attached photos from scans of this code
+     * @return
+     *      Returns a list of user submitted photos
+     */
     public ArrayList<String> getPictures() {
         this.loadScannedCodes();
         ArrayList<String> pictures = new ArrayList<>();
@@ -177,6 +216,11 @@ public class QRCode extends DbDocument implements Serializable {
         return pictures;
     }
 
+    /**
+     * Helper method to retrieve all locations this code has been scanned
+     * @return
+     *     Returns a list of Locations
+     */
     public ArrayList<Location> getLocationsScanned() {
         this.loadScannedCodes();
         ArrayList<Location> locations = new ArrayList<>();
