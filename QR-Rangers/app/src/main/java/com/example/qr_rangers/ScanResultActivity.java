@@ -56,6 +56,10 @@ public class ScanResultActivity extends AppCompatActivity {
         }
         user = loadUser();
         code = new ScannedCode(qr, user, null, null, null);
+        if (user.HasQR(code)){
+            Toast.makeText(getBaseContext(), "You already scanned this one!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
         int score = qr.getScore();
         TextView scoreTextView = findViewById(R.id.textViewScore);
         scoreTextView.setText(String.valueOf(score).concat(" pts."));
@@ -100,31 +104,28 @@ public class ScanResultActivity extends AppCompatActivity {
                     imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
                 }
                 ScannedCode codeToSave = new ScannedCode(qr,user,location,commentBox.getText().toString(),imageEncoded);
-                if (user.HasQR(codeToSave)){
-                    Toast.makeText(getBaseContext(), "You already scanned this one!", Toast.LENGTH_SHORT).show();
-                } else {
-                    try {
-                        boolean qrChanged = false;
-                        if (qr.getLocation() == null && location != null) {
-                            qr.setLocation(location);
-                            qrChanged = true;
-                        }
-                        if (qr.getPhoto() == null && photo != null) {
-                            qr.setPhoto(photo.toString());
-                            qrChanged = true;
-                        }
-                        if (qrChanged) {
-                            Database.QrCodes.update(qr);
-                        }
-                        user.AddQR(codeToSave);
-                        Database.Users.update(user);
+
+                try {
+                    boolean qrChanged = false;
+                    if (qr.getLocation() == null && location != null) {
+                        qr.setLocation(location);
+                        qrChanged = true;
                     }
-                    catch (Exception e) {
-                        System.out.println(e.toString());
-                        Toast.makeText(ScanResultActivity.this,"exception encountered".concat(e.toString()),Toast.LENGTH_SHORT).show();
+                    if (qr.getPhoto() == null && photo != null) {
+                        qr.setPhoto(photo.toString());
+                        qrChanged = true;
                     }
+                    if (qrChanged) {
+                        Database.QrCodes.update(qr);
+                    }
+                    user.AddQR(codeToSave);
+                    Database.Users.update(user);
                 }
-             finish();
+                catch (Exception e) {
+                    System.out.println(e.toString());
+                    Toast.makeText(ScanResultActivity.this,"exception encountered".concat(e.toString()),Toast.LENGTH_SHORT).show();
+                }
+                finish();
             }
         });
 
