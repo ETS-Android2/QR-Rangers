@@ -68,6 +68,9 @@ public class QRInfoActivity extends AppCompatActivity {
             image.setImageResource(R.drawable.ic_launcher_background);
         }
 
+        TextView othersText = findViewById(R.id.qr_info_others);
+        othersText.setVisibility(View.INVISIBLE);
+
         deleteButton = findViewById(R.id.qr_info_delete);
 
         deleteButton.setOnClickListener(view -> {
