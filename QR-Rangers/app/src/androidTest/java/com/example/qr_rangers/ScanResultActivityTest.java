@@ -8,13 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-
-import com.robotium.solo.Solo;
 import org.junit.Rule;
 import org.junit.Test;
 
 public class ScanResultActivityTest {
-    private Solo solo;
     static Intent intent;
     static {
         intent = new Intent(ApplicationProvider.getApplicationContext(), ScanResultActivity.class);
@@ -29,11 +26,15 @@ public class ScanResultActivityTest {
             new ActivityScenarioRule<>(intent);
 
     @Test
-    public void addQrToDb(){
+    public void correctCurrentPtsTest(){
 
-         onView(withId(R.id.textViewScore)).check(matches(withText("3 pts.")));
-         onView(withId(R.id.newtotalscore)).check(matches(withText("0")));
+        onView(withId(R.id.newtotalscore)).check(matches(withText("0")));
 
+    }
+
+    @Test
+    public void correctTotalPtsTest(){
+        onView(withId(R.id.textViewScore)).check(matches(withText("3 pts.")));
     }
 
 }
