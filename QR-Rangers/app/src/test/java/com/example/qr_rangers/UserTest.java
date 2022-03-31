@@ -28,25 +28,6 @@ public class UserTest {
     }
 
     @Test
-    void qrList(){
-        QRCode code = new QRCode("696ce4dbd7bb57cbfe58b64f530f428b74999cb37e2ee60980490cd9552de3a6", null, null);
-        ArrayList<QRCode> list = new ArrayList<QRCode>();
-        user.setQRList(list);
-        assertEquals(user.getQRList().size(), 0);
-        assertEquals(user.getQRNum(), 0);
-        assertEquals(user.getScoreMax(), 0);
-        assertEquals(user.getScoreMin(), 0);
-        assertEquals(user.getScoreSum(), 0);
-        list.add(code);
-        assertEquals(user.getQRList().size(), 1);
-        assertEquals(user.getQRNum(), 1);
-        assertEquals(user.getScoreMax(), 15);
-        assertEquals(user.getScoreMin(), 15);
-        assertEquals(user.getScoreSum(), 15);
-        assertTrue(user.getQRList().contains(code));
-    }
-
-    @Test
     void equalsTest(){
         User newUser = new User("TestUser", "a@a", "1");
         assertTrue(user.equals(newUser));
