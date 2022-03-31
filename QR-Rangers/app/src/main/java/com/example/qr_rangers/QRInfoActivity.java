@@ -26,6 +26,7 @@ import java.util.ArrayList;
 public class QRInfoActivity extends AppCompatActivity {
 
     QRCode qr;
+    User user;
 
     TextView scannerText;
     TextView scoreText;
@@ -46,6 +47,7 @@ public class QRInfoActivity extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(true);
 
         qr = (QRCode) getIntent().getSerializableExtra("qr");
+        user = (User) getIntent().getSerializableExtra("user");
 
         scannerText = findViewById(R.id.qr_info_scanner);
         scannerText.setText(String.format("%d people", qr.getScannedCount()));
@@ -73,6 +75,10 @@ public class QRInfoActivity extends AppCompatActivity {
         othersText.setVisibility(View.INVISIBLE);
 
         deleteButton = findViewById(R.id.qr_info_delete);
+
+        if (!Database.Admins.isAdmin(user.getId())) {
+            deleteButton.setVisibility(View.GONE);
+        }
 
         deleteButton.setOnClickListener(view -> {
             DialogFragment deleteQRFragment = new DeleteQRConfirmationFragment(qr);

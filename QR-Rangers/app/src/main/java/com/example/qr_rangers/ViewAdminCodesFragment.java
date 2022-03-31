@@ -29,8 +29,9 @@ public class ViewAdminCodesFragment extends Fragment {
     private GridView codeGrid;
     private ArrayList<QRCode> codes;
     private ArrayAdapter<QRCode> codesAdapter;
-    public ViewAdminCodesFragment(){
-
+    private User currentUser;
+    public ViewAdminCodesFragment(User currentUser){
+        this.currentUser = currentUser;
     }
 
     @Override
@@ -69,7 +70,8 @@ public class ViewAdminCodesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(), QRInfoActivity.class);
-                    intent.putExtra("qr", codes.get(i));
+                intent.putExtra("qr", codes.get(i));
+                intent.putExtra("user", currentUser);
                 infoLauncher.launch(intent);
             }
         });
