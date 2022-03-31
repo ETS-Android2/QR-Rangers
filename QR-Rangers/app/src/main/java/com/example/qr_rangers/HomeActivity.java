@@ -55,7 +55,11 @@ public class HomeActivity extends AppCompatActivity{
         totalScore.setText(user.getTotalScore() + " pts.");
 
         TextView minQR = findViewById(R.id.lowest);
-        minQR.setText(user.getMinScore() + " pts.");
+        int min = user.getMinScore();
+        if (min == -1) {
+            min = 0;
+        }
+        minQR.setText(min + " pts.");
 
         TextView maxQR = findViewById(R.id.highest);
         maxQR.setText(user.getMaxScore() + " pts.");
@@ -253,7 +257,11 @@ public class HomeActivity extends AppCompatActivity{
         totalScore.setText(user.getTotalScore() + " pts.");
 
         TextView minQR = findViewById(R.id.lowest);
-        minQR.setText(user.getMinScore() + " pts.");
+        int min = user.getMinScore();
+        if (min == -1) {
+            min = 0;
+        }
+        minQR.setText(min + " pts.");
 
         TextView maxQR = findViewById(R.id.highest);
         maxQR.setText(user.getMaxScore() + " pts.");
