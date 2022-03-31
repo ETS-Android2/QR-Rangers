@@ -22,6 +22,9 @@ public class User extends DbDocument implements Serializable {
     private ArrayList<ScannedCode> QRList;
     private ArrayList<String> QRIds;
     protected Rankings userRanks;
+    private int totalScore;
+    private int maxScore;
+    private int minScore;
 
     /**
      * Constructs a user object
@@ -38,6 +41,9 @@ public class User extends DbDocument implements Serializable {
         this.QRList = new ArrayList<>();
         this.QRIds = new ArrayList<>();
         this.userRanks = new Rankings();
+        this.maxScore = 0;
+        this.minScore = 0;
+        this.totalScore = 0;
     }
 
     /**
@@ -49,6 +55,10 @@ public class User extends DbDocument implements Serializable {
         this.phoneNumber = "";
         QRList = new ArrayList<>();
         QRIds = new ArrayList<>();
+        this.userRanks = new Rankings();
+        this.maxScore = 0;
+        this.minScore = 0;
+        this.totalScore = 0;
     }
 
     /**
@@ -132,6 +142,30 @@ public class User extends DbDocument implements Serializable {
         this.QRList = QRList;
     }
 
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
+    }
+
+    public int getMaxScore() {
+        return maxScore;
+    }
+
+    public void setMaxScore(int maxScore) {
+        this.maxScore = maxScore;
+    }
+
+    public int getMinScore() {
+        return minScore;
+    }
+
+    public void setMinScore(int minScore) {
+        this.minScore = minScore;
+    }
+
     /**
      * Gets the list of ids for ScannedCodes attached to the User
      * @return
@@ -172,6 +206,14 @@ public class User extends DbDocument implements Serializable {
 
         QRList.add(dbCode);
         QRIds.add(dbCode.getId());
+        int currentScore = code.getCode().getScore();
+        setTotalScore(getTotalScore() + currentScore);
+        if (currentScore > getMaxScore()) {
+            setMaxScore(currentScore);
+        }
+        if (currentScore < getMinScore()) {
+            setMinScore(currentScore);
+        }
         return true;
     }
 
@@ -187,6 +229,14 @@ public class User extends DbDocument implements Serializable {
                 QRList.remove(code);
             }
             QRIds.remove(code.getId());
+            int currentScore = code.getCode().getScore();
+            setTotalScore(getTotalScore() - currentScore);
+            if (currentScore == getMaxScore()) {
+                setMaxScore(getScoreMax());
+            }
+            if (currentScore == getMinScore()) {
+                setMinScore(getScoreMin());
+            }
             Database.ScannedCodes.deleteFromUser(code.getId());
         } else { // Not sure why this would ever happen but
             throw new IllegalArgumentException();
@@ -312,6 +362,9 @@ public class User extends DbDocument implements Serializable {
         User user = new User((String) map.get("username"), (String) map.get("email"), (String) map.get("phoneNumber"));
         user.setId((String) map.get("id"));
         user.setQRIds((ArrayList<String>) map.get("QRList"));
+        user.setMaxScore(Math.toIntExact((Long) map.get("scoreMax")));
+        user.setMinScore(Math.toIntExact((Long) map.get("scoreMin")));
+        user.setTotalScore(Math.toIntExact((Long) map.get("scoreSum")));
         if (user.getQRIds() == null) {
             user.setQRIds(new ArrayList<>());
         }
@@ -329,9 +382,9 @@ public class User extends DbDocument implements Serializable {
 
         map.put("QRList", this.QRIds);
         map.put("qrnum", this.getQRNum());
-        map.put("scoreMax", this.getScoreMax());
-        map.put("scoreMin", this.getScoreMin());
-        map.put("scoreSum", this.getScoreSum());
+        map.put("scoreMax", this.getMaxScore());
+        map.put("scoreMin", this.getMinScore());
+        map.put("scoreSum", this.getTotalScore());
         map.put("username", this.getUsername());
         map.put("email", this.getEmail());
         map.put("phoneNumber", this.getPhoneNumber());

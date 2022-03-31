@@ -65,7 +65,7 @@ public class ProfileActivity extends AppCompatActivity{
         nameText.setText(user.getUsername());
 
         totalScoreText = findViewById(R.id.totalscore);
-        String totalScore = String.valueOf(user.getScoreSum()) + " pts.";
+        String totalScore = String.valueOf(user.getTotalScore()) + " pts.";
         totalScoreText.setText(totalScore);
 
         codesScannedText = findViewById(R.id.codesscanned);
@@ -126,7 +126,7 @@ public class ProfileActivity extends AppCompatActivity{
         nameText.setText(user.getUsername());
 
         totalScoreText = findViewById(R.id.totalscore);
-        String totalScore = String.valueOf(user.getScoreSum()) + " pts.";
+        String totalScore = String.valueOf(user.getTotalScore()) + " pts.";
         totalScoreText.setText(totalScore);
 
         codesScannedText = findViewById(R.id.codesscanned);

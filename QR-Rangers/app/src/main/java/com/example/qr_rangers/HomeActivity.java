@@ -48,13 +48,13 @@ public class HomeActivity extends AppCompatActivity{
         totalScanned.setText(user.getQRNum() + " Codes Scanned");
 
         TextView totalScore = findViewById(R.id.highscore);
-        totalScore.setText(user.getScoreSum() + " pts.");
+        totalScore.setText(user.getTotalScore() + " pts.");
 
         TextView minQR = findViewById(R.id.lowest);
-        minQR.setText(user.getScoreMin() + " pts.");
+        minQR.setText(user.getMinScore() + " pts.");
 
         TextView maxQR = findViewById(R.id.highest);
-        maxQR.setText(user.getScoreMax() + " pts.");
+        maxQR.setText(user.getMaxScore() + " pts.");
 
         scan = findViewById(R.id.buttonScan);
         scan.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +151,7 @@ public class HomeActivity extends AppCompatActivity{
             } else {
                 // if the intentResult is not null we'll set
                 // the content and format of scan message
-                    int totalScore = user.getScoreSum();
+                    int totalScore = user.getTotalScore();
                     Intent intent = new Intent(HomeActivity.this, ScanResultActivity.class);
                     intent.putExtra("content", intentResult.getContents());
                     intent.putExtra("totalScore",String.valueOf(totalScore));
@@ -201,13 +201,13 @@ public class HomeActivity extends AppCompatActivity{
         totalScanned.setText(user.getQRNum() + " Codes Scanned");
 
         TextView totalScore = findViewById(R.id.highscore);
-        totalScore.setText(user.getScoreSum() + " pts.");
+        totalScore.setText(user.getTotalScore() + " pts.");
 
         TextView minQR = findViewById(R.id.lowest);
-        minQR.setText(user.getScoreMin() + " pts.");
+        minQR.setText(user.getMinScore() + " pts.");
 
         TextView maxQR = findViewById(R.id.highest);
-        maxQR.setText(user.getScoreMax() + " pts.");
+        maxQR.setText(user.getMaxScore() + " pts.");
 
         Log.i("USER", "ID: " + user.getId());
         Log.i("USER", Database.Admins.isAdmin(user.getId()) ? "LOGGED IN AS ADMIN" : "LOGGED IN AS BASIC");

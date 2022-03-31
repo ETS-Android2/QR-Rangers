@@ -74,7 +74,7 @@ public class HomeActivityTest {
         User test = Database.Users.getByName("TestUser");
 
         if(test.getQRList().size() > 0){
-            solo.clickOnText(Integer.toString(test.getScoreMax()) + " pts");
+            solo.clickOnText(Integer.toString(test.getMaxScore()) + " pts");
 
             solo.assertCurrentActivity("Wrong Activity", ScannedCodeInfoActivity.class);
         }
