@@ -81,7 +81,11 @@ public class HomeActivity extends AppCompatActivity{
 
         Location location = new Location(tracker.getLocation().getLongitude(), tracker.getLocation().getLatitude());
         ArrayList<QRCode> codes = Database.QrCodes.getAll();
-        ArrayList<QRCode> userCodes = user.getQRList();
+        ArrayList<QRCode> userCodes = new ArrayList<>();
+        ArrayList<ScannedCode> userScanned = user.getQRList();
+        for (ScannedCode code : userScanned) {
+            userCodes.add(code.getCode());
+        }
         ArrayList<QRCode> filteredCodes = new ArrayList<QRCode>();
         for(int i = 0; i < codes.size(); i++){
             if (codes.get(i).getLocation() != null && !userCodes.contains(codes.get(i))){
