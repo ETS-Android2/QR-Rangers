@@ -42,7 +42,7 @@ public class User extends DbDocument implements Serializable {
         this.QRIds = new ArrayList<>();
         this.userRanks = new Rankings();
         this.maxScore = 0;
-        this.minScore = 0;
+        this.minScore = -1;
         this.totalScore = 0;
     }
 
@@ -57,7 +57,7 @@ public class User extends DbDocument implements Serializable {
         QRIds = new ArrayList<>();
         this.userRanks = new Rankings();
         this.maxScore = 0;
-        this.minScore = 0;
+        this.minScore = -1;
         this.totalScore = 0;
     }
 
@@ -211,7 +211,7 @@ public class User extends DbDocument implements Serializable {
         if (currentScore > getMaxScore()) {
             setMaxScore(currentScore);
         }
-        if (currentScore < getMinScore()) {
+        if (getMinScore() == -1 || currentScore < getMinScore()) {
             setMinScore(currentScore);
         }
         return true;
