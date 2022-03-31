@@ -53,12 +53,15 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
 
     private ArrayList<QRCode> codes;
 
+    private QRCode targetCode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
         user = (User) getIntent().getSerializableExtra("user");
+        targetCode = (QRCode) getIntent().getSerializableExtra("code");
         codes = Database.QrCodes.getAll();
 
         if (Build.VERSION.SDK_INT >= M) {
@@ -94,11 +97,18 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         mapView.setMultiTouchControls(true);
 
         mapController = (MapController) mapView.getController();
-        mapController.setZoom(3);
+
 
         GeoPoint center = new GeoPoint(location.getLatitude(),location.getLongitude());
+        int zoomLevel = 18;
         Log.e("LOCATION", "lat: " + Double.toString(location.getLatitude()) + " | lon: " + Double.toString(location.getLongitude()));
-        mapController.animateTo(center);
+        if (targetCode != null){
+            center = new GeoPoint(targetCode.getLocation().getLatitude(), targetCode.getLocation().getLongitude());
+            zoomLevel = 20;
+            Log.i("NOTE", "USING TARGET CODE");
+        }
+        mapController.setCenter(center);
+        mapController.setZoom(zoomLevel);
         makeScreen(center);
 
         mapView.setMapListener(new MapListener() {

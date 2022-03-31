@@ -79,6 +79,16 @@ public class QRInfoActivity extends AppCompatActivity {
         });
 
         viewMapButton = findViewById(R.id.qr_info_view_map);
+        viewMapButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(QRInfoActivity.this, MapActivity.class);
+                intent.putExtra("code", QRInfoActivity.this.qr);
+                startActivity(intent);
+            }
+        });
+
+        viewMapButton.setVisibility(qr.getLocation() == null ? View.INVISIBLE : View.VISIBLE);
 
     }
 
