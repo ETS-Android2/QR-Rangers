@@ -37,6 +37,9 @@
             android:name=".QRListActivity"
             android:exported="false" />
         <activity
+            android:name=".ScannedCodeInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".QRInfoActivity"
             android:exported="false" />
         <activity

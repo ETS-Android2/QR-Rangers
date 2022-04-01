@@ -1,13 +1,11 @@
 package com.example.qr_rangers;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -18,26 +16,25 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
-import java.util.ArrayList;
-
 /**
  * Activity to that showcases information about a User's scanned QR Code
  * @author Ronan Sandoval
  * @version 1.1
  */
-public class QRInfoActivity extends AppCompatActivity {
+public class ScannedCodeInfoActivity extends AppCompatActivity {
 
-    QRCode qr;
+    ScannedCode qr;
     User user;
+    Boolean isMyAccount;
 
     TextView scannerText;
+    TextView scannedByText;
     TextView scoreText;
     TextView commentText;
-    ListView commentList;
-    ArrayAdapter<String> commentAdapter;
     ImageView image;
 
     Button deleteButton;
+    Button editCommentButton;
     Button viewMapButton;
 
     @Override
@@ -50,22 +47,22 @@ public class QRInfoActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
-        qr = (QRCode) getIntent().getSerializableExtra("qr");
+        qr = (ScannedCode) getIntent().getSerializableExtra("qr");
         user = (User) getIntent().getSerializableExtra("user");
+        isMyAccount = getIntent().getBooleanExtra("isMyAccount", false);
 
         scannerText = findViewById(R.id.qr_info_scanner);
-        scannerText.setText(String.format("%d people", qr.getScannedCount()));
-
+        scannerText.setText(user.getUsername());
+        scannedByText = findViewById(R.id.qr_info_others);
+        scannedByText.setText(String.format("Scanned by %d other people", qr.getCode().getScannedCount() - 1));
         scoreText = findViewById(R.id.qr_info_points);
-        String scoreString = qr.getScore() + " pts.";
+        String scoreString = qr.getCode().getScore() + " pts.";
         scoreText.setText(scoreString);
-        ArrayList<String> comments = qr.getComments();
         commentText = findViewById(R.id.qr_info_comment);
-        commentText.setVisibility(View.GONE);
+        commentText.setText(qr.getComment());
 
-        commentList = findViewById(R.id.qr_info_comment_list);
-        commentAdapter = new ArrayAdapter<>(this, R.layout.activity_qr_info, comments);
-        commentList.setAdapter(commentAdapter);
+        ListView commentsList = findViewById(R.id.qr_info_comment_list);
+        commentsList.setVisibility(View.GONE);
 
         image = findViewById(R.id.qr_info_image);
         if (qr.getPhoto() != null) {
@@ -76,36 +73,33 @@ public class QRInfoActivity extends AppCompatActivity {
             image.setImageResource(R.drawable.ic_launcher_background);
         }
 
-        TextView othersText = findViewById(R.id.qr_info_others);
-        othersText.setVisibility(View.INVISIBLE);
-
         deleteButton = findViewById(R.id.qr_info_delete);
+        if (!isMyAccount) {
+            deleteButton.setVisibility(View.INVISIBLE);
+        }
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment deleteQRFragment = new DeleteScannedCodeConfirmationFragment(qr, user);
+                deleteQRFragment.show(getSupportFragmentManager(), "Delete_QR");
+            }
+        });
 
-        if (!Database.Admins.isAdmin(user.getId())) {
-            deleteButton.setVisibility(View.GONE);
+        editCommentButton = findViewById(R.id.qr_edit_comment);
+        if (!isMyAccount) {
+            editCommentButton.setVisibility(View.INVISIBLE);
         }
 
-        deleteButton.setOnClickListener(view -> {
-            DialogFragment deleteQRFragment = new DeleteQRConfirmationFragment(qr);
-            deleteQRFragment.show(getSupportFragmentManager(), "Delete_QR");
-        });
-
         viewMapButton = findViewById(R.id.qr_info_view_map);
-        viewMapButton.setOnClickListener(view -> {
-            Intent intent = new Intent(QRInfoActivity.this, MapActivity.class);
-            intent.putExtra("code", QRInfoActivity.this.qr);
-            startActivity(intent);
-        });
-
-        viewMapButton.setVisibility(qr.getLocation() == null ? View.INVISIBLE : View.VISIBLE);
 
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            this.finish();
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

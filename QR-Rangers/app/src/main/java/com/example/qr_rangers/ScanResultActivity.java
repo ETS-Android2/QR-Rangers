@@ -39,7 +39,8 @@ public class ScanResultActivity extends AppCompatActivity {
     private Location location = null;
     private GpsTracker gpsTracker;
     private User user;
-    private QRCode qr = new QRCode();
+    private QRCode qr;
+    private ScannedCode code;
 
     private ImageButton cameraButton;
 
@@ -49,16 +50,23 @@ public class ScanResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scan_result);
         Intent intent = getIntent();
         String content = intent.getStringExtra("content");
-        qr = new QRCode(content,null,null,true);
+        qr = Database.QrCodes.getByName(content);
+        if (qr == null) {
+            qr = Database.QrCodes.add(new QRCode(content, null));
+        }
         user = loadUser();
+        code = new ScannedCode(qr, user, null, null, null);
+        if (user.HasQR(code)){
+            Toast.makeText(getBaseContext(), "You already scanned this one!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
         int score = qr.getScore();
         TextView scoreTextView = findViewById(R.id.textViewScore);
         scoreTextView.setText(String.valueOf(score).concat(" pts."));
         totalScore = findViewById(R.id.newtotalscore);
         totalScore.setText(String.valueOf(intent.getStringExtra("totalScore")));
         TextView codeUserCount = findViewById(R.id.codeusercount);
-        //TODO: Set codeuser count from database
-        //codeUserCount.setText();
+        codeUserCount.setText("" + qr.getScannedCount());
         EditText commentBox = findViewById(R.id.commentbox);
         //imgPreview = findViewById(R.id.imageView);
         gpsTracker = new GpsTracker(ScanResultActivity.this);
@@ -95,20 +103,29 @@ public class ScanResultActivity extends AppCompatActivity {
                     photo.compress(Bitmap.CompressFormat.JPEG, 70, baos);
                     imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
                 }
-                QRCode QrToSave = new QRCode(content,imageEncoded,location,true);
-                if (user.HasQR(QrToSave)){
-                    Toast.makeText(getBaseContext(), "You already scanned this one!", Toast.LENGTH_SHORT).show();
-                }
-                try {
-                    user.AddQR(QrToSave);
-                    Database.Users.update(user);
+                ScannedCode codeToSave = new ScannedCode(qr,user,location,commentBox.getText().toString(),imageEncoded);
 
+                try {
+                    boolean qrChanged = false;
+                    if (qr.getLocation() == null && location != null) {
+                        qr.setLocation(location);
+                        qrChanged = true;
+                    }
+                    if (qr.getPhoto() == null && photo != null) {
+                        qr.setPhoto(photo.toString());
+                        qrChanged = true;
+                    }
+                    if (qrChanged) {
+                        Database.QrCodes.update(qr);
+                    }
+                    user.AddQR(codeToSave);
+                    Database.Users.update(user);
                 }
                 catch (Exception e) {
                     System.out.println(e.toString());
                     Toast.makeText(ScanResultActivity.this,"exception encountered".concat(e.toString()),Toast.LENGTH_SHORT).show();
                 }
-             finish();
+                finish();
             }
         });
 
@@ -137,12 +154,4 @@ public class ScanResultActivity extends AppCompatActivity {
         return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
  */
-
-    /*Attempts to add qr code to db if user didn't click add data */
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        user.AddQR(qr);
-
-    }
 }

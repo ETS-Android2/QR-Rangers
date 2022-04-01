@@ -10,13 +10,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -149,7 +147,7 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener(){
             @Override
             public boolean onMarkerClick(Marker marker, MapView mapView){
-                Intent intent = new Intent(MapActivity.this, QRInfoActivity.class);
+                Intent intent = new Intent(MapActivity.this, ScannedCodeInfoActivity.class);
                 intent.putExtra("qr", code);
                 intent.putExtra("user", user);
                 startActivity(intent);

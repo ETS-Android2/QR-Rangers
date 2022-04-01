@@ -52,13 +52,17 @@ public class HomeActivity extends AppCompatActivity{
         totalScanned.setText(user.getQRNum() + " Codes Scanned");
 
         TextView totalScore = findViewById(R.id.highscore);
-        totalScore.setText(user.getScoreSum() + " pts.");
+        totalScore.setText(user.getTotalScore() + " pts.");
 
         TextView minQR = findViewById(R.id.lowest);
-        minQR.setText(user.getScoreMin() + " pts.");
+        int min = user.getMinScore();
+        if (min == -1) {
+            min = 0;
+        }
+        minQR.setText(min + " pts.");
 
         TextView maxQR = findViewById(R.id.highest);
-        maxQR.setText(user.getScoreMax() + " pts.");
+        maxQR.setText(user.getMaxScore() + " pts.");
 
         scan = findViewById(R.id.buttonScan);
         scan.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +85,11 @@ public class HomeActivity extends AppCompatActivity{
 
         Location location = new Location(tracker.getLocation().getLongitude(), tracker.getLocation().getLatitude());
         ArrayList<QRCode> codes = Database.QrCodes.getAll();
-        ArrayList<QRCode> userCodes = user.getQRList();
+        ArrayList<QRCode> userCodes = new ArrayList<>();
+        ArrayList<ScannedCode> userScanned = user.getQRList();
+        for (ScannedCode code : userScanned) {
+            userCodes.add(code.getCode());
+        }
         ArrayList<QRCode> filteredCodes = new ArrayList<QRCode>();
         for(int i = 0; i < codes.size(); i++){
             if (codes.get(i).getLocation() != null && !userCodes.contains(codes.get(i))){
@@ -188,7 +196,7 @@ public class HomeActivity extends AppCompatActivity{
             } else {
                 // if the intentResult is not null we'll set
                 // the content and format of scan message
-                    int totalScore = user.getScoreSum();
+                    int totalScore = user.getTotalScore();
                     Intent intent = new Intent(HomeActivity.this, ScanResultActivity.class);
                     intent.putExtra("content", intentResult.getContents());
                     intent.putExtra("totalScore",String.valueOf(totalScore));
@@ -246,13 +254,17 @@ public class HomeActivity extends AppCompatActivity{
         totalScanned.setText(user.getQRNum() + " Codes Scanned");
 
         TextView totalScore = findViewById(R.id.highscore);
-        totalScore.setText(user.getScoreSum() + " pts.");
+        totalScore.setText(user.getTotalScore() + " pts.");
 
         TextView minQR = findViewById(R.id.lowest);
-        minQR.setText(user.getScoreMin() + " pts.");
+        int min = user.getMinScore();
+        if (min == -1) {
+            min = 0;
+        }
+        minQR.setText(min + " pts.");
 
         TextView maxQR = findViewById(R.id.highest);
-        maxQR.setText(user.getScoreMax() + " pts.");
+        maxQR.setText(user.getMaxScore() + " pts.");
 
         Log.i("USER", "ID: " + user.getId());
         Log.i("USER", Database.Admins.isAdmin(user.getId()) ? "LOGGED IN AS ADMIN" : "LOGGED IN AS BASIC");
