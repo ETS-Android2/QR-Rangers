@@ -100,7 +100,7 @@ public class UserDbCollection implements IDbCollection<User> {
      *      Returns a list of all documents within the collection
      */
     public ArrayList<User> displayLeaderboard(String rankType) {
-        Task<QuerySnapshot> task = collection.orderBy(rankType, Query.Direction.DESCENDING).limit(11).get();
+        Task<QuerySnapshot> task = collection.orderBy(rankType, Query.Direction.DESCENDING).limit(10).get();
         while(!task.isComplete());
         List<DocumentSnapshot> docs = task.getResult().getDocuments();
 
