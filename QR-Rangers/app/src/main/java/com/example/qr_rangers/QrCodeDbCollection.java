@@ -34,7 +34,6 @@ public class QrCodeDbCollection implements IDbCollection<QRCode> {
         if (doc.getData() != null) {
             Map<String, Object> map = doc.getData();
             map.put("id", doc.getId());
-            // TODO: Find a way to make this not need you to pass in an instance
             return QRCode.fromMap(map);
         }
         return null;
@@ -161,6 +160,12 @@ public class QrCodeDbCollection implements IDbCollection<QRCode> {
         DocumentSnapshot data = dataTask.getResult();
         if (data.getData() == null) {
             throw new NoSuchElementException(String.format("No such document with id %s", id));
+        }
+        ArrayList<String> scannedCodeIds = (ArrayList<String>) data.get("scannedCodes");
+        if (scannedCodeIds != null) {
+            for (String codeId : scannedCodeIds) {
+                Database.ScannedCodes.deleteFromQR(codeId);
+            }
         }
         return collection.document(id).delete();
     }

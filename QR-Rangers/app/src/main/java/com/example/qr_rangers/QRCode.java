@@ -1,11 +1,13 @@
 package com.example.qr_rangers;
 
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -19,49 +21,43 @@ import java.util.Objects;
  */
 public class QRCode extends DbDocument implements Serializable {
     // REMINDER TO CHANGE .equals() DEPENDING ON codeInfo TYPE
-    private String /*temp QRCode*/ codeInfo;
-    private String photo;
-    private Location location;
+    private String codeInfo;
+    private ArrayList<String> scannedCodeIds;
+    private ArrayList<ScannedCode> scannedCodes;
     private int score;
-    private String comment; // I'm not sure if this should go here necessarily
+    private Location location;
+    private String photo;
 
     /**
      * Initializes the QRCode object for display and comparison
      *
-     * @param photo
-     *      Contains the image that will be used to represent the QRCode
      * @param info
      *      Contains the QR Code information that will be used to calculate score and determine what QRCode it was
      * @param location
      *      Contains the Geological location of the QRCode
      */
     @RequiresApi(api = Build.VERSION_CODES.N) // I don't really know what to do about this
-    QRCode(String /*temp, QRCode*/ info, @Nullable String photo, @Nullable Location location){
+    QRCode(String /*temp, QRCode*/ info, @Nullable Location location){
         QRScore qrScore = new QRScore();
         codeInfo = info;
         score = qrScore.calculateScore(this);
-        if(!Objects.isNull(photo)){
-            this.photo = photo; // temp
-        }
         if(!Objects.isNull(location)){
             this.location = location; // temp
         }
-
+        scannedCodes = new ArrayList<>();
+        scannedCodeIds = new ArrayList<>();
     }
 
     /**
      * Constructor for QR codes that need their info to be replaced with the hash for privacy reasons
      */
-    QRCode(String /*temp, QRCode*/ info, @Nullable String photo, @Nullable Location location,boolean hideInfo){
+    QRCode(String /*temp, QRCode*/ info, @Nullable Location location, boolean hideInfo){
         QRScore qrScore = new QRScore();
         codeInfo = info;
         score = qrScore.calculateScore(this);
         if (hideInfo)
         {
             codeInfo = qrScore.convertToSHA256(this).substring(0,10);
-        }
-        if(!Objects.isNull(photo)){
-            this.photo = photo; // temp
         }
 
         if(!Objects.isNull(location)){
@@ -79,14 +75,9 @@ public class QRCode extends DbDocument implements Serializable {
                 longitudeAsString="+" + longitudeAsString;
             codeInfo = codeInfo.concat(latitudeAsString).concat(longitudeAsString);
         }
-
+        scannedCodes = new ArrayList<>();
+        scannedCodeIds = new ArrayList<>();
     }
-
-    /**
-     * Empty constructor for use with getting QRCodes from the db
-     */
-    public QRCode() {}
-
 
     /**
      * Getter for the QR code data
@@ -127,23 +118,116 @@ public class QRCode extends DbDocument implements Serializable {
     }
 
     /**
-     * A getter function to get the image of the QR Code
-     *
-     * @return
-     *      The URL to the image that was used for the QR Code
+     * Helper method to load ScannedCodes from the database if they haven't already
      */
-    public String getPhoto(){
-        return photo;
+    public void loadScannedCodes() {
+        if (this.scannedCodes.size() == this.scannedCodeIds.size()) return;
+
+        this.scannedCodes = new ArrayList<>();
+        for (String id : this.scannedCodeIds) {
+            this.scannedCodes.add(Database.ScannedCodes.getById(id));
+        }
     }
 
     /**
-     * A setter function to set a new image for the QR Code
-     *
-     * @param photo
-     *      The URL to the image image that will be used for the QR Code
+     * Getter for the list of ids of related ScannedCodes
+     * @return
+     *      Returns a list of ids
      */
-    public void setPhoto(String photo){
-        this.photo = photo;
+    public ArrayList<String> getScannedCodeIds() {
+        return scannedCodeIds;
+    }
+
+    /**
+     * Setter for the list of ids of related ScannedCodes
+     * @param scannedCodeIds
+     *      The new list of ids
+     */
+    public void setScannedCodeIds(ArrayList<String> scannedCodeIds) {
+        this.scannedCodeIds = scannedCodeIds;
+    }
+
+    /**
+     * Gets the list of related ScannedCodes
+     * @return
+     *      A list of ScannedCodes for this QR Code
+     */
+    public ArrayList<ScannedCode> getScannedCodes() {
+        this.loadScannedCodes();
+        return this.scannedCodes;
+    }
+
+    /**
+     * Gets the number of times this QR Code has been scanned
+     * @return
+     *      Returns the number of times this code has been scanned
+     */
+    public int getScannedCount() {
+        return this.scannedCodeIds.size();
+    }
+
+    /**
+     * Method that adds a related ScannedCode to this code
+     * @param scannedCode
+     *      The ScannedCode to add
+     */
+    public void addScannedCode(ScannedCode scannedCode) {
+        this.scannedCodes.add(scannedCode);
+        this.scannedCodeIds.add(scannedCode.getId());
+    }
+
+    /**
+     * Method that deletes a ScannedCode from this code
+     * @param scannedCode
+     *      The ScannedCode to delete
+     */
+    public void deleteScannedCode(ScannedCode scannedCode) {
+        if (this.scannedCodes.size() > 0) {
+            this.scannedCodes.remove(scannedCode);
+        }
+        this.scannedCodeIds.remove(scannedCode.getId());
+    }
+
+    /**
+     * Helper method to retrieve all attached comments from scans of this code
+     * @return
+     *      Returns a list of user comments
+     */
+    public ArrayList<String> getComments() {
+        this.loadScannedCodes();
+        ArrayList<String> comments = new ArrayList<>();
+        for (ScannedCode code : this.scannedCodes) {
+            comments.add(code.getComment());
+        }
+        return comments;
+    }
+
+    /**
+     * Helper method to retrieve all attached photos from scans of this code
+     * @return
+     *      Returns a list of user submitted photos
+     */
+    public ArrayList<String> getPictures() {
+        this.loadScannedCodes();
+        ArrayList<String> pictures = new ArrayList<>();
+        for (ScannedCode code : this.scannedCodes) {
+            pictures.add(code.getPhoto());
+        }
+        return pictures;
+    }
+
+    /**
+     * Helper method to retrieve all locations this code has been scanned
+     * @return
+     *     Returns a list of Locations
+     */
+    public ArrayList<Location> getLocationsScanned() {
+        this.loadScannedCodes();
+        ArrayList<Location> locations = new ArrayList<>();
+        for (ScannedCode code : this.scannedCodes) {
+            locations.add(code.getLocationScanned());
+        }
+        return locations;
     }
 
     /**
@@ -164,6 +248,14 @@ public class QRCode extends DbDocument implements Serializable {
      */
     public void setLocation(Location location){
         this.location = location;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     /**
@@ -195,14 +287,18 @@ public class QRCode extends DbDocument implements Serializable {
      *      Returns the created QrCode object
      */
     public static QRCode fromMap(Map<String, Object> map) {
+        Log.d("QRCODE", "QRCode From Map");
         Map<String, Object> locMap = (Map<String, Object>) map.get("location");
-        QRCode qrCode = new QRCode((String) map.get("codeInfo"), (String) map.get("photo"),null);
-        qrCode.setScore(Math.toIntExact((Long) map.get("score")));
+        QRCode qrCode = new QRCode((String) map.get("codeInfo"), null, false);
         if (locMap != null) {
             qrCode.setLocation(new Location((double) locMap.get("longitude"), (double) locMap.get("latitude")));
         }
+        qrCode.setScore(Math.toIntExact((Long) map.get("score")));
         qrCode.setId((String) map.get("id"));
-        // TODO: Add in setting score values from the map once setters are complete
+        qrCode.setScannedCodeIds((ArrayList<String>) map.get("scannedCodes"));
+        if (qrCode.getScannedCodeIds() == null) {
+            qrCode.setScannedCodeIds(new ArrayList<>());
+        }
         return qrCode;
     }
 
@@ -216,10 +312,9 @@ public class QRCode extends DbDocument implements Serializable {
         Map<String, Object> map = new HashMap<>();
         // TODO: Figure out if we want this
         map.put("codeInfo", this.codeInfo);
-        map.put("photo", this.getPhoto());
-        map.put("location", this.getLocation());
         map.put("score", this.getScore());
-        map.put("comment", this.comment);
+        map.put("location", this.location);
+        map.put("scannedCodes", this.scannedCodeIds);
         return map;
     }
     @Override

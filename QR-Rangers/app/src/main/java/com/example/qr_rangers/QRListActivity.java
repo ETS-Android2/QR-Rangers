@@ -13,15 +13,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import java.util.ArrayList;
 
 /**
  * Activity to that showcases a user's scanned QR codes
@@ -32,7 +27,7 @@ public class QRListActivity extends AppCompatActivity {
     TextView nameText;
 
     GridView qrGrid;
-    QRListAdapter qrListAdapter;
+    ScannedCodesAdapter scannedCodesAdapter;
 
     User user;
     Boolean isMyAccount;
@@ -55,8 +50,8 @@ public class QRListActivity extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(true);
 
         qrGrid = findViewById(R.id.qr_list_grid);
-        qrListAdapter = new QRListAdapter(this, user.getQRList());
-        qrGrid.setAdapter(qrListAdapter);
+        scannedCodesAdapter = new ScannedCodesAdapter(this, user.getQRList());
+        qrGrid.setAdapter(scannedCodesAdapter);
 
         ActivityResultLauncher<Intent> infoLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -65,9 +60,9 @@ public class QRListActivity extends AppCompatActivity {
                     public void onActivityResult(ActivityResult result) {
                         if (result.getData() != null) {
                             user = (User) result.getData().getSerializableExtra("user");
-                            qrListAdapter = new QRListAdapter(QRListActivity.this, user.getQRList());
-                            qrGrid.setAdapter(qrListAdapter);
-                            qrListAdapter.notifyDataSetChanged();
+                            scannedCodesAdapter = new ScannedCodesAdapter(QRListActivity.this, user.getQRList());
+                            qrGrid.setAdapter(scannedCodesAdapter);
+                            scannedCodesAdapter.notifyDataSetChanged();
                         }
 
                     }
@@ -76,8 +71,8 @@ public class QRListActivity extends AppCompatActivity {
         qrGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(QRListActivity.this, QRInfoActivity.class);
-                intent.putExtra("qr", qrListAdapter.getItem(i));
+                Intent intent = new Intent(QRListActivity.this, ScannedCodeInfoActivity.class);
+                intent.putExtra("qr", scannedCodesAdapter.getItem(i));
                 intent.putExtra("user", user);
                 intent.putExtra("isMyAccount", isMyAccount);
                 infoLauncher.launch(intent);

@@ -1,5 +1,7 @@
 package com.example.qr_rangers;
 
+import android.util.Log;
+
 import com.google.android.gms.tasks.Task;
 
 import java.io.Serializable;
@@ -17,8 +19,12 @@ public class User extends DbDocument implements Serializable {
     private String username;
     private String email;
     private String phoneNumber;
-    private ArrayList<QRCode> QRList;
-    private Rankings userRanks;
+    private ArrayList<ScannedCode> QRList;
+    private ArrayList<String> QRIds;
+    protected Rankings userRanks;
+    private int totalScore;
+    private int maxScore;
+    private int minScore;
 
     /**
      * Constructs a user object
@@ -32,8 +38,12 @@ public class User extends DbDocument implements Serializable {
         this.username = username;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.QRList = new ArrayList<QRCode>();
+        this.QRList = new ArrayList<>();
+        this.QRIds = new ArrayList<>();
         this.userRanks = new Rankings();
+        this.maxScore = 0;
+        this.minScore = -1;
+        this.totalScore = 0;
     }
 
     /**
@@ -43,7 +53,12 @@ public class User extends DbDocument implements Serializable {
         this.username = "";
         this.email = "";
         this.phoneNumber = "";
-        QRList = new ArrayList<QRCode>();
+        QRList = new ArrayList<>();
+        QRIds = new ArrayList<>();
+        this.userRanks = new Rankings();
+        this.maxScore = 0;
+        this.minScore = -1;
+        this.totalScore = 0;
     }
 
     /**
@@ -107,12 +122,13 @@ public class User extends DbDocument implements Serializable {
     }
 
     /**
-     * Gets the QR code list of the user object
+     * Gets the ScannedCode list of the user object
      *
      * @return
-     *      An arraylist that represents the list of QR codes from the user object
+     *      An arraylist that represents the list of ScannedCodes from the user object
      */
-    public ArrayList<QRCode> getQRList() {
+    public ArrayList<ScannedCode> getQRList() {
+        this.loadQRList();
         return QRList;
     }
 
@@ -122,8 +138,50 @@ public class User extends DbDocument implements Serializable {
      * @param QRList
      *      The new QR code list to replace the original one
      */
-    public void setQRList(ArrayList<QRCode> QRList) {
+    public void setQRList(ArrayList<ScannedCode> QRList) {
         this.QRList = QRList;
+    }
+
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
+    }
+
+    public int getMaxScore() {
+        return maxScore;
+    }
+
+    public void setMaxScore(int maxScore) {
+        this.maxScore = maxScore;
+    }
+
+    public int getMinScore() {
+        return minScore;
+    }
+
+    public void setMinScore(int minScore) {
+        this.minScore = minScore;
+    }
+
+    /**
+     * Gets the list of ids for ScannedCodes attached to the User
+     * @return
+     *      Returns the list of ids
+     */
+    public ArrayList<String> getQRIds() {
+        return this.QRIds;
+    }
+
+    /**
+     * Sets the list of ScannedCode ids for the User
+     * @param QRIds
+     *      List of ScannedCode ids
+     */
+    public void setQRIds(ArrayList<String> QRIds) {
+        this.QRIds = QRIds;
     }
 
     /**
@@ -132,37 +190,71 @@ public class User extends DbDocument implements Serializable {
      * @param code The QRCode that is to be added
      * @return Returns true if the add works, returns false if the QR Code already exists in the list, avoids duplicates
      */
-    public boolean AddQR(QRCode code) {
-        if (QRList.contains(code)) {
+    public boolean AddQR(ScannedCode code) {
+        if (QRIds.contains(code.getId())) {
             return false;
         }
-        QRCode dbCode;
-        if (!Database.QrCodes.existsName(code.getCodeInfo())) {
-            dbCode = Database.QrCodes.add(code);
+        ScannedCode dbCode;
+        if (!Database.ScannedCodes.existsName(code.getCode().getId(), code.getUser().getId())) {
+            dbCode = Database.ScannedCodes.add(code);
+            QRCode qrCode = Database.QrCodes.getById(code.getCode().getId());
+            qrCode.addScannedCode(dbCode);
+            Database.QrCodes.update(qrCode);
         } else {
-            dbCode = Database.QrCodes.getByName(code.getCodeInfo());
+            dbCode = Database.ScannedCodes.getByName(code.getCode().getId(), code.getUser().getId());
         }
 
         QRList.add(dbCode);
+        QRIds.add(dbCode.getId());
+        int currentScore = code.getCode().getScore();
+        setTotalScore(getTotalScore() + currentScore);
+        if (currentScore > getMaxScore()) {
+            setMaxScore(currentScore);
+        }
+        if (getMinScore() == -1 || currentScore < getMinScore()) {
+            setMinScore(currentScore);
+        }
         return true;
     }
 
     /**
-     * Removes a particular QRCode from the list
+     * Removes a particular ScannedCode from the list
      *
-     * @param code The QRCode we want to delete
-     * @throws IllegalArgumentException If the QRCode does not exist in the list
+     * @param code The ScannedCode we want to delete
+     * @throws IllegalArgumentException If the ScannedCode does not exist in the list
      */
-    public void DeleteQR(QRCode code) {
-        if (QRList.contains(code)) {
-            QRList.remove(code);
+    public void DeleteQR(ScannedCode code) {
+        if (QRIds.contains(code.getId())) {
+            if (QRList.size() > 0) {
+                QRList.remove(code);
+            }
+            QRIds.remove(code.getId());
+            int currentScore = code.getCode().getScore();
+            setTotalScore(getTotalScore() - currentScore);
+            if (currentScore == getMaxScore()) {
+                setMaxScore(getScoreMax());
+            }
+            if (currentScore == getMinScore()) {
+                setMinScore(getScoreMin());
+            }
+            Database.ScannedCodes.deleteFromUser(code.getId());
         } else { // Not sure why this would ever happen but
             throw new IllegalArgumentException();
         }
     }
 
-    public boolean HasQR(QRCode code) {
-        return this.QRList.contains(code);
+    /**
+     * Checks if the User has a ScannedCode
+     * @param code
+     *      The ScannedCode to check
+     * @return
+     *      Returns whether or not the User has the ScannedCode
+     */
+    public boolean HasQR(ScannedCode code) {
+        if (code.getUser() != this) {
+            return false;
+        }
+        return Database.ScannedCodes.existsName(code.getCode().getId(), code.getUser().getId());
     }
 
     /**
@@ -172,9 +264,10 @@ public class User extends DbDocument implements Serializable {
      *      Returns the sum of all of the scores in the QR List
      */
     public int getScoreSum() {
+        this.loadQRList();
         int score = 0;
-        for (QRCode code : QRList) {
-            score += code.getScore();
+        for (ScannedCode code : QRList) {
+            score += code.getCode().getScore();
         }
         return score;
     }
@@ -193,10 +286,11 @@ public class User extends DbDocument implements Serializable {
             }
         }
         return max_code;*/
+        this.loadQRList();
         int score = 0;
-        for (QRCode code: QRList) {
-            if(code.getScore() > score){
-                score = code.getScore();
+        for (ScannedCode code: QRList) {
+            if(code.getCode().getScore() > score){
+                score = code.getCode().getScore();
             }
         }
         return score;
@@ -216,11 +310,12 @@ public class User extends DbDocument implements Serializable {
             }
         }
         return min_code;*/
+        this.loadQRList();
         if(getQRNum() > 0) {
             int score = Integer.MAX_VALUE;
-            for (QRCode code : QRList) {
-                if (code.getScore() < score) {
-                    score = code.getScore();
+            for (ScannedCode code : QRList) {
+                if (code.getCode().getScore() < score) {
+                    score = code.getCode().getScore();
                 }
             }
             return score;
@@ -237,7 +332,7 @@ public class User extends DbDocument implements Serializable {
      *      Returns the number of codes in the QR List
      */
     public int getQRNum(){
-        return QRList.size();
+        return QRIds.size();
     }
 
     public Rankings getUserRanks() {
@@ -249,6 +344,21 @@ public class User extends DbDocument implements Serializable {
     }
 
     /**
+     * Loads ScannedCodes from ids
+     */
+    public void loadQRList() {
+        if (this.QRList.size() == this.QRIds.size()) {
+            return;
+        }
+        for (String id : this.QRIds) {
+            ScannedCode code = Database.ScannedCodes.getById(id);
+            if (code != null) {
+                this.QRList.add(code);
+            }
+        }
+    }
+
+    /**
      * Creates a new User object from a map representation
      * @param map
      * The map containing the values for the object
@@ -256,18 +366,16 @@ public class User extends DbDocument implements Serializable {
      *      Returns the created User object
      */
     public static User fromMap(Map<String, Object> map) {
+        Log.d("USER", "User fromMap");
         User user = new User((String) map.get("username"), (String) map.get("email"), (String) map.get("phoneNumber"));
         user.setId((String) map.get("id"));
-        ArrayList<String> qrIds = (ArrayList<String>) map.get("QRList");
-        ArrayList<QRCode> qrList = new ArrayList<>();
-        for (int i = 0; i < qrIds.size(); i++) {
-            QRCode code = Database.QrCodes.getById(qrIds.get(i));
-            if (code != null) {
-                qrList.add(code);
-            }
+        user.setQRIds((ArrayList<String>) map.get("QRList"));
+        user.setMaxScore(Math.toIntExact((Long) map.get("scoreMax")));
+        user.setMinScore(Math.toIntExact((Long) map.get("scoreMin")));
+        user.setTotalScore(Math.toIntExact((Long) map.get("scoreSum")));
+        if (user.getQRIds() == null) {
+            user.setQRIds(new ArrayList<>());
         }
-        user.setQRList(qrList);
-        user.userRanks = Rankings.fromMap((Map) map.get("rankings"));
         return user;
     }
 
@@ -279,15 +387,12 @@ public class User extends DbDocument implements Serializable {
     @Override
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
-        ArrayList<String> qrList = new ArrayList<>();
-        for (int i = 0; i < this.QRList.size(); i++) {
-            qrList.add(this.QRList.get(i).getId());
-        }
-        map.put("QRList", qrList);
+
+        map.put("QRList", this.QRIds);
         map.put("qrnum", this.getQRNum());
-        map.put("scoreMax", this.getScoreMax());
-        map.put("scoreMin", this.getScoreMin());
-        map.put("scoreSum", this.getScoreSum());
+        map.put("scoreMax", this.getMaxScore());
+        map.put("scoreMin", this.getMinScore());
+        map.put("scoreSum", this.getTotalScore());
         map.put("username", this.getUsername());
         map.put("email", this.getEmail());
         map.put("phoneNumber", this.getPhoneNumber());

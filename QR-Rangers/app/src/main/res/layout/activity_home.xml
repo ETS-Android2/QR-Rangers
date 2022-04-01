@@ -57,20 +57,21 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/highscore"
         android:textSize="40sp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:layout_marginStart="25dp"
         android:text="512 pts.">
 
     </TextView>
 
     <TextView
+        android:id="@+id/highesttext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/highest"
-        android:textSize="20sp"
-        android:layout_marginTop="5dp"
         android:layout_marginStart="20dp"
-        android:text="Highest QR Score">
+        android:layout_marginTop="5dp"
+        android:text="Highest QR Score"
+        android:textSize="20sp">
 
     </TextView>
 
@@ -81,7 +82,7 @@
         android:layout_below="@+id/highscore"
         android:layout_alignParentEnd="true"
         android:textSize="40sp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="35dp"
         android:text="14 pts.">
 
@@ -110,6 +111,17 @@
         android:clickable="true"
         app:backgroundTint="@color/purple_200"
         app:srcCompat="@android:drawable/ic_menu_camera" />
+
+    <GridView
+        android:id="@+id/nearby_codes_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/highesttext"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:numColumns="2"
+        android:horizontalSpacing="0dp"
+        android:verticalSpacing="10dp"/>
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/home_drawer_menu"

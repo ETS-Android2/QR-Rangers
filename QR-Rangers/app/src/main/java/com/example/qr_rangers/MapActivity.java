@@ -10,13 +10,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -55,12 +53,15 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
 
     private ArrayList<QRCode> codes;
 
+    private QRCode targetCode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
         user = (User) getIntent().getSerializableExtra("user");
+        targetCode = (QRCode) getIntent().getSerializableExtra("code");
         codes = Database.QrCodes.getAll();
 
         if (Build.VERSION.SDK_INT >= M) {
@@ -96,11 +97,18 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         mapView.setMultiTouchControls(true);
 
         mapController = (MapController) mapView.getController();
-        mapController.setZoom(3);
+
 
         GeoPoint center = new GeoPoint(location.getLatitude(),location.getLongitude());
+        int zoomLevel = 18;
         Log.e("LOCATION", "lat: " + Double.toString(location.getLatitude()) + " | lon: " + Double.toString(location.getLongitude()));
-        mapController.animateTo(center);
+        if (targetCode != null){
+            center = new GeoPoint(targetCode.getLocation().getLatitude(), targetCode.getLocation().getLongitude());
+            zoomLevel = 20;
+            Log.i("NOTE", "USING TARGET CODE");
+        }
+        mapController.setCenter(center);
+        mapController.setZoom(zoomLevel);
         makeScreen(center);
 
         mapView.setMapListener(new MapListener() {
@@ -139,7 +147,7 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener(){
             @Override
             public boolean onMarkerClick(Marker marker, MapView mapView){
-                Intent intent = new Intent(MapActivity.this, QRInfoActivity.class);
+                Intent intent = new Intent(MapActivity.this, ScannedCodeInfoActivity.class);
                 intent.putExtra("qr", code);
                 intent.putExtra("user", user);
                 startActivity(intent);

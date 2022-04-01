@@ -36,7 +36,7 @@ public class AdminActivity extends AppCompatActivity {
                         fragment = new ViewAdminUsersFragment();
                         break;
                     case 1:
-                        fragment = new ViewAdminCodesFragment();
+                        fragment = new ViewAdminCodesFragment(user);
                         break;
                 }
 

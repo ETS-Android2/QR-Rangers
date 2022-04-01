@@ -7,6 +7,8 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,12 +16,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
+import java.util.ArrayList;
 
 /**
  * This is an activity that provides the user with their account information and basic actions.
@@ -32,7 +37,6 @@ public class HomeActivity extends AppCompatActivity{
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private User user;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +52,17 @@ public class HomeActivity extends AppCompatActivity{
         totalScanned.setText(user.getQRNum() + " Codes Scanned");
 
         TextView totalScore = findViewById(R.id.highscore);
-        totalScore.setText(user.getScoreSum() + " pts.");
+        totalScore.setText(user.getTotalScore() + " pts.");
 
         TextView minQR = findViewById(R.id.lowest);
-        minQR.setText(user.getScoreMin() + " pts.");
+        int min = user.getMinScore();
+        if (min == -1) {
+            min = 0;
+        }
+        minQR.setText(min + " pts.");
 
         TextView maxQR = findViewById(R.id.highest);
-        maxQR.setText(user.getScoreMax() + " pts.");
+        maxQR.setText(user.getMaxScore() + " pts.");
 
         scan = findViewById(R.id.buttonScan);
         scan.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +73,43 @@ public class HomeActivity extends AppCompatActivity{
                 intentIntegrator.setOrientationLocked(true);
                 intentIntegrator.setBeepEnabled(false);
                 intentIntegrator.initiateScan();
+            }
+        });
+
+        // nearby codes setup
+        GpsTracker tracker = new GpsTracker(this);
+        if (!tracker.canGetLocation()) {
+            tracker.showSettingsAlert();
+            Log.i("NOTE", "Could not get location...");
+        }
+
+        Location location = new Location(tracker.getLocation().getLongitude(), tracker.getLocation().getLatitude());
+        ArrayList<QRCode> codes = Database.QrCodes.getAll();
+        ArrayList<QRCode> userCodes = new ArrayList<>();
+        ArrayList<ScannedCode> userScanned = user.getQRList();
+        for (ScannedCode code : userScanned) {
+            userCodes.add(code.getCode());
+        }
+        ArrayList<QRCode> filteredCodes = new ArrayList<QRCode>();
+        for(int i = 0; i < codes.size(); i++){
+            if (codes.get(i).getLocation() != null && !userCodes.contains(codes.get(i))){
+                filteredCodes.add(codes.get(i));
+            }
+        }
+        filteredCodes.sort(new CodeComparatorByDistance(location));
+        GridView qrGrid = findViewById(R.id.nearby_codes_grid);
+        NearbyCodesAdapter adapter = new NearbyCodesAdapter(this, filteredCodes);
+        qrGrid.setAdapter(adapter);
+
+        qrGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.i("NOTE", "GRID CLICK");
+                Intent intent = new Intent(HomeActivity.this, QRInfoActivity.class);
+                intent.putExtra("qr", adapter.getItem(i));
+                intent.putExtra("user", user);
+                intent.putExtra("isMyAccount", false);
+                startActivity(intent);
             }
         });
 
@@ -158,7 +203,7 @@ public class HomeActivity extends AppCompatActivity{
             } else {
                 // if the intentResult is not null we'll set
                 // the content and format of scan message
-                    int totalScore = user.getScoreSum();
+                    int totalScore = user.getTotalScore();
                     Intent intent = new Intent(HomeActivity.this, ScanResultActivity.class);
                     intent.putExtra("content", intentResult.getContents());
                     intent.putExtra("totalScore",String.valueOf(totalScore));
@@ -197,6 +242,14 @@ public class HomeActivity extends AppCompatActivity{
     }
 
     @Override
+    public void onBackPressed(){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawers();
+            return;
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         user = loadUser();
@@ -208,13 +261,17 @@ public class HomeActivity extends AppCompatActivity{
         totalScanned.setText(user.getQRNum() + " Codes Scanned");
 
         TextView totalScore = findViewById(R.id.highscore);
-        totalScore.setText(user.getScoreSum() + " pts.");
+        totalScore.setText(user.getTotalScore() + " pts.");
 
         TextView minQR = findViewById(R.id.lowest);
-        minQR.setText(user.getScoreMin() + " pts.");
+        int min = user.getMinScore();
+        if (min == -1) {
+            min = 0;
+        }
+        minQR.setText(min + " pts.");
 
         TextView maxQR = findViewById(R.id.highest);
-        maxQR.setText(user.getScoreMax() + " pts.");
+        maxQR.setText(user.getMaxScore() + " pts.");
 
         Log.i("USER", "ID: " + user.getId());
         Log.i("USER", Database.Admins.isAdmin(user.getId()) ? "LOGGED IN AS ADMIN" : "LOGGED IN AS BASIC");
