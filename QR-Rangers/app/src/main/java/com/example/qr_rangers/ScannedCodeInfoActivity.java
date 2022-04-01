@@ -34,7 +34,6 @@ public class ScannedCodeInfoActivity extends AppCompatActivity {
     ImageView image;
 
     Button deleteButton;
-    Button editCommentButton;
     Button viewMapButton;
 
     @Override
