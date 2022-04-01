@@ -147,7 +147,7 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener(){
             @Override
             public boolean onMarkerClick(Marker marker, MapView mapView){
-                Intent intent = new Intent(MapActivity.this, ScannedCodeInfoActivity.class);
+                Intent intent = new Intent(MapActivity.this, QRInfoActivity.class);
                 intent.putExtra("qr", code);
                 intent.putExtra("user", user);
                 startActivity(intent);
