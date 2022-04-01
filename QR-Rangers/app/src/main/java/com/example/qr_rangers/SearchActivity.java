@@ -52,6 +52,7 @@ public class SearchActivity extends AppCompatActivity {
         search_qr = findViewById(R.id.search_qr);
 
         search_text = findViewById(R.id.search);
+        search_text.onActionViewExpanded();
         search_text.setQueryHint("Type Username Here!");
         search_list = findViewById(R.id.search_list);
 
