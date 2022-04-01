@@ -373,6 +373,7 @@ public class User extends DbDocument implements Serializable {
         user.setMaxScore(Math.toIntExact((Long) map.get("scoreMax")));
         user.setMinScore(Math.toIntExact((Long) map.get("scoreMin")));
         user.setTotalScore(Math.toIntExact((Long) map.get("scoreSum")));
+        user.userRanks = Rankings.fromMap((Map) map.get("rankings"));
         if (user.getQRIds() == null) {
             user.setQRIds(new ArrayList<>());
         }

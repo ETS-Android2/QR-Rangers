@@ -119,8 +119,8 @@ public class UserDbCollection implements IDbCollection<User> {
     /**
      * Gets all Users within the collection
      */
-    public void updateRanks(String rankType, int currentRank, User currentUser) {
-        Task<QuerySnapshot> task = collection.orderBy(rankType, Query.Direction.DESCENDING).limit(currentRank+1).get();
+    public void updateRanks(String rankType, User currentUser) {
+        Task<QuerySnapshot> task = collection.orderBy(rankType, Query.Direction.DESCENDING).get();
         while(!task.isComplete());
         List<DocumentSnapshot> docs = task.getResult().getDocuments();
 
@@ -137,18 +137,30 @@ public class UserDbCollection implements IDbCollection<User> {
                 if (reached) {
                     switch (rankType) {
                         case "scoreSum":
-                            user.getUserRanks().setTotalScoreRank(i);
+                            if (i != user.getUserRanks().getTotalScoreRank()) {
+                                user.getUserRanks().setTotalScoreRank(i);
+                                reached = false;
+                            }
                             break;
                         case "qrnum":
-                            user.getUserRanks().setQRScannedRank(i);
+                            if (i != user.getUserRanks().getQRScannedRank()) {
+                                user.getUserRanks().setQRScannedRank(i);
+                                reached = false;
+                            }
                             break;
                         case "scoreMax":
-                            user.getUserRanks().setBestQRRank(i);
+                            if (i != user.getUserRanks().getBestQRRank()) {
+                                user.getUserRanks().setBestQRRank(i);
+                                reached = false;
+                            }
                             break;
                         default:
                             throw new IllegalArgumentException("Not a valid rank to update!");
                     }
-                    Database.Users.update(user);
+                    if (!reached) {
+                        Database.Users.update(user);
+                    }
+                    break;
                 }
                 i += 1;
             }

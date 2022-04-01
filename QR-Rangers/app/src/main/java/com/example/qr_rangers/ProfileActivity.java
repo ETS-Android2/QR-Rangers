@@ -60,6 +60,9 @@ public class ProfileActivity extends AppCompatActivity{
         actionBar.setDisplayShowHomeEnabled(true);
 
         user = (User) getIntent().getSerializableExtra("user");
+        Database.Users.updateRanks("scoreSum", user);
+        Database.Users.updateRanks("qrnum", user);
+        Database.Users.updateRanks("scoreMax", user);
         isMyAccount = getIntent().getBooleanExtra("isMyAccount", false);
 
         nameText = findViewById(R.id.profilename);
@@ -129,6 +132,10 @@ public class ProfileActivity extends AppCompatActivity{
         super.onResume();
         nameText = findViewById(R.id.profilename);
         nameText.setText(user.getUsername());
+
+        Database.Users.updateRanks("scoreSum", user);
+        Database.Users.updateRanks("qrnum", user);
+        Database.Users.updateRanks("scoreMax", user);
 
         totalScoreText = findViewById(R.id.totalscore);
         String totalScore = String.valueOf(user.getTotalScore()) + " pts.";
