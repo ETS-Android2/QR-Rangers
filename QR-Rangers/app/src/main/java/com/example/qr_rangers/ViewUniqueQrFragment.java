@@ -36,7 +36,7 @@ public class ViewUniqueQrFragment extends Fragment {
 
         users = Database.Users.displayLeaderboard("scoreMax");
 
-        usersAdapter = new CustomList(getActivity(), users);
+        usersAdapter = new CustomList(getActivity(), users, "UniqueQr");
 
         usersList.setAdapter(usersAdapter);
 

@@ -21,11 +21,19 @@ public class CustomList extends ArrayAdapter<User> {
 
     private ArrayList<User> profiles;
     private Context context;
+    private String fragment;
 
     public CustomList(Context context, ArrayList<User> profiles){
         super(context,0, profiles);
         this.profiles = profiles;
         this.context = context;
+    }
+
+    public CustomList(Context context, ArrayList<User> profiles, String fragment){
+        super(context,0, profiles);
+        this.profiles = profiles;
+        this.context = context;
+        this.fragment = fragment;
     }
 
 
@@ -42,8 +50,22 @@ public class CustomList extends ArrayAdapter<User> {
 
         TextView username = view.findViewById(R.id.user_text);
 
-        if(context.getClass() == LeaderboardActivity.class){
-            username.setText(position+1 + ". " + user.getUsername());
+        if(context.getClass() == LeaderboardActivity.class) {
+            String print = (position + 1) + ". " + user.getUsername();
+            switch(fragment){
+                case("HighScore"):
+                    print += "     " + user.getTotalScore() + " pts.";
+                    break;
+                case("NumCodes"):
+                    print += "     " + user.getQRNum();
+                    break;
+                case("UniqueQr"):
+                    print += "     " + user.getMaxScore() + " pts.";
+                    break;
+                default:
+                    throw new IllegalArgumentException();
+            }
+            username.setText(print);
         }
         else
         {

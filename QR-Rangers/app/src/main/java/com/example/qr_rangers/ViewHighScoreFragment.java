@@ -39,7 +39,7 @@ public class ViewHighScoreFragment extends Fragment {
 
         users = Database.Users.displayLeaderboard("scoreSum");
 
-        usersAdapter = new CustomList(getActivity(), users);
+        usersAdapter = new CustomList(getActivity(), users, "HighScore");
 
         usersList.setAdapter(usersAdapter);
 
