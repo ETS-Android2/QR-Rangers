@@ -102,6 +102,8 @@ public class HomeActivity extends AppCompatActivity{
             NearbyCodesAdapter adapter = new NearbyCodesAdapter(this, filteredCodes);
             qrGrid.setAdapter(adapter);
 
+            qrGrid.setClickable(true);
+
             qrGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -123,6 +125,9 @@ public class HomeActivity extends AppCompatActivity{
         actionBarDrawerToggle.syncState();
         // make hamburger icon appear
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        drawerLayout.setSystemUiVisibility(View.INVISIBLE);
+        drawerLayout.setVisibility(View.INVISIBLE);
 
         //Set on click listeners for all the hamburger menu items
         NavigationView navView = findViewById(R.id.home_nav_view);
