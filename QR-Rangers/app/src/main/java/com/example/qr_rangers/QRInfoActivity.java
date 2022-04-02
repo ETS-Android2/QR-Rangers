@@ -94,6 +94,7 @@ public class QRInfoActivity extends AppCompatActivity {
         viewMapButton.setOnClickListener(view -> {
             Intent intent = new Intent(QRInfoActivity.this, MapActivity.class);
             intent.putExtra("code", QRInfoActivity.this.qr);
+            intent.putExtra("user", QRInfoActivity.this.user);
             startActivity(intent);
         });
 
