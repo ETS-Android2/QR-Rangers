@@ -17,7 +17,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -38,10 +37,7 @@ public class SearchActivity extends AppCompatActivity {
     ArrayAdapter<User> search_adapter;
     Button search_qr;
 
-    private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-
-    private final float fadeSpeed = (float)1.5;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

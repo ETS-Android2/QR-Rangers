@@ -34,7 +34,6 @@ public class ScannedCodeInfoActivity extends AppCompatActivity {
     ImageView image;
 
     Button deleteButton;
-    Button editCommentButton;
     Button viewMapButton;
 
     @Override
@@ -84,11 +83,6 @@ public class ScannedCodeInfoActivity extends AppCompatActivity {
                 deleteQRFragment.show(getSupportFragmentManager(), "Delete_QR");
             }
         });
-
-        editCommentButton = findViewById(R.id.qr_edit_comment);
-        if (!isMyAccount) {
-            editCommentButton.setVisibility(View.INVISIBLE);
-        }
 
         viewMapButton = findViewById(R.id.qr_info_view_map);
 

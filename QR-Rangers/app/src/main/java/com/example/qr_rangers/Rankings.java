@@ -1,7 +1,11 @@
 package com.example.qr_rangers;
 
+import android.provider.ContactsContract;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * An object that represents the ranks of a user
@@ -19,9 +23,17 @@ public class Rankings implements Serializable {
      * Constructs a rank object
      */
     public Rankings() {
-        this.totalScoreRank = -1;
-        this.bestQRRank = -1;
-        this.QRScannedRank = -1;
+
+    }
+
+    /**
+     * Initialises a user's ranks to how many users exist (last place)
+     */
+    public void initRanks() {
+        int last = Database.Users.getAll().size() + 1;
+        setBestQRRank(last);
+        setQRScannedRank(last);
+        setTotalScoreRank(last);
     }
 
     /**
@@ -95,5 +107,20 @@ public class Rankings implements Serializable {
         map.put("bestQRRank", this.getBestQRRank());
         map.put("QRScannedRank", this.getQRScannedRank());
         return map;
+    }
+
+    /**
+     * Creates a new User object from a map representation
+     * @param map
+     * The map containing the values for the object
+     * @return
+     *      Returns the created User object
+     */
+    public static Rankings fromMap(Map<String, Object> map) {
+        Rankings ranks = new Rankings();
+        ranks.setQRScannedRank(Math.toIntExact((Long) map.get("QRScannedRank")));
+        ranks.setBestQRRank(Math.toIntExact((Long) map.get("bestQRRank")));
+        ranks.setTotalScoreRank(Math.toIntExact((Long) map.get("totalScoreRank")));
+        return ranks;
     }
 }

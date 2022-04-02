@@ -44,8 +44,10 @@
             android:exported="false" />
         <activity
             android:name=".SearchActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"/>
+        <activity
+            android:name=".LeaderboardActivity"
+            android:exported="false"/>
         <activity
             android:name=".MapActivity"
             android:exported="false">

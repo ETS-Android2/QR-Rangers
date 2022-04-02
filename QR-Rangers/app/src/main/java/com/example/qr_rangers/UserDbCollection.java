@@ -6,6 +6,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -91,6 +92,86 @@ public class UserDbCollection implements IDbCollection<User> {
         }
 
         return result;
+    }
+
+    /**
+     * Gets all the top 10 user scores based on a provided score type
+     * @param rankType
+     *  Communicates how to rank the users
+     * @return
+     *  Returns a list of the 10 users with the highest of the requested score
+     */
+    public ArrayList<User> displayLeaderboard(String rankType) {
+        Task<QuerySnapshot> task = collection.orderBy(rankType, Query.Direction.DESCENDING).limit(10).get();
+        while(!task.isComplete());
+        List<DocumentSnapshot> docs = task.getResult().getDocuments();
+
+        ArrayList<User> result = new ArrayList<>();
+        for (DocumentSnapshot doc : docs) {
+            if (doc.getData() != null) {
+                Map<String, Object> map = doc.getData();
+                map.put("id", doc.getId());
+                result.add(User.fromMap(map));
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Updates the ranks of a specific user given a specific score to rank by
+     * @param rankType
+     *  Communicates how to rank the users
+     * @param currentUser
+     *  User that needs its ranks updated
+     */
+    public int updateRanks(String rankType, User currentUser) {
+        Task<QuerySnapshot> task = collection.orderBy(rankType, Query.Direction.DESCENDING).get();
+        while(!task.isComplete());
+        List<DocumentSnapshot> docs = task.getResult().getDocuments();
+
+        int i = 1;
+        Boolean reached = false;
+        for (DocumentSnapshot doc : docs) {
+            if (doc.getData() != null) {
+                Map<String, Object> map = doc.getData();
+                map.put("id", doc.getId());
+                User user = User.fromMap(map);
+                if (currentUser.equals(user)) {
+                    reached = true;
+                }
+                if (reached) {
+                    switch (rankType) {
+                        case "scoreSum":
+                            if (i != user.getUserRanks().getTotalScoreRank()) {
+                                user.getUserRanks().setTotalScoreRank(i);
+                                reached = false;
+                            }
+                            break;
+                        case "qrnum":
+                            if (i != user.getUserRanks().getQRScannedRank()) {
+                                user.getUserRanks().setQRScannedRank(i);
+                                reached = false;
+                            }
+                            break;
+                        case "scoreMax":
+                            if (i != user.getUserRanks().getBestQRRank()) {
+                                user.getUserRanks().setBestQRRank(i);
+                                reached = false;
+                            }
+                            break;
+                        default:
+                            throw new IllegalArgumentException("Not a valid rank to update!");
+                    }
+                    if (!reached) {
+                        Database.Users.update(user);
+                    }
+                    return i;
+                }
+                i += 1;
+            }
+        }
+        return -1;
     }
 
     /**

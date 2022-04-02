@@ -35,6 +35,7 @@ public class ProfileActivity extends AppCompatActivity{
     private TextView codesScannedText;
     private TextView scoreRankingText;
     private TextView scanRankingText;
+    private TextView bestQRRankingText;
 
     private Button viewGalleryButton;
     private Button shareProfileButton;
@@ -59,6 +60,9 @@ public class ProfileActivity extends AppCompatActivity{
         actionBar.setDisplayShowHomeEnabled(true);
 
         user = (User) getIntent().getSerializableExtra("user");
+        int scoreSum = Database.Users.updateRanks("scoreSum", user);
+        int qrnum = Database.Users.updateRanks("qrnum", user);
+        int scoreMax = Database.Users.updateRanks("scoreMax", user);
         isMyAccount = getIntent().getBooleanExtra("isMyAccount", false);
 
         nameText = findViewById(R.id.profilename);
@@ -73,12 +77,16 @@ public class ProfileActivity extends AppCompatActivity{
         codesScannedText.setText(String.valueOf(codesScanned));
 
         scoreRankingText = findViewById(R.id.scoreranking);
-        String rankScore = String.valueOf(user.userRanks.getTotalScoreRank());
+        String rankScore = String.valueOf(scoreSum);
         scoreRankingText.setText("#" + rankScore);
 
         scanRankingText = findViewById(R.id.scanranking);
-        String rankAmount = String.valueOf(user.userRanks.getQRScannedRank());
+        String rankAmount = String.valueOf(qrnum);
         scanRankingText.setText("#" + rankAmount);
+
+        bestQRRankingText = findViewById(R.id.bestqrranking);
+        String rankBest = String.valueOf(scoreMax);
+        bestQRRankingText.setText("#" + rankBest);
 
 
 
@@ -125,6 +133,10 @@ public class ProfileActivity extends AppCompatActivity{
         nameText = findViewById(R.id.profilename);
         nameText.setText(user.getUsername());
 
+        int scoreSum = Database.Users.updateRanks("scoreSum", user);
+        int qrnum = Database.Users.updateRanks("qrnum", user);
+        int scoreMax = Database.Users.updateRanks("scoreMax", user);
+
         totalScoreText = findViewById(R.id.totalscore);
         String totalScore = String.valueOf(user.getTotalScore()) + " pts.";
         totalScoreText.setText(totalScore);
@@ -134,12 +146,16 @@ public class ProfileActivity extends AppCompatActivity{
         codesScannedText.setText(String.valueOf(codesScanned));
 
         scoreRankingText = findViewById(R.id.scoreranking);
-        String rankScore = "#" + String.valueOf(user.userRanks.getTotalScoreRank());
-        scoreRankingText.setText(rankScore);
+        String rankScore = String.valueOf(scoreSum);
+        scoreRankingText.setText("#" + rankScore);
 
         scanRankingText = findViewById(R.id.scanranking);
-        String rankAmount = "#" + String.valueOf(user.userRanks.getQRScannedRank());
-        scanRankingText.setText(rankAmount);
+        String rankAmount = String.valueOf(qrnum);
+        scanRankingText.setText("#" + rankAmount);
+
+        bestQRRankingText = findViewById(R.id.bestqrranking);
+        String rankBest = String.valueOf(scoreMax);
+        bestQRRankingText.setText("#" + rankBest);
     }
 
     @Override
