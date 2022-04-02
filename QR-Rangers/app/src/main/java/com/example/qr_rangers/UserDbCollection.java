@@ -125,7 +125,7 @@ public class UserDbCollection implements IDbCollection<User> {
      * @param currentUser
      *  User that needs its ranks updated
      */
-    public void updateRanks(String rankType, User currentUser) {
+    public int updateRanks(String rankType, User currentUser) {
         Task<QuerySnapshot> task = collection.orderBy(rankType, Query.Direction.DESCENDING).get();
         while(!task.isComplete());
         List<DocumentSnapshot> docs = task.getResult().getDocuments();
@@ -166,11 +166,12 @@ public class UserDbCollection implements IDbCollection<User> {
                     if (!reached) {
                         Database.Users.update(user);
                     }
-                    break;
+                    return i;
                 }
                 i += 1;
             }
         }
+        return -1;
     }
 
     /**
