@@ -83,35 +83,37 @@ public class HomeActivity extends AppCompatActivity{
             Log.i("NOTE", "Could not get location...");
         }
 
-        Location location = new Location(tracker.getLocation().getLongitude(), tracker.getLocation().getLatitude());
-        ArrayList<QRCode> codes = Database.QrCodes.getAll();
-        ArrayList<QRCode> userCodes = new ArrayList<>();
-        ArrayList<ScannedCode> userScanned = user.getQRList();
-        for (ScannedCode code : userScanned) {
-            userCodes.add(code.getCode());
-        }
-        ArrayList<QRCode> filteredCodes = new ArrayList<QRCode>();
-        for(int i = 0; i < codes.size(); i++){
-            if (codes.get(i).getLocation() != null && !userCodes.contains(codes.get(i))){
-                filteredCodes.add(codes.get(i));
+        if(tracker.getLocation() != null) {
+            Location location = new Location(tracker.getLocation().getLongitude(), tracker.getLocation().getLatitude());
+            ArrayList<QRCode> codes = Database.QrCodes.getAll();
+            ArrayList<QRCode> userCodes = new ArrayList<>();
+            ArrayList<ScannedCode> userScanned = user.getQRList();
+            for (ScannedCode code : userScanned) {
+                userCodes.add(code.getCode());
             }
-        }
-        filteredCodes.sort(new CodeComparatorByDistance(location));
-        GridView qrGrid = findViewById(R.id.nearby_codes_grid);
-        NearbyCodesAdapter adapter = new NearbyCodesAdapter(this, filteredCodes);
-        qrGrid.setAdapter(adapter);
+            ArrayList<QRCode> filteredCodes = new ArrayList<QRCode>();
+            for (int i = 0; i < codes.size(); i++) {
+                if (codes.get(i).getLocation() != null && !userCodes.contains(codes.get(i))) {
+                    filteredCodes.add(codes.get(i));
+                }
+            }
+            filteredCodes.sort(new CodeComparatorByDistance(location));
+            GridView qrGrid = findViewById(R.id.nearby_codes_grid);
+            NearbyCodesAdapter adapter = new NearbyCodesAdapter(this, filteredCodes);
+            qrGrid.setAdapter(adapter);
 
-        qrGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.i("NOTE", "GRID CLICK");
-                Intent intent = new Intent(HomeActivity.this, QRInfoActivity.class);
-                intent.putExtra("qr", adapter.getItem(i));
-                intent.putExtra("user", user);
-                intent.putExtra("isMyAccount", false);
-                startActivity(intent);
-            }
-        });
+            qrGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Log.i("NOTE", "GRID CLICK");
+                    Intent intent = new Intent(HomeActivity.this, QRInfoActivity.class);
+                    intent.putExtra("qr", adapter.getItem(i));
+                    intent.putExtra("user", user);
+                    intent.putExtra("isMyAccount", false);
+                    startActivity(intent);
+                }
+            });
+        }
 
         // action bar toggle button setup
         drawerLayout = findViewById(R.id.home_drawer_menu);
