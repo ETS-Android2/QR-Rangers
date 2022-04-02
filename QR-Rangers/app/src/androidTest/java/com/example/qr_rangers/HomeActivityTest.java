@@ -80,6 +80,17 @@ public class HomeActivityTest {
         }
     }
 
+    @Test
+    public void MapMenu(){
+        solo.assertCurrentActivity("Wrong Activity",HomeActivity.class);
+
+        solo.clickOnActionBarHomeButton();
+
+        solo.clickOnText("Map");
+
+        solo.assertCurrentActivity("Wrong Activity",MapActivity.class);
+    }
+
     @After
     public void tearDown() throws Exception{
         solo.finishOpenedActivities();

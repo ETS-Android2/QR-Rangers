@@ -68,7 +68,6 @@ public class ScanResultActivity extends AppCompatActivity {
         TextView codeUserCount = findViewById(R.id.codeusercount);
         codeUserCount.setText("" + qr.getScannedCount());
         EditText commentBox = findViewById(R.id.commentbox);
-        //imgPreview = findViewById(R.id.imageView);
         gpsTracker = new GpsTracker(ScanResultActivity.this);
         if(!gpsTracker.canGetLocation())
             gpsTracker.showSettingsAlert();
@@ -84,11 +83,16 @@ public class ScanResultActivity extends AppCompatActivity {
             }
         });
         attachLocation = findViewById(R.id.locationswitch);
+
+        //Saving the QR code to server happens here
+
         Button saveButton = findViewById(R.id.savebutton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Disable the camera button when saving qr code to db
                 cameraButton.setClickable(false);
+                //process location data if provided by the user
                 if (attachLocation.isChecked()){
                     if(gpsTracker.canGetLocation()){
                         double longitude = gpsTracker.getLongitude();
@@ -97,12 +101,14 @@ public class ScanResultActivity extends AppCompatActivity {
                         location = new Location(longitude,latitude);
                     }
                 }
+                //Process image to JPEG if provided by user
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 String imageEncoded = null;
                 if (photo != null) {
                     photo.compress(Bitmap.CompressFormat.JPEG, 70, baos);
                     imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
                 }
+                //generate code for saving to db from collected data
                 ScannedCode codeToSave = new ScannedCode(qr,user,location,commentBox.getText().toString(),imageEncoded);
 
                 try {
@@ -130,6 +136,13 @@ public class ScanResultActivity extends AppCompatActivity {
         });
 
     }
+
+    /**
+     * gets the image from the camera API
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     protected void onActivityResult(int requestCode,
                                     int resultCode,
                                     Intent data) {
@@ -140,7 +153,11 @@ public class ScanResultActivity extends AppCompatActivity {
              cameraButton.setImageBitmap(photo);
         }
     }
-    //Imported it from HomeActivity for now, should refactor
+
+    /**
+     * Fetches user from database
+     * @return user from db
+     */
     private User loadUser() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String id = sharedPreferences.getString("ID", null);
