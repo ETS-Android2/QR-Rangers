@@ -100,6 +100,7 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
 
 
         GeoPoint center = new GeoPoint(location.getLatitude(),location.getLongitude());
+        GeoPoint playerCenter = new GeoPoint(location.getLatitude(),location.getLongitude());
         int zoomLevel = 18;
         Log.e("LOCATION", "lat: " + Double.toString(location.getLatitude()) + " | lon: " + Double.toString(location.getLongitude()));
         if (targetCode != null){
@@ -109,7 +110,7 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         }
         mapController.setCenter(center);
         mapController.setZoom(zoomLevel);
-        makeScreen(center);
+        makeScreen(playerCenter);
 
         mapView.setMapListener(new MapListener() {
             @Override
