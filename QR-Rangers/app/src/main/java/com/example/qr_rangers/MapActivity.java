@@ -100,6 +100,7 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
 
 
         GeoPoint center = new GeoPoint(location.getLatitude(),location.getLongitude());
+        GeoPoint playerCenter = new GeoPoint(location.getLatitude(),location.getLongitude());
         int zoomLevel = 18;
         Log.e("LOCATION", "lat: " + Double.toString(location.getLatitude()) + " | lon: " + Double.toString(location.getLongitude()));
         if (targetCode != null){
@@ -109,7 +110,7 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         }
         mapController.setCenter(center);
         mapController.setZoom(zoomLevel);
-        makeScreen(center);
+        makeScreen(playerCenter);
 
         mapView.setMapListener(new MapListener() {
             @Override
@@ -147,7 +148,7 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener(){
             @Override
             public boolean onMarkerClick(Marker marker, MapView mapView){
-                Intent intent = new Intent(MapActivity.this, ScannedCodeInfoActivity.class);
+                Intent intent = new Intent(MapActivity.this, QRInfoActivity.class);
                 intent.putExtra("qr", code);
                 intent.putExtra("user", user);
                 startActivity(intent);

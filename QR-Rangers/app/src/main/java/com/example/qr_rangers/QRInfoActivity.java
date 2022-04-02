@@ -64,7 +64,7 @@ public class QRInfoActivity extends AppCompatActivity {
         commentText.setVisibility(View.GONE);
 
         commentList = findViewById(R.id.qr_info_comment_list);
-        commentAdapter = new ArrayAdapter<>(this, R.layout.activity_qr_info, comments);
+        commentAdapter = new ArrayAdapter<String>(this, R.layout.comment, comments);
         commentList.setAdapter(commentAdapter);
 
         image = findViewById(R.id.qr_info_image);
@@ -94,6 +94,7 @@ public class QRInfoActivity extends AppCompatActivity {
         viewMapButton.setOnClickListener(view -> {
             Intent intent = new Intent(QRInfoActivity.this, MapActivity.class);
             intent.putExtra("code", QRInfoActivity.this.qr);
+            intent.putExtra("user", QRInfoActivity.this.user);
             startActivity(intent);
         });
 

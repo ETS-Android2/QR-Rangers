@@ -1,9 +1,11 @@
 package com.example.qr_rangers;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -85,6 +87,14 @@ public class ScannedCodeInfoActivity extends AppCompatActivity {
         });
 
         viewMapButton = findViewById(R.id.qr_info_view_map);
+        viewMapButton.setOnClickListener(view -> {
+            QRCode code = ScannedCodeInfoActivity.this.qr.getCode();
+            Intent intent = new Intent(ScannedCodeInfoActivity.this, MapActivity.class);
+            intent.putExtra("code", code);
+            intent.putExtra("user", user);
+            startActivity(intent);
+        });
+        viewMapButton.setVisibility(qr.getLocationScanned() == null ? View.INVISIBLE : View.VISIBLE);
 
     }
 
