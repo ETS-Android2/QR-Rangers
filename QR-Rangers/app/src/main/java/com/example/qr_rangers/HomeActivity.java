@@ -92,7 +92,7 @@ public class HomeActivity extends AppCompatActivity{
                 userCodes.add(code.getCode());
             }
             ArrayList<QRCode> filteredCodes = new ArrayList<QRCode>();
-            for (int i = 0; i < codes.size(); i++) {
+            for (int i = 0; i < codes.size() && filteredCodes.size() < 6; i++) {
                 if (codes.get(i).getLocation() != null && !userCodes.contains(codes.get(i))) {
                     filteredCodes.add(codes.get(i));
                 }
