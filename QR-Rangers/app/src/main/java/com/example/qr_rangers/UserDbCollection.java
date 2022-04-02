@@ -95,9 +95,11 @@ public class UserDbCollection implements IDbCollection<User> {
     }
 
     /**
-     * Gets all Users within the collection
+     * Gets all the top 10 user scores based on a provided score type
+     * @param rankType
+     *  Communicates how to rank the users
      * @return
-     *      Returns a list of all documents within the collection
+     *  Returns a list of the 10 users with the highest of the requested score
      */
     public ArrayList<User> displayLeaderboard(String rankType) {
         Task<QuerySnapshot> task = collection.orderBy(rankType, Query.Direction.DESCENDING).limit(10).get();
@@ -117,7 +119,11 @@ public class UserDbCollection implements IDbCollection<User> {
     }
 
     /**
-     * Gets all Users within the collection
+     * Updates the ranks of a specific user given a specific score to rank by
+     * @param rankType
+     *  Communicates how to rank the users
+     * @param currentUser
+     *  User that needs its ranks updated
      */
     public void updateRanks(String rankType, User currentUser) {
         Task<QuerySnapshot> task = collection.orderBy(rankType, Query.Direction.DESCENDING).get();

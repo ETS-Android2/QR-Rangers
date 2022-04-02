@@ -26,6 +26,9 @@ public class Rankings implements Serializable {
 
     }
 
+    /**
+     * Initialises a user's ranks to how many users exist (last place)
+     */
     public void initRanks() {
         int last = Database.Users.getAll().size() + 1;
         setBestQRRank(last);
