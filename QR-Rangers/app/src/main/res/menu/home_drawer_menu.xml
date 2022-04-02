@@ -34,11 +34,6 @@
         android:title="@string/hamburger_map" />
 
     <item
-        android:id="@+id/hamburger_setting_button"
-        android:icon="@android:drawable/ic_menu_preferences"
-        android:title="@string/hamburger_settings" />
-
-    <item
         android:id="@+id/hamburger_admin_button"
         android:icon="@android:drawable/ic_menu_compass"
         android:title="@string/hamburger_admin" />
