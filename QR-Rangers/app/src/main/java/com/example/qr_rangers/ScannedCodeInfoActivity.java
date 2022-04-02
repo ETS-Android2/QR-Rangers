@@ -97,8 +97,10 @@ public class ScannedCodeInfoActivity extends AppCompatActivity {
             QRCode code = ScannedCodeInfoActivity.this.qr.getCode();
             Intent intent = new Intent(ScannedCodeInfoActivity.this, MapActivity.class);
             intent.putExtra("code", code);
+            intent.putExtra("user", user);
             startActivity(intent);
         });
+        viewMapButton.setVisibility(qr.getLocationScanned() == null ? View.INVISIBLE : View.VISIBLE);
 
     }
 
