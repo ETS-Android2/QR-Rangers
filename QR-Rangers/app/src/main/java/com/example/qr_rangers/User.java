@@ -335,6 +335,14 @@ public class User extends DbDocument implements Serializable {
         return QRIds.size();
     }
 
+    public Rankings getUserRanks() {
+        return userRanks;
+    }
+
+    public void setUserRanks(Rankings userRanks) {
+        this.userRanks = userRanks;
+    }
+
     /**
      * Loads ScannedCodes from ids
      */
@@ -365,6 +373,7 @@ public class User extends DbDocument implements Serializable {
         user.setMaxScore(Math.toIntExact((Long) map.get("scoreMax")));
         user.setMinScore(Math.toIntExact((Long) map.get("scoreMin")));
         user.setTotalScore(Math.toIntExact((Long) map.get("scoreSum")));
+        user.userRanks = Rankings.fromMap((Map) map.get("rankings"));
         if (user.getQRIds() == null) {
             user.setQRIds(new ArrayList<>());
         }
@@ -388,7 +397,7 @@ public class User extends DbDocument implements Serializable {
         map.put("username", this.getUsername());
         map.put("email", this.getEmail());
         map.put("phoneNumber", this.getPhoneNumber());
-        map.put("rankings", userRanks.toMap());
+        map.put("rankings", this.userRanks.toMap());
         return map;
     }
 

@@ -1,13 +1,16 @@
 package com.example.qr_rangers;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,7 +36,6 @@ public class ScannedCodeInfoActivity extends AppCompatActivity {
     ImageView image;
 
     Button deleteButton;
-    Button editCommentButton;
     Button viewMapButton;
 
     @Override
@@ -60,6 +62,9 @@ public class ScannedCodeInfoActivity extends AppCompatActivity {
         commentText = findViewById(R.id.qr_info_comment);
         commentText.setText(qr.getComment());
 
+        ListView commentsList = findViewById(R.id.qr_info_comment_list);
+        commentsList.setVisibility(View.GONE);
+
         image = findViewById(R.id.qr_info_image);
         if (qr.getPhoto() != null) {
             byte[] imageBits = Base64.decode(qr.getPhoto(), Base64.DEFAULT);
@@ -81,12 +86,15 @@ public class ScannedCodeInfoActivity extends AppCompatActivity {
             }
         });
 
-        editCommentButton = findViewById(R.id.qr_edit_comment);
-        if (!isMyAccount) {
-            editCommentButton.setVisibility(View.INVISIBLE);
-        }
-
         viewMapButton = findViewById(R.id.qr_info_view_map);
+        viewMapButton.setOnClickListener(view -> {
+            QRCode code = ScannedCodeInfoActivity.this.qr.getCode();
+            Intent intent = new Intent(ScannedCodeInfoActivity.this, MapActivity.class);
+            intent.putExtra("code", code);
+            intent.putExtra("user", user);
+            startActivity(intent);
+        });
+        viewMapButton.setVisibility(qr.getLocationScanned() == null ? View.INVISIBLE : View.VISIBLE);
 
     }
 

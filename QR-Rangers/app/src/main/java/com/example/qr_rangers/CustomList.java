@@ -21,6 +21,7 @@ public class CustomList extends ArrayAdapter<User> {
 
     private ArrayList<User> profiles;
     private Context context;
+    private String fragment;
 
     public CustomList(Context context, ArrayList<User> profiles){
         super(context,0, profiles);
@@ -28,11 +29,17 @@ public class CustomList extends ArrayAdapter<User> {
         this.context = context;
     }
 
+    public CustomList(Context context, ArrayList<User> profiles, String fragment){
+        super(context,0, profiles);
+        this.profiles = profiles;
+        this.context = context;
+        this.fragment = fragment;
+    }
+
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//        return super.getView(position, convertView, parent);
         View view = convertView;
 
         if(view == null){
@@ -42,10 +49,28 @@ public class CustomList extends ArrayAdapter<User> {
         User user = profiles.get(position);
 
         TextView username = view.findViewById(R.id.user_text);
-//        TextView provinceName = view.findViewById(R.id.province_text);
 
-        username.setText(user.getUsername());
-//        provinceName.setText(city.getProvinceName());
+        if(context.getClass() == LeaderboardActivity.class) {
+            String print = (position + 1) + ". " + user.getUsername();
+            switch(fragment){
+                case("HighScore"):
+                    print += "     " + user.getTotalScore() + " pts.";
+                    break;
+                case("NumCodes"):
+                    print += "     " + user.getQRNum();
+                    break;
+                case("UniqueQr"):
+                    print += "     " + user.getMaxScore() + " pts.";
+                    break;
+                default:
+                    throw new IllegalArgumentException();
+            }
+            username.setText(print);
+        }
+        else
+        {
+            username.setText(user.getUsername());
+        }
 
         return view;
     }
