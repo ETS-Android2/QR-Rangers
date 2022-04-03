@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompatActivity{
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private User user;
-    private GridView qrGrid;
+    private GridView qrGrid = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,14 +121,14 @@ public class HomeActivity extends AppCompatActivity{
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.hamburger_open, R.string.hamburger_close){
             @Override
             public void onDrawerSlide(View DrawerView, float slideOffset){
-                qrGrid.setAlpha((float) 1 - slideOffset);
+                if (qrGrid != null) qrGrid.setAlpha((float) 1 - slideOffset);
             }
             public void onDrawerOpened(View DrawerView){
-                qrGrid.setClickable(false);
+                if (qrGrid != null) qrGrid.setClickable(false);
             }
 
             public void onDrawerClosed(View DrawerView){
-                qrGrid.setClickable(true);
+                if (qrGrid != null) qrGrid.setClickable(true);
             }
         };
         // pass the toggle button to the menu
