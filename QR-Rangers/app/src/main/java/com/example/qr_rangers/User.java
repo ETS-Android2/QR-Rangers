@@ -335,10 +335,21 @@ public class User extends DbDocument implements Serializable {
         return QRIds.size();
     }
 
+    /**
+     * Gets the Rankings object of the User
+     *
+     * @return
+     *      Returns the user's Rankings object
+     */
     public Rankings getUserRanks() {
         return userRanks;
     }
 
+    /**
+     * Sets the user's Rankings object
+     * @param userRanks
+     * Rankings object to set to user
+     */
     public void setUserRanks(Rankings userRanks) {
         this.userRanks = userRanks;
     }
