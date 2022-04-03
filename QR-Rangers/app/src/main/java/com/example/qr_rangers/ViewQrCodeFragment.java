@@ -27,6 +27,10 @@ public class ViewQrCodeFragment extends DialogFragment {
         this.qrCode = qrCode;
     }
 
+    /**
+     * Performs actions for when attaching this fragment to an activity
+     * @param context - Context to attach to
+     */
     public void onAttach(Context context){
         super.onAttach(context);
     }

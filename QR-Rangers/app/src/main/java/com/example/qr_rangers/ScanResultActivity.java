@@ -27,22 +27,20 @@ import java.io.ByteArrayOutputStream;
  * Activity that is shown after a valid scan
  * Enables the user to add location info and a photo to the QR Code before adding it
  */
-//NOTE: currently displays a dummy value for number of other people who scanned this code
-//TODO: make the number of other users who scanned this code accurate
 public class ScanResultActivity extends AppCompatActivity {
 
-    private TextView totalScore;
-    private SwitchMaterial attachLocation;
-    //private ImageView imgPreview;
-    Bitmap photo = null;
     private static final int pic_id = 123;
+
+    private TextView totalScore;
+    private ImageButton cameraButton;
+    private SwitchMaterial attachLocation;
+
+    Bitmap photo = null;
     private Location location = null;
     private GpsTracker gpsTracker;
     private User user;
     private QRCode qr;
     private ScannedCode code;
-
-    private ImageButton cameraButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +48,7 @@ public class ScanResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scan_result);
         Intent intent = getIntent();
         String content = intent.getStringExtra("content");
+
         qr = Database.QrCodes.getByName(content);
         if (qr == null) {
             qr = Database.QrCodes.add(new QRCode(content, null));
@@ -60,14 +59,19 @@ public class ScanResultActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "You already scanned this one!", Toast.LENGTH_SHORT).show();
             finish();
         }
+
         int score = qr.getScore();
+
         TextView scoreTextView = findViewById(R.id.textViewScore);
         scoreTextView.setText(String.valueOf(score).concat(" pts."));
+
         totalScore = findViewById(R.id.newtotalscore);
         totalScore.setText(String.valueOf(intent.getStringExtra("totalScore")));
+
         TextView codeUserCount = findViewById(R.id.codeusercount);
         codeUserCount.setText("" + qr.getScannedCount());
         EditText commentBox = findViewById(R.id.commentbox);
+
         gpsTracker = new GpsTracker(ScanResultActivity.this);
         if(!gpsTracker.canGetLocation())
             gpsTracker.showSettingsAlert();
@@ -82,10 +86,10 @@ public class ScanResultActivity extends AppCompatActivity {
                 startActivityForResult(camera_intent, pic_id);
             }
         });
+
         attachLocation = findViewById(R.id.locationswitch);
 
         //Saving the QR code to server happens here
-
         Button saveButton = findViewById(R.id.savebutton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,11 +168,4 @@ public class ScanResultActivity extends AppCompatActivity {
         User localUser = Database.Users.getById(id);
         return localUser;
     }
-/*
-    Should use this when we develop functionality to display the QR code
-    public static Bitmap decodeFromFirebaseBase64(String image) {
-        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
-    }
- */
 }

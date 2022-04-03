@@ -36,7 +36,7 @@ public class QRCode extends DbDocument implements Serializable {
      * @param location
      *      Contains the Geological location of the QRCode
      */
-    @RequiresApi(api = Build.VERSION_CODES.N) // I don't really know what to do about this
+    @RequiresApi(api = Build.VERSION_CODES.N)
     QRCode(String /*temp, QRCode*/ info, @Nullable Location location){
         QRScore qrScore = new QRScore();
         codeInfo = info;

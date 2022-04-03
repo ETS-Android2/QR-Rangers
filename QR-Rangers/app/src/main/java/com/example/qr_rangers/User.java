@@ -133,35 +133,49 @@ public class User extends DbDocument implements Serializable {
     }
 
     /**
-     * Sets the QR code list of the user object
-     *
-     * @param QRList
-     *      The new QR code list to replace the original one
+     * Get total score of User
+     * @return Total score int of user
      */
-    public void setQRList(ArrayList<ScannedCode> QRList) {
-        this.QRList = QRList;
-    }
-
     public int getTotalScore() {
         return totalScore;
     }
 
+    /**
+     * Set total score of User
+     * @param totalScore int to set total score to
+     */
     public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
     }
 
+    /**
+     * Get max score of user
+     * @return maxScore int of user
+     */
     public int getMaxScore() {
         return maxScore;
     }
 
+    /**
+     * Set max score of User
+     * @param maxScore int to set max score to
+     */
     public void setMaxScore(int maxScore) {
         this.maxScore = maxScore;
     }
 
+    /**
+     * Get min score of User
+     * @return min score int of user
+     */
     public int getMinScore() {
         return minScore;
     }
 
+    /**
+     * Set min score of User
+     * @param minScore int to set min score to
+     */
     public void setMinScore(int minScore) {
         this.minScore = minScore;
     }
@@ -258,34 +272,12 @@ public class User extends DbDocument implements Serializable {
     }
 
     /**
-     * Gets the sum of the scores of all QR Codes in the QR List
-     *
-     * @return
-     *      Returns the sum of all of the scores in the QR List
-     */
-    public int getScoreSum() {
-        this.loadQRList();
-        int score = 0;
-        for (ScannedCode code : QRList) {
-            score += code.getCode().getScore();
-        }
-        return score;
-    }
-
-    /**
      * Gets the maximum score of all QR Codes in the QR List
      *
      * @return
      *      Returns the maximum of all of the scores in the QR List
      */
-    public /*QRCode*/ int getScoreMax(){
-        /*QRCode max_code = QRList.get(0); // maybe we could return the QR Code itself?
-        for (QRCode code: QRList) {
-            if(code.getScore() > max_code.getScore()){
-                max_code = code;
-            }
-        }
-        return max_code;*/
+    public int getScoreMax(){
         this.loadQRList();
         int score = 0;
         for (ScannedCode code: QRList) {
@@ -302,14 +294,7 @@ public class User extends DbDocument implements Serializable {
      * @return
      *      Returns the minimum of all of the scores in the QR List
      */
-    public /*QRCode*/ int getScoreMin(){
-        /*QRCode min_code = QRList.get(0); // maybe we could return the QR Code itself?
-        for (QRCode code: QRList) {
-            if(code.getScore() < min_code.getScore()){
-                min_code = code;
-            }
-        }
-        return min_code;*/
+    public int getScoreMin(){
         this.loadQRList();
         if(getQRNum() > 0) {
             int score = Integer.MAX_VALUE;

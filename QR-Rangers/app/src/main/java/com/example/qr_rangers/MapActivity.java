@@ -128,6 +128,10 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
 
     }
 
+    /**
+     * Places a marker on the map representing current user location/
+     * @param center GeoPoint to place marker on
+     */
     public void addMarker (GeoPoint center){
         Marker marker = new Marker(mapView);
         marker.setPosition(center);
@@ -139,6 +143,10 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         marker.setTitle("You are here");
     }
 
+    /**
+     * Places a marker on the map representing a QR code
+     * @param code - QRCode to add to the map
+     */
     public void addCode(QRCode code){
         Marker marker = new Marker(mapView);
         marker.setPosition(new GeoPoint(code.getLocation().getLatitude(), code.getLocation().getLongitude()));
@@ -158,6 +166,10 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         mapView.invalidate();
     }
 
+    /**
+     * Adds player marker and all QR Code matkers on the map
+     * @param playerCenter - Current GeoPoint location of user
+     */
     public void makeScreen(GeoPoint playerCenter){
         addMarker(playerCenter);
 
