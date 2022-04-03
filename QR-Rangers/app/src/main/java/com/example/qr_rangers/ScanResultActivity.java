@@ -55,11 +55,7 @@ public class ScanResultActivity extends AppCompatActivity {
             qr = Database.QrCodes.add(new QRCode(content, null));
         }
         user = loadUser();
-        code = new ScannedCode(qr, user, null, null, null);
-        if (user.HasQR(code)){
-            Toast.makeText(getBaseContext(), "You already scanned this one!", Toast.LENGTH_SHORT).show();
-            finish();
-        }
+
         int score = qr.getScore();
         TextView scoreTextView = findViewById(R.id.textViewScore);
         scoreTextView.setText(String.valueOf(score).concat(" pts."));
@@ -71,6 +67,17 @@ public class ScanResultActivity extends AppCompatActivity {
         gpsTracker = new GpsTracker(ScanResultActivity.this);
         if(!gpsTracker.canGetLocation())
             gpsTracker.showSettingsAlert();
+        if(gpsTracker.canGetLocation()) {
+            double longitude = gpsTracker.getLongitude();
+            double latitude = gpsTracker.getLatitude();
+            gpsTracker.stopUsingGPS();
+            location = new Location(longitude, latitude);
+        }
+        code = new ScannedCode(qr, user, null, null, null);
+        if (user.HasQR(code)){
+            Toast.makeText(getBaseContext(), "You already scanned this one!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
         cameraButton = findViewById(R.id.cameraButton);
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
