@@ -124,11 +124,17 @@ public class HomeActivity extends AppCompatActivity{
                 if (qrGrid != null) qrGrid.setAlpha((float) 1 - slideOffset);
             }
             public void onDrawerOpened(View DrawerView){
-                if (qrGrid != null) qrGrid.setClickable(false);
+                if (qrGrid != null) {
+                    qrGrid.setClickable(false);
+                    qrGrid.setVisibility(View.INVISIBLE);
+                }
             }
 
             public void onDrawerClosed(View DrawerView){
-                if (qrGrid != null) qrGrid.setClickable(true);
+                if (qrGrid != null) {
+                    qrGrid.setClickable(true);
+                    qrGrid.setVisibility(View.VISIBLE);
+                }
             }
         };
         // pass the toggle button to the menu
