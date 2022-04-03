@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+/**
+ * Gives access to the User collection in the Firestore database
+ */
 public class UserDbCollection implements IDbCollection<User> {
     private CollectionReference collection;
 

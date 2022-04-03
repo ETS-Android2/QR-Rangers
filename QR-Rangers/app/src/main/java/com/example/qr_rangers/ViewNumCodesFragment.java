@@ -15,6 +15,9 @@ import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 
+/**
+ * Fragment for viewing leaderboard in terms of highest number of codes scanned
+ */
 public class ViewNumCodesFragment extends Fragment {
     private ListView usersList;
     private ArrayList<User> users = new ArrayList<>();

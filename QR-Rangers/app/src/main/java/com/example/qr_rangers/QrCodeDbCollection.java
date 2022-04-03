@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+/**
+ * Gives access to the QRCode collection in the Firestore database
+ */
 public class QrCodeDbCollection implements IDbCollection<QRCode> {
     private CollectionReference collection;
 

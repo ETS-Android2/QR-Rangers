@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+/**
+ * Gives access to the ScannedCode collection in the Firestore database
+ */
 public class ScannedCodeDbCollection implements IDbCollection<ScannedCode> {
     private CollectionReference collection;
 

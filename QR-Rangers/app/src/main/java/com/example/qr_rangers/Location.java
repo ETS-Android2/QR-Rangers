@@ -1,6 +1,10 @@
 package com.example.qr_rangers;
 import java.io.Serializable;
 
+/**
+ * Represents the location of a user or QR code
+ * @author Adamya Nagpal
+ */
 public class Location implements Serializable {
     private double longitude;
     private double latitude;
@@ -20,20 +24,20 @@ public class Location implements Serializable {
         this.latitude = 0;
     }
 
+    /**
+     * Getter for longitude
+     * @return Double longitude of location
+     */
     public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
+    /**
+     * Getter for latitude
+     * @return Double latitude of location
+     */
     public double getLatitude() {
         return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
     }
 
     /***

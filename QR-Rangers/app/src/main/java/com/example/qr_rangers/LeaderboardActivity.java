@@ -12,6 +12,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.tabs.TabLayout;
 
+/**
+ * Activity for showing the 3 leaderboards
+ * @author Ryan Haskins, Jawdat Toume, Ronan Sandoval
+ * @version 1.0
+ */
 public class LeaderboardActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState){

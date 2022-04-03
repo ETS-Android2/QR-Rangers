@@ -21,6 +21,9 @@ import android.util.Log;
 
 import androidx.core.app.ActivityCompat;
 
+/**
+ * Obtains and keeps track of the location of the user
+ */
 class GpsTracker extends Service implements LocationListener {
     private final Context mContext;
 
@@ -51,6 +54,10 @@ class GpsTracker extends Service implements LocationListener {
         getLocation();
     }
 
+    /**
+     * Accesses the GPS and finds the current location
+     * @return current location of user
+     */
     public Location getLocation() {
         try {
             locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);

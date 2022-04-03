@@ -57,6 +57,10 @@ public class AdminActivity extends AppCompatActivity {
         switchFragment(new ViewAdminUsersFragment());
     }
 
+    /**
+     * Change activity to display a different fragment
+     * @param fragment - The fragment to display
+     */
     public void switchFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
