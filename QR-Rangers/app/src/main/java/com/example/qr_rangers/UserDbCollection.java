@@ -18,7 +18,7 @@ import java.util.NoSuchElementException;
 public class UserDbCollection implements IDbCollection<User> {
     private CollectionReference collection;
 
-    public UserDbCollection(CollectionReference collection, CollectionReference adminCollection) {
+    public UserDbCollection(CollectionReference collection) {
         this.collection = collection;
     }
 

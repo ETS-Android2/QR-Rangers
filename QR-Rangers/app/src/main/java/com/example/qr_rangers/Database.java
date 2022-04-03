@@ -8,7 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class Database {
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public static UserDbCollection Users = new UserDbCollection(db.collection("users"), db.collection("admins"));
+    public static UserDbCollection Users = new UserDbCollection(db.collection("users"));
     public static QrCodeDbCollection QrCodes = new QrCodeDbCollection(db.collection("qrCodes"));
     public static ScannedCodeDbCollection ScannedCodes = new ScannedCodeDbCollection(db.collection("scannedCodes"));
     public static AdminDbCollection Admins = new AdminDbCollection(db.collection("admins"));
