@@ -172,12 +172,6 @@ public class HomeActivity extends AppCompatActivity{
                 drawerLayout.close();;
                 return true;
             }
-            else if (item.getItemId()==R.id.hamburger_setting_button){
-                // your code
-                Toast.makeText(this, "Settings Clicked", Toast.LENGTH_SHORT).show();
-                drawerLayout.close();
-                return true;
-            }
             else if (item.getItemId()==R.id.hamburger_admin_button){
                 // your code
                 Intent intent = new Intent(HomeActivity.this, AdminActivity.class);
