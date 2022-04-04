@@ -26,6 +26,12 @@
     catch(err) {
     }
 //-->
+var data = {"i0":2,"i1":2,"i2":2,"i3":2,"i4":2,"i5":2,"i6":2,"i7":2,"i8":2,"i9":2,"i10":2,"i11":1,"i12":2,"i13":2,"i14":2,"i15":2,"i16":2,"i17":2,"i18":2,"i19":2,"i20":2,"i21":2,"i22":2,"i23":2,"i24":2,"i25":2,"i26":2,"i27":2,"i28":2,"i29":2,"i30":2,"i31":2,"i32":2,"i33":2,"i34":2,"i35":2,"i36":2,"i37":2,"i38":2,"i39":2,"i40":2};
+var tabs = {65535:["t0","All Classes"],1:["t1","Interface Summary"],2:["t2","Class Summary"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 var pathtoroot = "./";
 var useModuleDirectories = true;
 loadScripts(document, 'script');</script>
@@ -97,7 +103,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <table class="typeSummary">
-<caption><span>Class Summary</span><span class="tabEnd">&nbsp;</span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Classes</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Interface Summary</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Class Summary</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Class</th>
 <th class="colLast" scope="col">Description</th>
@@ -109,149 +115,243 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </th>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><a href="com/example/qr_rangers/AdminDbCollection.html" title="class in com.example.qr_rangers">AdminDbCollection</a></td>
+<th class="colLast" scope="row">&nbsp;</th>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><a href="com/example/qr_rangers/CodeComparatorByDistance.html" title="class in com.example.qr_rangers">CodeComparatorByDistance</a></td>
+<th class="colLast" scope="row">
+<div class="block">A command class for comparing the locations of QR Codes</div>
+</th>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><a href="com/example/qr_rangers/CreateAccountActivity.html" title="class in com.example.qr_rangers">CreateAccountActivity</a></td>
 <th class="colLast" scope="row">
 <div class="block">This is an activity that provides the means for the user to create a new account.</div>
 </th>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><a href="com/example/qr_rangers/CustomList.html" title="class in com.example.qr_rangers">CustomList</a></td>
 <th class="colLast" scope="row">
 <div class="block">Code adapted for the ListViews of Users taken from the Lab CustomList sample code
  and altered to match the User classes better.</div>
 </th>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><a href="com/example/qr_rangers/Database.html" title="class in com.example.qr_rangers">Database</a></td>
 <th class="colLast" scope="row">
 <div class="block">Helper class that connects with the Firestore</div>
 </th>
 </tr>
-<tr id="i4" class="altColor">
-<td class="colFirst"><a href="com/example/qr_rangers/DbCollection.html" title="class in com.example.qr_rangers">DbCollection</a>&lt;<a href="com/example/qr_rangers/DbCollection.html" title="type parameter in DbCollection">T</a> extends <a href="com/example/qr_rangers/DbDocument.html" title="class in com.example.qr_rangers">DbDocument</a>&gt;</td>
-<th class="colLast" scope="row">
-<div class="block">Represents a collection within Firestore along with some helper methods</div>
-</th>
-</tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><a href="com/example/qr_rangers/DbDocument.html" title="class in com.example.qr_rangers">DbDocument</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
+<td class="colFirst"><a href="com/example/qr_rangers/DeleteQRConfirmationFragment.html" title="class in com.example.qr_rangers">DeleteQRConfirmationFragment</a></td>
+<th class="colLast" scope="row">
+<div class="block">Fragment to confirm user deletion QR code</div>
+</th>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><a href="com/example/qr_rangers/DeleteScannedCodeConfirmationFragment.html" title="class in com.example.qr_rangers">DeleteScannedCodeConfirmationFragment</a></td>
+<th class="colLast" scope="row">
+<div class="block">Fragment to confirm user deletion QR code</div>
+</th>
+</tr>
+<tr id="i9" class="rowColor">
 <td class="colFirst"><a href="com/example/qr_rangers/DeleteUserConfirmationFragment.html" title="class in com.example.qr_rangers">DeleteUserConfirmationFragment</a></td>
 <th class="colLast" scope="row">
 <div class="block">Fragment to confirm user deletion in the admin pane</div>
 </th>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><a href="com/example/qr_rangers/HomeActivity.html" title="class in com.example.qr_rangers">HomeActivity</a></td>
 <th class="colLast" scope="row">
 <div class="block">This is an activity that provides the user with their account information and basic actions.</div>
 </th>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i11" class="rowColor">
+<td class="colFirst"><a href="com/example/qr_rangers/IDbCollection.html" title="interface in com.example.qr_rangers">IDbCollection</a>&lt;<a href="com/example/qr_rangers/IDbCollection.html" title="type parameter in IDbCollection">T</a> extends <a href="com/example/qr_rangers/DbDocument.html" title="class in com.example.qr_rangers">DbDocument</a>&gt;</td>
+<th class="colLast" scope="row">&nbsp;</th>
+</tr>
+<tr id="i12" class="altColor">
 <td class="colFirst"><a href="com/example/qr_rangers/IntroActivity.html" title="class in com.example.qr_rangers">IntroActivity</a></td>
 <th class="colLast" scope="row">
 <div class="block">This activity introduces new users to the app and gives them the choice to
  make a new account or continue on an existing one by scanning its generated QR code.</div>
 </th>
 </tr>
-<tr id="i9" class="rowColor">
-<td class="colFirst"><a href="com/example/qr_rangers/Location.html" title="class in com.example.qr_rangers">Location</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><a href="com/example/qr_rangers/LeaderboardActivity.html" title="class in com.example.qr_rangers">LeaderboardActivity</a></td>
+<th class="colLast" scope="row">
+<div class="block">Activity for showing the 3 leaderboards</div>
+</th>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i14" class="altColor">
+<td class="colFirst"><a href="com/example/qr_rangers/Location.html" title="class in com.example.qr_rangers">Location</a></td>
+<th class="colLast" scope="row">
+<div class="block">Represents the location of a user or QR code</div>
+</th>
+</tr>
+<tr id="i15" class="rowColor">
 <td class="colFirst"><a href="com/example/qr_rangers/MainActivity.html" title="class in com.example.qr_rangers">MainActivity</a></td>
 <th class="colLast" scope="row">
 <div class="block">This is the starting activity that intents to a certain activity depending on
  if the user has an existing account.</div>
 </th>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i16" class="altColor">
+<td class="colFirst"><a href="com/example/qr_rangers/MapActivity.html" title="class in com.example.qr_rangers">MapActivity</a></td>
+<th class="colLast" scope="row">
+<div class="block">This is an activity that shows the user a map of all nearby scanned QR codes</div>
+</th>
+</tr>
+<tr id="i17" class="rowColor">
+<td class="colFirst"><a href="com/example/qr_rangers/NearbyCodesAdapter.html" title="class in com.example.qr_rangers">NearbyCodesAdapter</a></td>
+<th class="colLast" scope="row">
+<div class="block">An adapter for the nearby codes grid.</div>
+</th>
+</tr>
+<tr id="i18" class="altColor">
 <td class="colFirst"><a href="com/example/qr_rangers/ProfileActivity.html" title="class in com.example.qr_rangers">ProfileActivity</a></td>
 <th class="colLast" scope="row">
 <div class="block">Activity to view profile stats, access gallery, and obtain user code</div>
 </th>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><a href="com/example/qr_rangers/QRCode.html" title="class in com.example.qr_rangers">QRCode</a></td>
 <th class="colLast" scope="row">
 <div class="block">An object that represents a QR Code object, containing its score, information,
  photo, comment and location</div>
 </th>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i20" class="altColor">
+<td class="colFirst"><a href="com/example/qr_rangers/QrCodeDbCollection.html" title="class in com.example.qr_rangers">QrCodeDbCollection</a></td>
+<th class="colLast" scope="row">
+<div class="block">Gives access to the QRCode collection in the Firestore database</div>
+</th>
+</tr>
+<tr id="i21" class="rowColor">
 <td class="colFirst"><a href="com/example/qr_rangers/QRGenerator.html" title="class in com.example.qr_rangers">QRGenerator</a></td>
 <th class="colLast" scope="row">
 <div class="block">This is a class that, given a username, can generate a QR code to represent that user</div>
 </th>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><a href="com/example/qr_rangers/QRInfoActivity.html" title="class in com.example.qr_rangers">QRInfoActivity</a></td>
 <th class="colLast" scope="row">
 <div class="block">Activity to that showcases information about a User's scanned QR Code</div>
 </th>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><a href="com/example/qr_rangers/QRListActivity.html" title="class in com.example.qr_rangers">QRListActivity</a></td>
 <th class="colLast" scope="row">
 <div class="block">Activity to that showcases a user's scanned QR codes</div>
 </th>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><a href="com/example/qr_rangers/QRListAdapter.html" title="class in com.example.qr_rangers">QRListAdapter</a></td>
 <th class="colLast" scope="row">
 <div class="block">Acn adapter for the a customer array for the User QR Code gallery.</div>
 </th>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i25" class="rowColor">
 <td class="colFirst"><a href="com/example/qr_rangers/QRScore.html" title="class in com.example.qr_rangers">QRScore</a></td>
 <th class="colLast" scope="row">
 <div class="block">Calculates the score of a given QR code</div>
 </th>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i26" class="altColor">
+<td class="colFirst"><a href="com/example/qr_rangers/Rankings.html" title="class in com.example.qr_rangers">Rankings</a></td>
+<th class="colLast" scope="row">
+<div class="block">An object that represents the ranks of a user</div>
+</th>
+</tr>
+<tr id="i27" class="rowColor">
+<td class="colFirst"><a href="com/example/qr_rangers/ScannedCode.html" title="class in com.example.qr_rangers">ScannedCode</a></td>
+<th class="colLast" scope="row">
+<div class="block">Represents an instance of a User scanning a QRCode</div>
+</th>
+</tr>
+<tr id="i28" class="altColor">
+<td class="colFirst"><a href="com/example/qr_rangers/ScannedCodeDbCollection.html" title="class in com.example.qr_rangers">ScannedCodeDbCollection</a></td>
+<th class="colLast" scope="row">
+<div class="block">Gives access to the ScannedCode collection in the Firestore database</div>
+</th>
+</tr>
+<tr id="i29" class="rowColor">
+<td class="colFirst"><a href="com/example/qr_rangers/ScannedCodeInfoActivity.html" title="class in com.example.qr_rangers">ScannedCodeInfoActivity</a></td>
+<th class="colLast" scope="row">
+<div class="block">Activity to that showcases information about a User's scanned QR Code</div>
+</th>
+</tr>
+<tr id="i30" class="altColor">
+<td class="colFirst"><a href="com/example/qr_rangers/ScannedCodesAdapter.html" title="class in com.example.qr_rangers">ScannedCodesAdapter</a></td>
+<th class="colLast" scope="row">
+<div class="block">Acn adapter for the a customer array for the User QR Code gallery.</div>
+</th>
+</tr>
+<tr id="i31" class="rowColor">
 <td class="colFirst"><a href="com/example/qr_rangers/ScanResultActivity.html" title="class in com.example.qr_rangers">ScanResultActivity</a></td>
 <th class="colLast" scope="row">
 <div class="block">Activity that is shown after a valid scan
  Enables the user to add location info and a photo to the QR Code before adding it</div>
 </th>
 </tr>
-<tr id="i19" class="rowColor">
-<td class="colFirst"><a href="com/example/qr_rangers/Search.html" title="class in com.example.qr_rangers">Search</a></td>
-<th class="colLast" scope="row">
-<div class="block">An object to keep track of a DbCollection in order to locate users for Search</div>
-</th>
-</tr>
-<tr id="i20" class="altColor">
+<tr id="i32" class="altColor">
 <td class="colFirst"><a href="com/example/qr_rangers/SearchActivity.html" title="class in com.example.qr_rangers">SearchActivity</a></td>
 <th class="colLast" scope="row">
 <div class="block">An activity that displays options for the user to search for other user profiles
  through QR code or username</div>
 </th>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i33" class="rowColor">
 <td class="colFirst"><a href="com/example/qr_rangers/User.html" title="class in com.example.qr_rangers">User</a></td>
 <th class="colLast" scope="row">
 <div class="block">An object that represents the user, containing all their QR Codes and scores</div>
 </th>
 </tr>
-<tr id="i22" class="altColor">
+<tr id="i34" class="altColor">
+<td class="colFirst"><a href="com/example/qr_rangers/UserDbCollection.html" title="class in com.example.qr_rangers">UserDbCollection</a></td>
+<th class="colLast" scope="row">
+<div class="block">Gives access to the User collection in the Firestore database</div>
+</th>
+</tr>
+<tr id="i35" class="rowColor">
 <td class="colFirst"><a href="com/example/qr_rangers/ViewAdminCodesFragment.html" title="class in com.example.qr_rangers">ViewAdminCodesFragment</a></td>
 <th class="colLast" scope="row">
 <div class="block">Fragment that display's a list of all QR codes registered</div>
 </th>
 </tr>
-<tr id="i23" class="rowColor">
+<tr id="i36" class="altColor">
 <td class="colFirst"><a href="com/example/qr_rangers/ViewAdminUsersFragment.html" title="class in com.example.qr_rangers">ViewAdminUsersFragment</a></td>
 <th class="colLast" scope="row">
 <div class="block">Fragment to display the admin users list, with the ability to delete a user.</div>
 </th>
 </tr>
-<tr id="i24" class="altColor">
+<tr id="i37" class="rowColor">
+<td class="colFirst"><a href="com/example/qr_rangers/ViewHighScoreFragment.html" title="class in com.example.qr_rangers">ViewHighScoreFragment</a></td>
+<th class="colLast" scope="row">
+<div class="block">Fragment for viewing leaderboard in terms of highest total score</div>
+</th>
+</tr>
+<tr id="i38" class="altColor">
+<td class="colFirst"><a href="com/example/qr_rangers/ViewNumCodesFragment.html" title="class in com.example.qr_rangers">ViewNumCodesFragment</a></td>
+<th class="colLast" scope="row">
+<div class="block">Fragment for viewing leaderboard in terms of highest number of codes scanned</div>
+</th>
+</tr>
+<tr id="i39" class="rowColor">
 <td class="colFirst"><a href="com/example/qr_rangers/ViewQrCodeFragment.html" title="class in com.example.qr_rangers">ViewQrCodeFragment</a></td>
 <th class="colLast" scope="row">
 <div class="block">Fragment to represent a qr code.</div>
+</th>
+</tr>
+<tr id="i40" class="altColor">
+<td class="colFirst"><a href="com/example/qr_rangers/ViewUniqueQrFragment.html" title="class in com.example.qr_rangers">ViewUniqueQrFragment</a></td>
+<th class="colLast" scope="row">
+<div class="block">Fragment for viewing leaderboard in terms of highest Unique QR Code</div>
 </th>
 </tr>
 </table>

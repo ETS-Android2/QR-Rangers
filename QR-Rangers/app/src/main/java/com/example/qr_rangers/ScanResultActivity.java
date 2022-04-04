@@ -146,9 +146,13 @@ public class ScanResultActivity extends AppCompatActivity {
 
     /**
      * gets the image from the camera API
+     *
      * @param requestCode
+     *      An integer representing the image itself
      * @param resultCode
+     *      An integer identifying if the function return properly
      * @param data
+     *      The intent from which the data is coming
      */
     protected void onActivityResult(int requestCode,
                                     int resultCode,

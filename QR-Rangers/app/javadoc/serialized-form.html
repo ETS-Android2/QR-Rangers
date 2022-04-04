@@ -148,10 +148,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre>java.lang.String codeInfo</pre>
 </li>
 <li class="blockList">
-<h4>comment</h4>
-<pre>java.lang.String comment</pre>
-</li>
-<li class="blockList">
 <h4>location</h4>
 <pre><a href="com/example/qr_rangers/Location.html" title="class in com.example.qr_rangers">Location</a> location</pre>
 </li>
@@ -159,9 +155,73 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>photo</h4>
 <pre>java.lang.String photo</pre>
 </li>
+<li class="blockList">
+<h4>scannedCodeIds</h4>
+<pre>java.util.ArrayList&lt;java.lang.String&gt; scannedCodeIds</pre>
+</li>
+<li class="blockList">
+<h4>scannedCodes</h4>
+<pre>java.util.ArrayList&lt;<a href="com/example/qr_rangers/ScannedCode.html" title="class in com.example.qr_rangers">ScannedCode</a>&gt; scannedCodes</pre>
+</li>
 <li class="blockListLast">
 <h4>score</h4>
 <pre>int score</pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="blockList"><a id="com.example.qr_rangers.Rankings">
+<!--   -->
+</a>
+<h3>Class <a href="com/example/qr_rangers/Rankings.html" title="class in com.example.qr_rangers">com.example.qr_rangers.Rankings</a> extends java.lang.Object implements Serializable</h3>
+<ul class="blockList">
+<li class="blockList">
+<h3>Serialized Fields</h3>
+<ul class="blockList">
+<li class="blockList">
+<h4>bestQRRank</h4>
+<pre>int bestQRRank</pre>
+</li>
+<li class="blockList">
+<h4>QRScannedRank</h4>
+<pre>int QRScannedRank</pre>
+</li>
+<li class="blockListLast">
+<h4>totalScoreRank</h4>
+<pre>int totalScoreRank</pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="blockList"><a id="com.example.qr_rangers.ScannedCode">
+<!--   -->
+</a>
+<h3>Class <a href="com/example/qr_rangers/ScannedCode.html" title="class in com.example.qr_rangers">com.example.qr_rangers.ScannedCode</a> extends <a href="com/example/qr_rangers/DbDocument.html" title="class in com.example.qr_rangers">DbDocument</a> implements Serializable</h3>
+<ul class="blockList">
+<li class="blockList">
+<h3>Serialized Fields</h3>
+<ul class="blockList">
+<li class="blockList">
+<h4>code</h4>
+<pre><a href="com/example/qr_rangers/QRCode.html" title="class in com.example.qr_rangers">QRCode</a> code</pre>
+</li>
+<li class="blockList">
+<h4>comment</h4>
+<pre>java.lang.String comment</pre>
+</li>
+<li class="blockList">
+<h4>locationScanned</h4>
+<pre><a href="com/example/qr_rangers/Location.html" title="class in com.example.qr_rangers">Location</a> locationScanned</pre>
+</li>
+<li class="blockList">
+<h4>photo</h4>
+<pre>java.lang.String photo</pre>
+</li>
+<li class="blockListLast">
+<h4>user</h4>
+<pre><a href="com/example/qr_rangers/User.html" title="class in com.example.qr_rangers">User</a> user</pre>
 </li>
 </ul>
 </li>
@@ -180,16 +240,36 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre>java.lang.String email</pre>
 </li>
 <li class="blockList">
+<h4>maxScore</h4>
+<pre>int maxScore</pre>
+</li>
+<li class="blockList">
+<h4>minScore</h4>
+<pre>int minScore</pre>
+</li>
+<li class="blockList">
 <h4>phoneNumber</h4>
 <pre>java.lang.String phoneNumber</pre>
 </li>
 <li class="blockList">
-<h4>QRList</h4>
-<pre>java.util.ArrayList&lt;<a href="com/example/qr_rangers/QRCode.html" title="class in com.example.qr_rangers">QRCode</a>&gt; QRList</pre>
+<h4>QRIds</h4>
+<pre>java.util.ArrayList&lt;java.lang.String&gt; QRIds</pre>
 </li>
-<li class="blockListLast">
+<li class="blockList">
+<h4>QRList</h4>
+<pre>java.util.ArrayList&lt;<a href="com/example/qr_rangers/ScannedCode.html" title="class in com.example.qr_rangers">ScannedCode</a>&gt; QRList</pre>
+</li>
+<li class="blockList">
+<h4>totalScore</h4>
+<pre>int totalScore</pre>
+</li>
+<li class="blockList">
 <h4>username</h4>
 <pre>java.lang.String username</pre>
+</li>
+<li class="blockListLast">
+<h4>userRanks</h4>
+<pre><a href="com/example/qr_rangers/Rankings.html" title="class in com.example.qr_rangers">Rankings</a> userRanks</pre>
 </li>
 </ul>
 </li>
