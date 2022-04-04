@@ -26,8 +26,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var data = {"i0":10,"i1":10,"i2":10,"i3":9,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -87,13 +87,13 @@ loadScripts(document, 'script');</script>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
@@ -152,6 +152,29 @@ implements java.io.Serializable</pre>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- =========== FIELD SUMMARY =========== -->
+<section role="region">
+<ul class="blockList">
+<li class="blockList"><a id="field.summary">
+<!--   -->
+</a>
+<h3>Field Summary</h3>
+<table class="memberSummary">
+<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Field</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="Rankings.html" title="class in com.example.qr_rangers">Rankings</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#userRanks">userRanks</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
+</section>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <section role="region">
 <ul class="blockList">
@@ -191,7 +214,7 @@ implements java.io.Serializable</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
@@ -199,16 +222,16 @@ implements java.io.Serializable</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#AddQR(com.example.qr_rangers.QRCode)">AddQR</a></span>&#8203;(<a href="QRCode.html" title="class in com.example.qr_rangers">QRCode</a>&nbsp;code)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#AddQR(com.example.qr_rangers.ScannedCode)">AddQR</a></span>&#8203;(<a href="ScannedCode.html" title="class in com.example.qr_rangers">ScannedCode</a>&nbsp;code)</code></th>
 <td class="colLast">
 <div class="block">Adds a QR Code to the user's list</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#DeleteQR(com.example.qr_rangers.QRCode)">DeleteQR</a></span>&#8203;(<a href="QRCode.html" title="class in com.example.qr_rangers">QRCode</a>&nbsp;code)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#DeleteQR(com.example.qr_rangers.ScannedCode)">DeleteQR</a></span>&#8203;(<a href="ScannedCode.html" title="class in com.example.qr_rangers">ScannedCode</a>&nbsp;code)</code></th>
 <td class="colLast">
-<div class="block">Removes a particular QRCode from the list</div>
+<div class="block">Removes a particular ScannedCode from the list</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
@@ -219,7 +242,7 @@ implements java.io.Serializable</pre>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code><a href="DbDocument.html" title="class in com.example.qr_rangers">DbDocument</a></code></td>
+<td class="colFirst"><code>static <a href="User.html" title="class in com.example.qr_rangers">User</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fromMap(java.util.Map)">fromMap</a></span>&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;map)</code></th>
 <td class="colLast">
 <div class="block">Creates a new User object from a map representation</div>
@@ -233,90 +256,153 @@ implements java.io.Serializable</pre>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMaxScore()">getMaxScore</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Get max score of user</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMinScore()">getMinScore</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Get min score of User</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPhoneNumber()">getPhoneNumber</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Gets the phone number of the user object</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
-<td class="colFirst"><code>java.util.ArrayList&lt;<a href="QRCode.html" title="class in com.example.qr_rangers">QRCode</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getQRList()">getQRList</a></span>()</code></th>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>java.util.ArrayList&lt;java.lang.String&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getQRIds()">getQRIds</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Gets the QR code list of the user object</div>
+<div class="block">Gets the list of ids for ScannedCodes attached to the User</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>java.util.ArrayList&lt;<a href="ScannedCode.html" title="class in com.example.qr_rangers">ScannedCode</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getQRList()">getQRList</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Gets the ScannedCode list of the user object</div>
+</td>
+</tr>
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getQRNum()">getQRNum</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Gets the number QR Codes in the QR List</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getScoreMax()">getScoreMax</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Gets the maximum score of all QR Codes in the QR List</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getScoreMin()">getScoreMin</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Gets the minimum score of all QR Codes in the QR List</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getScoreSum()">getScoreSum</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTotalScore()">getTotalScore</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Gets the sum of the scores of all QR Codes in the QR List</div>
+<div class="block">Get total score of User</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUsername()">getUsername</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Gets the username of the user object</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
-<td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isAdmin()">isAdmin</a></span>()</code></th>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code><a href="Rankings.html" title="class in com.example.qr_rangers">Rankings</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUserRanks()">getUserRanks</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Returns whether this user is a database administrator</div>
+<div class="block">Gets the Rankings object of the User</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i16" class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#HasQR(com.example.qr_rangers.ScannedCode)">HasQR</a></span>&#8203;(<a href="ScannedCode.html" title="class in com.example.qr_rangers">ScannedCode</a>&nbsp;code)</code></th>
+<td class="colLast">
+<div class="block">Checks if the User has a ScannedCode</div>
+</td>
+</tr>
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#loadQRList()">loadQRList</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Loads ScannedCodes from ids</div>
+</td>
+</tr>
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setEmail(java.lang.String)">setEmail</a></span>&#8203;(java.lang.String&nbsp;email)</code></th>
 <td class="colLast">
 <div class="block">Sets the email of the user object</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i19" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMaxScore(int)">setMaxScore</a></span>&#8203;(int&nbsp;maxScore)</code></th>
+<td class="colLast">
+<div class="block">Set max score of User</div>
+</td>
+</tr>
+<tr id="i20" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMinScore(int)">setMinScore</a></span>&#8203;(int&nbsp;minScore)</code></th>
+<td class="colLast">
+<div class="block">Set min score of User</div>
+</td>
+</tr>
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPhoneNumber(java.lang.String)">setPhoneNumber</a></span>&#8203;(java.lang.String&nbsp;phoneNumber)</code></th>
 <td class="colLast">
 <div class="block">Sets the phone number of the user object</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setQRList(java.util.ArrayList)">setQRList</a></span>&#8203;(java.util.ArrayList&lt;<a href="QRCode.html" title="class in com.example.qr_rangers">QRCode</a>&gt;&nbsp;QRList)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setQRIds(java.util.ArrayList)">setQRIds</a></span>&#8203;(java.util.ArrayList&lt;java.lang.String&gt;&nbsp;QRIds)</code></th>
 <td class="colLast">
-<div class="block">Sets the QR code list of the user object</div>
+<div class="block">Sets the list of ScannedCode ids for the User</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i23" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTotalScore(int)">setTotalScore</a></span>&#8203;(int&nbsp;totalScore)</code></th>
+<td class="colLast">
+<div class="block">Set total score of User</div>
+</td>
+</tr>
+<tr id="i24" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setUsername(java.lang.String)">setUsername</a></span>&#8203;(java.lang.String&nbsp;username)</code></th>
 <td class="colLast">
 <div class="block">Sets the username of the user object</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i25" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setUserRanks(com.example.qr_rangers.Rankings)">setUserRanks</a></span>&#8203;(<a href="Rankings.html" title="class in com.example.qr_rangers">Rankings</a>&nbsp;userRanks)</code></th>
+<td class="colLast">
+<div class="block">Sets the user's Rankings object</div>
+</td>
+</tr>
+<tr id="i26" class="altColor">
 <td class="colFirst"><code>java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toMap()">toMap</a></span>()</code></th>
 <td class="colLast">
@@ -347,6 +433,25 @@ implements java.io.Serializable</pre>
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
+<!-- ============ FIELD DETAIL =========== -->
+<section role="region">
+<ul class="blockList">
+<li class="blockList"><a id="field.detail">
+<!--   -->
+</a>
+<h3>Field Detail</h3>
+<a id="userRanks">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>userRanks</h4>
+<pre>protected&nbsp;<a href="Rankings.html" title="class in com.example.qr_rangers">Rankings</a> userRanks</pre>
+</li>
+</ul>
+</li>
+</ul>
+</section>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <section role="region">
 <ul class="blockList">
@@ -482,35 +587,133 @@ implements java.io.Serializable</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getQRList</h4>
-<pre class="methodSignature">public&nbsp;java.util.ArrayList&lt;<a href="QRCode.html" title="class in com.example.qr_rangers">QRCode</a>&gt;&nbsp;getQRList()</pre>
-<div class="block">Gets the QR code list of the user object</div>
+<pre class="methodSignature">public&nbsp;java.util.ArrayList&lt;<a href="ScannedCode.html" title="class in com.example.qr_rangers">ScannedCode</a>&gt;&nbsp;getQRList()</pre>
+<div class="block">Gets the ScannedCode list of the user object</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>An arraylist that represents the list of QR codes from the user object</dd>
+<dd>An arraylist that represents the list of ScannedCodes from the user object</dd>
 </dl>
 </li>
 </ul>
-<a id="setQRList(java.util.ArrayList)">
+<a id="getTotalScore()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>setQRList</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setQRList&#8203;(java.util.ArrayList&lt;<a href="QRCode.html" title="class in com.example.qr_rangers">QRCode</a>&gt;&nbsp;QRList)</pre>
-<div class="block">Sets the QR code list of the user object</div>
+<h4>getTotalScore</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;getTotalScore()</pre>
+<div class="block">Get total score of User</div>
 <dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>QRList</code> - The new QR code list to replace the original one</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Total score int of user</dd>
 </dl>
 </li>
 </ul>
-<a id="AddQR(com.example.qr_rangers.QRCode)">
+<a id="setTotalScore(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setTotalScore</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setTotalScore&#8203;(int&nbsp;totalScore)</pre>
+<div class="block">Set total score of User</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>totalScore</code> - int to set total score to</dd>
+</dl>
+</li>
+</ul>
+<a id="getMaxScore()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMaxScore</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;getMaxScore()</pre>
+<div class="block">Get max score of user</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>maxScore int of user</dd>
+</dl>
+</li>
+</ul>
+<a id="setMaxScore(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setMaxScore</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setMaxScore&#8203;(int&nbsp;maxScore)</pre>
+<div class="block">Set max score of User</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>maxScore</code> - int to set max score to</dd>
+</dl>
+</li>
+</ul>
+<a id="getMinScore()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMinScore</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;getMinScore()</pre>
+<div class="block">Get min score of User</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>min score int of user</dd>
+</dl>
+</li>
+</ul>
+<a id="setMinScore(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setMinScore</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setMinScore&#8203;(int&nbsp;minScore)</pre>
+<div class="block">Set min score of User</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>minScore</code> - int to set min score to</dd>
+</dl>
+</li>
+</ul>
+<a id="getQRIds()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getQRIds</h4>
+<pre class="methodSignature">public&nbsp;java.util.ArrayList&lt;java.lang.String&gt;&nbsp;getQRIds()</pre>
+<div class="block">Gets the list of ids for ScannedCodes attached to the User</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Returns the list of ids</dd>
+</dl>
+</li>
+</ul>
+<a id="setQRIds(java.util.ArrayList)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setQRIds</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setQRIds&#8203;(java.util.ArrayList&lt;java.lang.String&gt;&nbsp;QRIds)</pre>
+<div class="block">Sets the list of ScannedCode ids for the User</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>QRIds</code> - List of ScannedCode ids</dd>
+</dl>
+</li>
+</ul>
+<a id="AddQR(com.example.qr_rangers.ScannedCode)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>AddQR</h4>
-<pre class="methodSignature">public&nbsp;boolean&nbsp;AddQR&#8203;(<a href="QRCode.html" title="class in com.example.qr_rangers">QRCode</a>&nbsp;code)</pre>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;AddQR&#8203;(<a href="ScannedCode.html" title="class in com.example.qr_rangers">ScannedCode</a>&nbsp;code)</pre>
 <div class="block">Adds a QR Code to the user's list</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -520,33 +723,35 @@ implements java.io.Serializable</pre>
 </dl>
 </li>
 </ul>
-<a id="DeleteQR(com.example.qr_rangers.QRCode)">
+<a id="DeleteQR(com.example.qr_rangers.ScannedCode)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>DeleteQR</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;DeleteQR&#8203;(<a href="QRCode.html" title="class in com.example.qr_rangers">QRCode</a>&nbsp;code)</pre>
-<div class="block">Removes a particular QRCode from the list</div>
+<pre class="methodSignature">public&nbsp;void&nbsp;DeleteQR&#8203;(<a href="ScannedCode.html" title="class in com.example.qr_rangers">ScannedCode</a>&nbsp;code)</pre>
+<div class="block">Removes a particular ScannedCode from the list</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>code</code> - The QRCode we want to delete</dd>
+<dd><code>code</code> - The ScannedCode we want to delete</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>java.lang.IllegalArgumentException</code> - If the QRCode does not exist in the list</dd>
+<dd><code>java.lang.IllegalArgumentException</code> - If the ScannedCode does not exist in the list</dd>
 </dl>
 </li>
 </ul>
-<a id="getScoreSum()">
+<a id="HasQR(com.example.qr_rangers.ScannedCode)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getScoreSum</h4>
-<pre class="methodSignature">public&nbsp;int&nbsp;getScoreSum()</pre>
-<div class="block">Gets the sum of the scores of all QR Codes in the QR List</div>
+<h4>HasQR</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;HasQR&#8203;(<a href="ScannedCode.html" title="class in com.example.qr_rangers">ScannedCode</a>&nbsp;code)</pre>
+<div class="block">Checks if the User has a ScannedCode</div>
 <dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>code</code> - The ScannedCode to check</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>Returns the sum of all of the scores in the QR List</dd>
+<dd>Returns whether or not the User has the ScannedCode</dd>
 </dl>
 </li>
 </ul>
@@ -592,17 +797,53 @@ implements java.io.Serializable</pre>
 </dl>
 </li>
 </ul>
+<a id="getUserRanks()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUserRanks</h4>
+<pre class="methodSignature">public&nbsp;<a href="Rankings.html" title="class in com.example.qr_rangers">Rankings</a>&nbsp;getUserRanks()</pre>
+<div class="block">Gets the Rankings object of the User</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Returns the user's Rankings object</dd>
+</dl>
+</li>
+</ul>
+<a id="setUserRanks(com.example.qr_rangers.Rankings)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setUserRanks</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setUserRanks&#8203;(<a href="Rankings.html" title="class in com.example.qr_rangers">Rankings</a>&nbsp;userRanks)</pre>
+<div class="block">Sets the user's Rankings object</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>userRanks</code> - Rankings object to set to user</dd>
+</dl>
+</li>
+</ul>
+<a id="loadQRList()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>loadQRList</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;loadQRList()</pre>
+<div class="block">Loads ScannedCodes from ids</div>
+</li>
+</ul>
 <a id="fromMap(java.util.Map)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>fromMap</h4>
-<pre class="methodSignature">public&nbsp;<a href="DbDocument.html" title="class in com.example.qr_rangers">DbDocument</a>&nbsp;fromMap&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;map)</pre>
+<pre class="methodSignature">public static&nbsp;<a href="User.html" title="class in com.example.qr_rangers">User</a>&nbsp;fromMap&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;map)</pre>
 <div class="block">Creates a new User object from a map representation</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="DbDocument.html#fromMap(java.util.Map)">fromMap</a></code>&nbsp;in class&nbsp;<code><a href="DbDocument.html" title="class in com.example.qr_rangers">DbDocument</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>map</code> - The map containing the values for the object</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -629,7 +870,7 @@ implements java.io.Serializable</pre>
 <a id="equals(java.lang.Object)">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>equals</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;user)</pre>
@@ -643,20 +884,6 @@ implements java.io.Serializable</pre>
 <dd>Returns true if the QRCode objects both contain the same QRCode, false otherwise</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.lang.IllegalArgumentException</code> - If we are not comparing to a QRCode, this is a problem</dd>
-</dl>
-</li>
-</ul>
-<a id="isAdmin()">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>isAdmin</h4>
-<pre class="methodSignature">public&nbsp;boolean&nbsp;isAdmin()</pre>
-<div class="block">Returns whether this user is a database administrator</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>Returns true if the user is an admin, false otherwise</dd>
 </dl>
 </li>
 </ul>
@@ -711,13 +938,13 @@ implements java.io.Serializable</pre>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>

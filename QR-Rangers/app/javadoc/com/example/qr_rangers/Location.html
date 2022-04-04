@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10};
+var data = {"i0":10,"i1":10,"i2":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -136,6 +136,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre>public class <span class="typeNameLabel">Location</span>
 extends java.lang.Object
 implements java.io.Serializable</pre>
+<div class="block">Represents the location of a user or QR code</div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../serialized-form.html#com.example.qr_rangers.Location">Serialized Form</a></dd>
@@ -190,23 +191,24 @@ implements java.io.Serializable</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLatitude()">getLatitude</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDistance(com.example.qr_rangers.Location)">getDistance</a></span>&#8203;(<a href="Location.html" title="class in com.example.qr_rangers">Location</a>&nbsp;loc)</code></th>
+<td class="colLast">
+<div class="block">Returns the distance between this and loc</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLongitude()">getLongitude</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLatitude()">getLatitude</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Getter for latitude</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLatitude(double)">setLatitude</a></span>&#8203;(double&nbsp;latitude)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i3" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLongitude(double)">setLongitude</a></span>&#8203;(double&nbsp;longitude)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code>double</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLongitude()">getLongitude</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Getter for longitude</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -274,15 +276,11 @@ implements java.io.Serializable</pre>
 <li class="blockList">
 <h4>getLongitude</h4>
 <pre class="methodSignature">public&nbsp;double&nbsp;getLongitude()</pre>
-</li>
-</ul>
-<a id="setLongitude(double)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setLongitude</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setLongitude&#8203;(double&nbsp;longitude)</pre>
+<div class="block">Getter for longitude</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Double longitude of location</dd>
+</dl>
 </li>
 </ul>
 <a id="getLatitude()">
@@ -292,15 +290,27 @@ implements java.io.Serializable</pre>
 <li class="blockList">
 <h4>getLatitude</h4>
 <pre class="methodSignature">public&nbsp;double&nbsp;getLatitude()</pre>
+<div class="block">Getter for latitude</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Double latitude of location</dd>
+</dl>
 </li>
 </ul>
-<a id="setLatitude(double)">
+<a id="getDistance(com.example.qr_rangers.Location)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>setLatitude</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setLatitude&#8203;(double&nbsp;latitude)</pre>
+<h4>getDistance</h4>
+<pre class="methodSignature">public&nbsp;double&nbsp;getDistance&#8203;(<a href="Location.html" title="class in com.example.qr_rangers">Location</a>&nbsp;loc)</pre>
+<div class="block">Returns the distance between this and loc</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>loc</code> - location to get the distance from</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>distance between this and supplied point</dd>
+</dl>
 </li>
 </ul>
 </li>

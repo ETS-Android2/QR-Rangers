@@ -109,8 +109,10 @@ public class QRCode extends DbDocument implements Serializable {
     }
 
     /**
+     * A setter function for the score of the QR Code
      *
      * @param score
+     *      The score to be set
      */
     public void setScore(int score) {
         this.score = score;

@@ -124,9 +124,11 @@ public class UserDbCollection implements IDbCollection<User> {
     /**
      * Updates the ranks of a specific user given a specific score to rank by
      * @param rankType
-     *  Communicates how to rank the users
+     *      Communicates how to rank the users
      * @param currentUser
-     *  User that needs its ranks updated
+     *      User that needs its ranks updated
+     * @return
+     *      The integer that represents the rank being updated
      */
     public int updateRanks(String rankType, User currentUser) {
         Task<QuerySnapshot> task = collection.orderBy(rankType, Query.Direction.DESCENDING).get();

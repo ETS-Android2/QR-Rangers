@@ -97,6 +97,21 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <table class="typeSummary">
+<caption><span>Interface Summary</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Interface</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="IDbCollection.html" title="interface in com.example.qr_rangers">IDbCollection</a>&lt;T extends <a href="DbDocument.html" title="class in com.example.qr_rangers">DbDocument</a>&gt;</th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList">
+<table class="typeSummary">
 <caption><span>Class Summary</span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
 <th class="colFirst" scope="col">Class</th>
@@ -107,6 +122,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colFirst" scope="row"><a href="AdminActivity.html" title="class in com.example.qr_rangers">AdminActivity</a></th>
 <td class="colLast">
 <div class="block">This is an activity that provides administrator functionality.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colFirst" scope="row"><a href="AdminDbCollection.html" title="class in com.example.qr_rangers">AdminDbCollection</a></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="CodeComparatorByDistance.html" title="class in com.example.qr_rangers">CodeComparatorByDistance</a></th>
+<td class="colLast">
+<div class="block">A command class for comparing the locations of QR Codes</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -129,43 +154,69 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="altColor">
-<th class="colFirst" scope="row"><a href="DbCollection.html" title="class in com.example.qr_rangers">DbCollection</a>&lt;T extends <a href="DbDocument.html" title="class in com.example.qr_rangers">DbDocument</a>&gt;</th>
-<td class="colLast">
-<div class="block">Represents a collection within Firestore along with some helper methods</div>
-</td>
-</tr>
-<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="DbDocument.html" title="class in com.example.qr_rangers">DbDocument</a></th>
 <td class="colLast">&nbsp;</td>
 </tr>
+<tr class="rowColor">
+<th class="colFirst" scope="row"><a href="DeleteQRConfirmationFragment.html" title="class in com.example.qr_rangers">DeleteQRConfirmationFragment</a></th>
+<td class="colLast">
+<div class="block">Fragment to confirm user deletion QR code</div>
+</td>
+</tr>
 <tr class="altColor">
+<th class="colFirst" scope="row"><a href="DeleteScannedCodeConfirmationFragment.html" title="class in com.example.qr_rangers">DeleteScannedCodeConfirmationFragment</a></th>
+<td class="colLast">
+<div class="block">Fragment to confirm user deletion QR code</div>
+</td>
+</tr>
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="DeleteUserConfirmationFragment.html" title="class in com.example.qr_rangers">DeleteUserConfirmationFragment</a></th>
 <td class="colLast">
 <div class="block">Fragment to confirm user deletion in the admin pane</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="HomeActivity.html" title="class in com.example.qr_rangers">HomeActivity</a></th>
 <td class="colLast">
 <div class="block">This is an activity that provides the user with their account information and basic actions.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="IntroActivity.html" title="class in com.example.qr_rangers">IntroActivity</a></th>
 <td class="colLast">
 <div class="block">This activity introduces new users to the app and gives them the choice to
  make a new account or continue on an existing one by scanning its generated QR code.</div>
 </td>
 </tr>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="LeaderboardActivity.html" title="class in com.example.qr_rangers">LeaderboardActivity</a></th>
+<td class="colLast">
+<div class="block">Activity for showing the 3 leaderboards</div>
+</td>
+</tr>
 <tr class="rowColor">
 <th class="colFirst" scope="row"><a href="Location.html" title="class in com.example.qr_rangers">Location</a></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Represents the location of a user or QR code</div>
+</td>
 </tr>
 <tr class="altColor">
 <th class="colFirst" scope="row"><a href="MainActivity.html" title="class in com.example.qr_rangers">MainActivity</a></th>
 <td class="colLast">
 <div class="block">This is the starting activity that intents to a certain activity depending on
  if the user has an existing account.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colFirst" scope="row"><a href="MapActivity.html" title="class in com.example.qr_rangers">MapActivity</a></th>
+<td class="colLast">
+<div class="block">This is an activity that shows the user a map of all nearby scanned QR codes</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="NearbyCodesAdapter.html" title="class in com.example.qr_rangers">NearbyCodesAdapter</a></th>
+<td class="colLast">
+<div class="block">An adapter for the nearby codes grid.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -182,33 +233,69 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
+<th class="colFirst" scope="row"><a href="QrCodeDbCollection.html" title="class in com.example.qr_rangers">QrCodeDbCollection</a></th>
+<td class="colLast">
+<div class="block">Gives access to the QRCode collection in the Firestore database</div>
+</td>
+</tr>
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="QRGenerator.html" title="class in com.example.qr_rangers">QRGenerator</a></th>
 <td class="colLast">
 <div class="block">This is a class that, given a username, can generate a QR code to represent that user</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="QRInfoActivity.html" title="class in com.example.qr_rangers">QRInfoActivity</a></th>
 <td class="colLast">
 <div class="block">Activity to that showcases information about a User's scanned QR Code</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="QRListActivity.html" title="class in com.example.qr_rangers">QRListActivity</a></th>
 <td class="colLast">
 <div class="block">Activity to that showcases a user's scanned QR codes</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="QRListAdapter.html" title="class in com.example.qr_rangers">QRListAdapter</a></th>
 <td class="colLast">
 <div class="block">Acn adapter for the a customer array for the User QR Code gallery.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="QRScore.html" title="class in com.example.qr_rangers">QRScore</a></th>
 <td class="colLast">
 <div class="block">Calculates the score of a given QR code</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colFirst" scope="row"><a href="Rankings.html" title="class in com.example.qr_rangers">Rankings</a></th>
+<td class="colLast">
+<div class="block">An object that represents the ranks of a user</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="ScannedCode.html" title="class in com.example.qr_rangers">ScannedCode</a></th>
+<td class="colLast">
+<div class="block">Represents an instance of a User scanning a QRCode</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colFirst" scope="row"><a href="ScannedCodeDbCollection.html" title="class in com.example.qr_rangers">ScannedCodeDbCollection</a></th>
+<td class="colLast">
+<div class="block">Gives access to the ScannedCode collection in the Firestore database</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="ScannedCodeInfoActivity.html" title="class in com.example.qr_rangers">ScannedCodeInfoActivity</a></th>
+<td class="colLast">
+<div class="block">Activity to that showcases information about a User's scanned QR Code</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colFirst" scope="row"><a href="ScannedCodesAdapter.html" title="class in com.example.qr_rangers">ScannedCodesAdapter</a></th>
+<td class="colLast">
+<div class="block">Acn adapter for the a customer array for the User QR Code gallery.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -219,22 +306,22 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="Search.html" title="class in com.example.qr_rangers">Search</a></th>
-<td class="colLast">
-<div class="block">An object to keep track of a DbCollection in order to locate users for Search</div>
-</td>
-</tr>
-<tr class="altColor">
 <th class="colFirst" scope="row"><a href="SearchActivity.html" title="class in com.example.qr_rangers">SearchActivity</a></th>
 <td class="colLast">
 <div class="block">An activity that displays options for the user to search for other user profiles
  through QR code or username</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="User.html" title="class in com.example.qr_rangers">User</a></th>
 <td class="colLast">
 <div class="block">An object that represents the user, containing all their QR Codes and scores</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colFirst" scope="row"><a href="UserDbCollection.html" title="class in com.example.qr_rangers">UserDbCollection</a></th>
+<td class="colLast">
+<div class="block">Gives access to the User collection in the Firestore database</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -250,9 +337,27 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="altColor">
+<th class="colFirst" scope="row"><a href="ViewHighScoreFragment.html" title="class in com.example.qr_rangers">ViewHighScoreFragment</a></th>
+<td class="colLast">
+<div class="block">Fragment for viewing leaderboard in terms of highest total score</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colFirst" scope="row"><a href="ViewNumCodesFragment.html" title="class in com.example.qr_rangers">ViewNumCodesFragment</a></th>
+<td class="colLast">
+<div class="block">Fragment for viewing leaderboard in terms of highest number of codes scanned</div>
+</td>
+</tr>
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="ViewQrCodeFragment.html" title="class in com.example.qr_rangers">ViewQrCodeFragment</a></th>
 <td class="colLast">
 <div class="block">Fragment to represent a qr code.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colFirst" scope="row"><a href="ViewUniqueQrFragment.html" title="class in com.example.qr_rangers">ViewUniqueQrFragment</a></th>
+<td class="colLast">
+<div class="block">Fragment for viewing leaderboard in terms of highest Unique QR Code</div>
 </td>
 </tr>
 </tbody>
