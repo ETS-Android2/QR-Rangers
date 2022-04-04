@@ -127,7 +127,8 @@ public class HomeActivity extends AppCompatActivity{
                     }
                     else{
                         qrGrid.setVisibility(View.INVISIBLE);
-                    }qrGrid.setAlpha((float) 1 - slideOffset);
+                    }
+                    qrGrid.setAlpha((float) 1 - slideOffset);
                 }
             }
             public void onDrawerOpened(View DrawerView){
