@@ -69,7 +69,6 @@ public class QRInfoActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(QRInfoActivity.this, ScannedCodeInfoActivity.class);
-                intent.putExtra("user", user);
                 ScannedCode scan = null;
                 ArrayList<ScannedCode> scans = qr.getScannedCodes();
                 for(int x = 0; x < scans.size(); x++){
@@ -79,6 +78,7 @@ public class QRInfoActivity extends AppCompatActivity {
                     }
                 }
                 intent.putExtra("qr", scan);
+                intent.putExtra("user", scan.getUser());
                 if (scan != null) startActivity(intent);
             }
         });
