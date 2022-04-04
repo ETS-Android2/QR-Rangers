@@ -80,6 +80,8 @@ public class QRScore {
 
         }
 
+        score = score % 100000;
+
         return score;
     }
 
