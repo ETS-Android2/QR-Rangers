@@ -20,7 +20,6 @@ import java.util.Objects;
  * @version 1.0.2
  */
 public class QRCode extends DbDocument implements Serializable {
-    // REMINDER TO CHANGE .equals() DEPENDING ON codeInfo TYPE
     private String codeInfo;
     private ArrayList<String> scannedCodeIds;
     private ArrayList<ScannedCode> scannedCodes;
@@ -37,7 +36,7 @@ public class QRCode extends DbDocument implements Serializable {
      *      Contains the Geological location of the QRCode
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    QRCode(String /*temp, QRCode*/ info, @Nullable Location location){
+    QRCode(String info, @Nullable Location location){
         QRScore qrScore = new QRScore();
         codeInfo = info;
         score = qrScore.calculateScore(this);
@@ -51,7 +50,7 @@ public class QRCode extends DbDocument implements Serializable {
     /**
      * Constructor for QR codes that need their info to be replaced with the hash for privacy reasons
      */
-    QRCode(String /*temp, QRCode*/ info, @Nullable Location location, boolean hideInfo){
+    QRCode(String info, @Nullable Location location, boolean hideInfo){
         QRScore qrScore = new QRScore();
         codeInfo = info;
         score = qrScore.calculateScore(this);
@@ -61,8 +60,8 @@ public class QRCode extends DbDocument implements Serializable {
         }
 
         if(!Objects.isNull(location)){
-            this.location = location; // temp
-        //CODE TO ADD THE ROUNDED COORDS TO HASH
+            this.location = location;
+            //CODE TO ADD THE ROUNDED COORDS TO HASH
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
             latitude = (double) Math.round(latitude * 100) / 100;

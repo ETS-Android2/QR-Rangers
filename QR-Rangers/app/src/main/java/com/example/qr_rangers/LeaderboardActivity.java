@@ -62,6 +62,10 @@ public class LeaderboardActivity extends AppCompatActivity {
         switchFragment(new ViewHighScoreFragment());
     }
 
+    /**
+     * Change activity to display a different fragment
+     * @param fragment - The fragment to display
+     */
     public void switchFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
