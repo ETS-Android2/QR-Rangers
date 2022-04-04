@@ -121,13 +121,14 @@ public class HomeActivity extends AppCompatActivity{
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.hamburger_open, R.string.hamburger_close){
             @Override
             public void onDrawerSlide(View DrawerView, float slideOffset){
-                if(slideOffset != 1){
-                    qrGrid.setVisibility(View.VISIBLE);
+                if (qrGrid != null){
+                    if(slideOffset != 1){
+                        qrGrid.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        qrGrid.setVisibility(View.INVISIBLE);
+                    }qrGrid.setAlpha((float) 1 - slideOffset);
                 }
-                else{
-                    qrGrid.setVisibility(View.INVISIBLE);
-                }
-                if (qrGrid != null) qrGrid.setAlpha((float) 1 - slideOffset);
             }
             public void onDrawerOpened(View DrawerView){
                 if (qrGrid != null) {
