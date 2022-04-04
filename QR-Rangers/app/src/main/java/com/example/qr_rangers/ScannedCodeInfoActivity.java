@@ -5,12 +5,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -61,9 +59,6 @@ public class ScannedCodeInfoActivity extends AppCompatActivity {
         scoreText.setText(scoreString);
         commentText = findViewById(R.id.qr_info_comment);
         commentText.setText(qr.getComment());
-
-        ListView commentsList = findViewById(R.id.qr_info_comment_list);
-        commentsList.setVisibility(View.GONE);
 
         image = findViewById(R.id.qr_info_image);
         if (qr.getPhoto() != null) {

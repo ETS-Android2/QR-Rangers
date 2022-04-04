@@ -37,6 +37,7 @@ public class HomeActivity extends AppCompatActivity{
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private User user;
+    private GridView qrGrid = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +99,7 @@ public class HomeActivity extends AppCompatActivity{
                 }
             }
             filteredCodes.sort(new CodeComparatorByDistance(location));
-            GridView qrGrid = findViewById(R.id.nearby_codes_grid);
+            qrGrid = findViewById(R.id.nearby_codes_grid);
             NearbyCodesAdapter adapter = new NearbyCodesAdapter(this, filteredCodes);
             qrGrid.setAdapter(adapter);
 
@@ -117,13 +118,40 @@ public class HomeActivity extends AppCompatActivity{
 
         // action bar toggle button setup
         drawerLayout = findViewById(R.id.home_drawer_menu);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.hamburger_open, R.string.hamburger_close);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.hamburger_open, R.string.hamburger_close){
+            @Override
+            public void onDrawerSlide(View DrawerView, float slideOffset){
+                if (qrGrid != null){
+                    if(slideOffset != 1){
+                        qrGrid.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        qrGrid.setVisibility(View.INVISIBLE);
+                    }
+                    qrGrid.setAlpha((float) 1 - slideOffset);
+                }
+            }
+            public void onDrawerOpened(View DrawerView){
+                if (qrGrid != null) {
+                    qrGrid.setClickable(false);
+                    qrGrid.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            public void onDrawerClosed(View DrawerView){
+                if (qrGrid != null) {
+                    qrGrid.setClickable(true);
+                }
+            }
+        };
         // pass the toggle button to the menu
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         // make hamburger icon appear
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //drawerLayout.setSystemUiVisibility(View.INVISIBLE);
+        //drawerLayout.setVisibility(View.INVISIBLE);
         //Set on click listeners for all the hamburger menu items
         NavigationView navView = findViewById(R.id.home_nav_view);
         navView.setNavigationItemSelectedListener(item -> {
