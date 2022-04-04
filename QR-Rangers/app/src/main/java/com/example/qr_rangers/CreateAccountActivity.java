@@ -25,7 +25,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     private EditText phoneNumber;
     private TextView nameWarning;
     private TextView emailWarning;
-    User newUser;
+    private User newUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,11 @@ public class CreateAccountActivity extends AppCompatActivity {
                     nameWarning.setText("Please enter a username");
                     nameWarning.setVisibility(View.VISIBLE);
                 }
+                else if (username.getText().toString().trim().contains("\n")
+                        || username.getText().toString().trim().length() > 10) {
+                    nameWarning.setText("Invalid Username");
+                    nameWarning.setVisibility(View.VISIBLE);
+                }
                 else if (Database.Users.existsName(username.getText().toString())) {
                     nameWarning.setText("Username already taken");
                     nameWarning.setVisibility(View.VISIBLE);
@@ -56,8 +61,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                     emailWarning.setVisibility(View.VISIBLE);
                 }
                 else {
-                    newUser = new User(username.getText().toString(), email.getText().toString(),
-                            phoneNumber.getText().toString());
+                    newUser = new User(username.getText().toString().trim(), email.getText().toString().trim(),
+                            phoneNumber.getText().toString().trim());
                     newUser.getUserRanks().initRanks();
                     User dbUser = Database.Users.add(newUser);
                     saveID(dbUser.getId());
@@ -75,6 +80,7 @@ public class CreateAccountActivity extends AppCompatActivity {
      * Saves the ID of the new user to local storage for future reference
      * @param id
      *     The string ID of the newly made user
+     * Code use inspired from StackOverFlow User: norbDEV (Source: https://stackoverflow.com/questions/5950043/how-to-use-getsharedpreferences-in-android)
      */
     private void saveID(String id) {
         SharedPreferences sharedPreferences =  PreferenceManager.getDefaultSharedPreferences(this);

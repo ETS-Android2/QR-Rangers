@@ -61,7 +61,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/disclaimer2"
-        android:hint="* Username">
+        android:hint="* Username (Max 10 Characters Long)">
 
     </EditText>
 
