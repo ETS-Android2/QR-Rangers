@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
@@ -15,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,33 +46,38 @@ public class ScanResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scan_result);
         Intent intent = getIntent();
         String content = intent.getStringExtra("content");
-
-        qr = Database.QrCodes.getByName(content);
+        gpsTracker = new GpsTracker(ScanResultActivity.this);
+        if(!gpsTracker.canGetLocation())
+            gpsTracker.showSettingsAlert();
+        Location loc = null;
+        if(gpsTracker.canGetLocation()) {
+            double longitude = gpsTracker.getLongitude();
+            double latitude = gpsTracker.getLatitude();
+            gpsTracker.stopUsingGPS();
+            loc = new Location(longitude, latitude);
+        }
+        QRCode dbqr = new QRCode(content, loc,true);
+        qr = Database.QrCodes.getByName(dbqr.getCodeInfo());
         if (qr == null) {
-            qr = Database.QrCodes.add(new QRCode(content, null));
+            qr = Database.QrCodes.add(dbqr);
         }
         user = loadUser();
-        code = new ScannedCode(qr, user, null, null, null);
+        code = new ScannedCode(qr, user, loc, null, null);
         if (user.HasQR(code)){
             Toast.makeText(getBaseContext(), "You already scanned this one!", Toast.LENGTH_SHORT).show();
             finish();
         }
 
         int score = qr.getScore();
-
         TextView scoreTextView = findViewById(R.id.textViewScore);
         scoreTextView.setText(String.valueOf(score).concat(" pts."));
-
         totalScore = findViewById(R.id.newtotalscore);
         totalScore.setText(String.valueOf(intent.getStringExtra("totalScore")));
-
         TextView codeUserCount = findViewById(R.id.codeusercount);
         codeUserCount.setText("" + qr.getScannedCount());
         EditText commentBox = findViewById(R.id.commentbox);
 
-        gpsTracker = new GpsTracker(ScanResultActivity.this);
-        if(!gpsTracker.canGetLocation())
-            gpsTracker.showSettingsAlert();
+
         cameraButton = findViewById(R.id.cameraButton);
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
