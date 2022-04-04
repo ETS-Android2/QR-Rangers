@@ -46,15 +46,18 @@ public class ScanResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scan_result);
         Intent intent = getIntent();
         String content = intent.getStringExtra("content");
+        attachLocation = findViewById(R.id.locationswitch);
         gpsTracker = new GpsTracker(ScanResultActivity.this);
         if(!gpsTracker.canGetLocation())
             gpsTracker.showSettingsAlert();
         Location loc = null;
-        if(gpsTracker.canGetLocation()) {
-            double longitude = gpsTracker.getLongitude();
-            double latitude = gpsTracker.getLatitude();
-            gpsTracker.stopUsingGPS();
-            loc = new Location(longitude, latitude);
+        if (attachLocation.isChecked()) {
+            if (gpsTracker.canGetLocation()) {
+                double longitude = gpsTracker.getLongitude();
+                double latitude = gpsTracker.getLatitude();
+                gpsTracker.stopUsingGPS();
+                loc = new Location(longitude, latitude);
+            }
         }
         QRCode dbqr = new QRCode(content, loc,true);
         qr = Database.QrCodes.getByName(dbqr.getCodeInfo());
@@ -90,7 +93,6 @@ public class ScanResultActivity extends AppCompatActivity {
             }
         });
 
-        attachLocation = findViewById(R.id.locationswitch);
 
         //Saving the QR code to server happens here
         Button saveButton = findViewById(R.id.savebutton);
