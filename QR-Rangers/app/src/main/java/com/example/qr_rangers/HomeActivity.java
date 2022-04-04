@@ -171,7 +171,6 @@ public class HomeActivity extends AppCompatActivity{
             }
             else if (item.getItemId()==R.id.hamburger_search_button){
                 // your code
-                Toast.makeText(this, "Search Clicked", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
                 startActivity(intent);
                 drawerLayout.close();
