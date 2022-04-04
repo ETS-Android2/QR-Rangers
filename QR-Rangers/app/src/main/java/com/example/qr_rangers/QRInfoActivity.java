@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,7 +33,6 @@ public class QRInfoActivity extends AppCompatActivity {
 
     TextView scannerText;
     TextView scoreText;
-    TextView commentText;
     ListView commentList;
     ArrayAdapter<String> commentAdapter;
     ImageView image;
@@ -43,7 +43,7 @@ public class QRInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_qr_info);
+        setContentView(R.layout.activity_general_qr_info);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
@@ -53,21 +53,37 @@ public class QRInfoActivity extends AppCompatActivity {
         qr = (QRCode) getIntent().getSerializableExtra("qr");
         user = (User) getIntent().getSerializableExtra("user");
 
-        scannerText = findViewById(R.id.qr_info_scanner);
+        scannerText = findViewById(R.id.qr_general_info_scanner);
         scannerText.setText(String.format("%d people", qr.getScannedCount()));
 
-        scoreText = findViewById(R.id.qr_info_points);
+        scoreText = findViewById(R.id.qr_general_info_points);
         String scoreString = qr.getScore() + " pts.";
         scoreText.setText(scoreString);
         ArrayList<String> comments = qr.getComments();
-        commentText = findViewById(R.id.qr_info_comment);
-        commentText.setVisibility(View.GONE);
 
-        commentList = findViewById(R.id.qr_info_comment_list);
+        commentList = findViewById(R.id.qr_general_info_comment_list);
         commentAdapter = new ArrayAdapter<String>(this, R.layout.comment, comments);
         commentList.setAdapter(commentAdapter);
 
-        image = findViewById(R.id.qr_info_image);
+        commentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(QRInfoActivity.this, ScannedCodeInfoActivity.class);
+                intent.putExtra("user", user);
+                ScannedCode scan = null;
+                ArrayList<ScannedCode> scans = qr.getScannedCodes();
+                for(int x = 0; x < scans.size(); x++){
+                    if(scans.get(i).getComment().equals(commentAdapter.getItem(i))){
+                        scan = scans.get(i);
+                        break;
+                    }
+                }
+                intent.putExtra("qr", scan);
+                if (scan != null) startActivity(intent);
+            }
+        });
+
+        image = findViewById(R.id.qr_general_info_image);
         if (qr.getPhoto() != null) {
             byte[] imageBits = Base64.decode(qr.getPhoto(), Base64.DEFAULT);
             Bitmap bitImage = BitmapFactory.decodeByteArray(imageBits, 0, imageBits.length);
@@ -76,10 +92,7 @@ public class QRInfoActivity extends AppCompatActivity {
             image.setImageResource(R.drawable.ic_launcher_background);
         }
 
-        TextView othersText = findViewById(R.id.qr_info_others);
-        othersText.setVisibility(View.INVISIBLE);
-
-        deleteButton = findViewById(R.id.qr_info_delete);
+        deleteButton = findViewById(R.id.qr_general_info_delete);
 
         if (!Database.Admins.isAdmin(user.getId())) {
             deleteButton.setVisibility(View.GONE);
@@ -90,7 +103,7 @@ public class QRInfoActivity extends AppCompatActivity {
             deleteQRFragment.show(getSupportFragmentManager(), "Delete_QR");
         });
 
-        viewMapButton = findViewById(R.id.qr_info_view_map);
+        viewMapButton = findViewById(R.id.qr_general_info_view_map);
         viewMapButton.setOnClickListener(view -> {
             Intent intent = new Intent(QRInfoActivity.this, MapActivity.class);
             intent.putExtra("code", QRInfoActivity.this.qr);

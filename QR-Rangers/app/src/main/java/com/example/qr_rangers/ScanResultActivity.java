@@ -122,7 +122,7 @@ public class ScanResultActivity extends AppCompatActivity {
                         qrChanged = true;
                     }
                     if (qr.getPhoto() == null && photo != null) {
-                        qr.setPhoto(photo.toString());
+                        qr.setPhoto(imageEncoded);
                         qrChanged = true;
                     }
                     if (qrChanged) {
