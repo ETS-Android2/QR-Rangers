@@ -25,7 +25,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     private EditText phoneNumber;
     private TextView nameWarning;
     private TextView emailWarning;
-    User newUser;
+    private User newUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +80,7 @@ public class CreateAccountActivity extends AppCompatActivity {
      * Saves the ID of the new user to local storage for future reference
      * @param id
      *     The string ID of the newly made user
+     * Code use inspired from StackOverFlow User: norbDEV (Source: https://stackoverflow.com/questions/5950043/how-to-use-getsharedpreferences-in-android)
      */
     private void saveID(String id) {
         SharedPreferences sharedPreferences =  PreferenceManager.getDefaultSharedPreferences(this);
