@@ -251,7 +251,13 @@ public class QRCode extends DbDocument implements Serializable {
     }
 
     public String getPhoto() {
-        return photo;
+        this.loadScannedCodes();
+        for (ScannedCode code : this.scannedCodes) {
+            if (code.getPhoto() != null) {
+                return code.getPhoto();
+            }
+        }
+        return null;
     }
 
     public void setPhoto(String photo) {
