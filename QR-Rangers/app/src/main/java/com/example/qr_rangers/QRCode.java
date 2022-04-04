@@ -251,13 +251,7 @@ public class QRCode extends DbDocument implements Serializable {
     }
 
     public String getPhoto() {
-        this.loadScannedCodes();
-        for (ScannedCode code : this.scannedCodes) {
-            if (code.getPhoto() != null) {
-                return code.getPhoto();
-            }
-        }
-        return null;
+        return this.photo;
     }
 
     public void setPhoto(String photo) {
@@ -299,6 +293,7 @@ public class QRCode extends DbDocument implements Serializable {
         if (locMap != null) {
             qrCode.setLocation(new Location((double) locMap.get("longitude"), (double) locMap.get("latitude")));
         }
+        qrCode.setPhoto((String) map.get("photo"));
         qrCode.setScore(Math.toIntExact((Long) map.get("score")));
         qrCode.setId((String) map.get("id"));
         qrCode.setScannedCodeIds((ArrayList<String>) map.get("scannedCodes"));
@@ -319,6 +314,7 @@ public class QRCode extends DbDocument implements Serializable {
         // TODO: Figure out if we want this
         map.put("codeInfo", this.codeInfo);
         map.put("score", this.getScore());
+        map.put("photo", this.photo);
         map.put("location", this.location);
         map.put("scannedCodes", this.scannedCodeIds);
         return map;
