@@ -91,6 +91,39 @@ public class HomeActivityTest {
         solo.assertCurrentActivity("Wrong Activity",MapActivity.class);
     }
 
+    @Test
+    public void LeaderboardMenu() {
+        solo.assertCurrentActivity("Wrong Activity",HomeActivity.class);
+
+        solo.clickOnActionBarHomeButton();
+
+        solo.clickOnText("Leaderboard");
+
+        solo.assertCurrentActivity("Wrong Activity",LeaderboardActivity.class);
+
+        solo.clickOnText("Unique QR Scores");
+
+        solo.assertCurrentActivity("Wrong Activity",LeaderboardActivity.class);
+
+        solo.clickOnText("QR Codes Scanned");
+
+        solo.assertCurrentActivity("Wrong Activity",LeaderboardActivity.class);
+
+        solo.clickOnText("Total Scores");
+
+        solo.assertCurrentActivity("Wrong Activity",LeaderboardActivity.class);
+
+        solo.clickOnText("1");
+
+        solo.assertCurrentActivity("Wrong Activity",ProfileActivity.class);
+
+        solo.clickOnView(solo.getView(R.id.viewgallerybutton));
+
+        solo.assertCurrentActivity("Wrong Activity",QRListActivity.class);
+
+        solo.clickOnActionBarHomeButton();
+    }
+
     @After
     public void tearDown() throws Exception{
         solo.finishOpenedActivities();
