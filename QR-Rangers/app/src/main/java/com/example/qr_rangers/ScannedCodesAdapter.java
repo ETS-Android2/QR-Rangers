@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 /**
  * Acn adapter for the a customer array for the User QR Code gallery.
+ *
  * @author Ronan Sandoval
  * @version 1.0
  */

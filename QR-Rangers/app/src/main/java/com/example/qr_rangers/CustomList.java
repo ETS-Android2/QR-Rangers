@@ -50,6 +50,7 @@ public class CustomList extends ArrayAdapter<User> {
 
         TextView username = view.findViewById(R.id.user_text);
 
+        // unique layout that shows up in the leaderboard activity to give better information
         if(context.getClass() == LeaderboardActivity.class) {
             String print = (position + 1) + ". " + user.getUsername();
             switch(fragment){

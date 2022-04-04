@@ -22,6 +22,7 @@ import java.util.HashMap;
 
 /**
  * Fragment that display's a list of all QR codes registered
+ *
  * @author Alexander Salm
  * @version 1.0
  */

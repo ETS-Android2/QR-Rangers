@@ -20,6 +20,9 @@ import java.util.ArrayList;
 
 /**
  * Fragment for viewing leaderboard in terms of highest total score
+ *
+ * @author Jawdat
+ * @version 1.0
  */
 public class ViewHighScoreFragment extends Fragment {
     private ListView usersList;
