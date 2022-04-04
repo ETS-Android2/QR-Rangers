@@ -48,6 +48,11 @@ public class CreateAccountActivity extends AppCompatActivity {
                     nameWarning.setText("Please enter a username");
                     nameWarning.setVisibility(View.VISIBLE);
                 }
+                else if (username.getText().toString().trim().contains("\n")
+                        || username.getText().toString().trim().length() > 10) {
+                    nameWarning.setText("Invalid Username");
+                    nameWarning.setVisibility(View.VISIBLE);
+                }
                 else if (Database.Users.existsName(username.getText().toString())) {
                     nameWarning.setText("Username already taken");
                     nameWarning.setVisibility(View.VISIBLE);
@@ -56,8 +61,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                     emailWarning.setVisibility(View.VISIBLE);
                 }
                 else {
-                    newUser = new User(username.getText().toString(), email.getText().toString(),
-                            phoneNumber.getText().toString());
+                    newUser = new User(username.getText().toString().trim(), email.getText().toString().trim(),
+                            phoneNumber.getText().toString().trim());
                     newUser.getUserRanks().initRanks();
                     User dbUser = Database.Users.add(newUser);
                     saveID(dbUser.getId());
