@@ -17,6 +17,9 @@ import java.util.ArrayList;
 
 /**
  * Fragment for viewing leaderboard in terms of highest number of codes scanned
+ *
+ * @author Jawdat
+ * @version 1.0
  */
 public class ViewNumCodesFragment extends Fragment {
     private ListView usersList;

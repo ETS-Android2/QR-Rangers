@@ -13,7 +13,7 @@ import java.util.Map;
  * An object that represents the user, containing all their QR Codes and scores
  *
  * @author Jawdat and Ryan
- * @version 1.0.7
+ * @version 1.7
  */
 public class User extends DbDocument implements Serializable {
     private String username;

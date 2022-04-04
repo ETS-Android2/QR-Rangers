@@ -17,6 +17,9 @@ import java.util.ArrayList;
 
 /**
  * Fragment for viewing leaderboard in terms of highest Unique QR Code
+ *
+ * @author Jawdat
+ * @version 1.0
  */
 public class ViewUniqueQrFragment extends Fragment {
     private ListView usersList;

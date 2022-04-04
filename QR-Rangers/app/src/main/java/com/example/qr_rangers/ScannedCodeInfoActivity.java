@@ -18,6 +18,7 @@ import androidx.fragment.app.DialogFragment;
 
 /**
  * Activity to that showcases information about a User's scanned QR Code
+ *
  * @author Ronan Sandoval
  * @version 1.1
  */
